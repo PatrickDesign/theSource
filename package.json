@@ -1,0 +1,29 @@
+{
+  "name": "theSource",
+  "version": "1.0.0",
+  "description": "A crowdfunding website focused on solving the 17 SDG goals",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.16.4",
+    "ejs": "^2.6.1",
+    "http": "^0.0.0",
+    "mongodb": "^3.1.13",
+    "mongodb-server": "^1.0.0",
+    "mongoose": "^5.4.15"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PatrickDesign/theSource.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PatrickDesign/theSource/issues"
+  },
+  "homepage": "https://github.com/PatrickDesign/theSource#readme"
+}
