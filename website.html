@@ -24,14 +24,17 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Home</a></li>
+        <li><a href="#" style = color:black;>Home</a></li>
         <li><a href="#" style = color:black;>About</a></li>
         <li><a href="#" style = color:black;>Projects</a></li>
         <li><a href="#" style = color:black;>Contact</a></li>
       </ul>
-      <h1 class="navbar-source" href="#">SOURCE</h1>
+      <h1 class="navbar-source" href="#">SOURCE
+        <img class = "logo" src="logo.PNG" alt = "Image">
+      </h1>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <li><a href="#"><span class="glyphicon glyphicon-log-in" style="color:black"></span> Login</a></li>
+        <li><a href="#"><span class="glyphicon glyphicon-user" style="color:black"></span></a></li>
       </ul>
     </div>
   </div>
@@ -63,7 +66,7 @@
         <img src="dude.jpg" alt="Image">
         <div class="carousel-caption">
         <div class= "item-mod">          
-          <h1>The 17 Sustainable Development Goals</h1>
+          <h1>The 17 Sustainable Development Goals </h1>
           <button type= "button" class="btn btn-lg btn-primary">Find out more</button>
         </div>   
         </div>   
@@ -81,18 +84,20 @@
     </a>
 </div>
 <div class="container">
-
     <!-- Page Heading -->
     <h1 class="my-4" style= text-align:center;>Top Projects
     </h1>
-    <!-- col-lg-4 col-sm-6 mb-4" -->
     <div class="row">
       <div class="col-sm-12 col-lg-4">
         <div class="card h-100">
-          <a href="source.css"><img class="card-img-top" src="monkey rider.jpeg" alt=""></a>
+          <div class = "parent">
+            <img class="img1" src = "monkey rider.jpeg"/>
+            <img class="SDG" src = "sdg_hunger.PNG"/>
+          </div>
+          <!-- <a href="source.css"><img class="card-img-top" src="monkey rider.jpeg" alt=""></a> -->
           <div class="card-body">
             <h4 class="card-title">
-              <a href="#">Project One</a>
+              <a href="#">Monkeys bein' like that</a>
             </h4>
             <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur eum quasi sapiente nesciunt? Voluptatibus sit, repellat sequi itaque deserunt, dolores in, nesciunt, illum tempora ex quae? Nihil, dolorem!</p>
           </div>
@@ -100,10 +105,14 @@
       </div>
       <div class="col-sm-12 col-lg-4">
         <div class="card h-100">
-          <a href="#"><img class="card-img-top" src="hunger.jpeg" alt=""></a>
+        <div class = "parent">
+            <img class="img1" src = "hunger.jpeg"/>
+            <img class="SDG" src = "sdg_health.PNG"/>
+          </div>          
+          <!-- <a href="#"><img class="card-img-top" src="hunger.jpeg" alt=""></a> -->
           <div class="card-body">
             <h4 class="card-title">
-              <a href="#">Project Two</a>
+              <a href="#">Feeling like a plastic bag</a>
             </h4>
             <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
           </div>
@@ -111,15 +120,23 @@
       </div>
       <div class="col-sm-12 col-lg-4">
         <div class="card h-100">
-          <a href="#"><img class="card-img-top" src="healthy.jpeg" alt=""></a>
+            <div class = "parent">
+                <img class="img1" src = "healthy.jpeg"/>
+                <img class="SDG" src = "sdg_water.PNG"/>
+              </div>
+          <!-- <a href="#"><img class="card-img-top" src="healthy.jpeg" alt=""></a> -->
           <div class="card-body">
             <h4 class="card-title">
-              <a href="#">Project Three</a>
+              <a href="#">Germ transfer software</a>
             </h4>
             <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos quisquam, error quod sed cumque, odio distinctio velit nostrum temporibus necessitatibus et facere atque iure perspiciatis mollitia recusandae vero vel quam!</p>
           </div>
         </div>
       </div>
+  </div>
+  
+  <div class = "container-fluid">
+
   </div>
 </div>
 
@@ -130,50 +147,3 @@
 
 </body>
 </html>
-
-
-
-
-
-<!-- <!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Page Title</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="source.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <script src="main.js"></script>
-</head>
-<body>
-    <div class = "topnav">
-        <a class = "active" href = "#home">Home</a>
-        <a href ="#explore">Explore</a>
-        <a href="#createproject">Create Project</a>
-        <a href="#about">About</a>
-        <a href="#forum">Forum</a>
-
-        <input type = "text" placeholder="Find Project...">
-        <div class = "person"></div>
-        <h1>Source</h1>
-    </div>
-
-
-    <div class = "banner">
-        <img src = "field.jpg" alt="HTML5 Icon" style= "width:100%;height: 500px">
-        <h1>Button</h1>
-        <div class = "center-text">
-            <h1>
-                Make a Difference!
-            </h1>
-            <p1>Source is the best and most successful crowdunding platform aimed specifically at accomplishing SDG goals!</p1>
-        </div>
-        <div class = "left-button">Left Button</div>
-        <div class = "center-button">Center Button</div>
-        <div class = "right-button">Right Button</div>
-    </div>
-
-    
-</body>
-</html> -->
