@@ -12,26 +12,29 @@
 <body>
 
 <nav class="navbar navbar-inverse">
-  <div class="container-fluid">
+  <div class = "navbar-color">
+    <div class="container-fluid.nav text-center">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button>
-      <a class="navbar-brand" href="#">Logo</a>
+
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
         <li class="active"><a href="#">Home</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Projects</a></li>
-        <li><a href="#">Contact</a></li>
+        <li><a href="#" style = color:black;>About</a></li>
+        <li><a href="#" style = color:black;>Projects</a></li>
+        <li><a href="#" style = color:black;>Contact</a></li>
       </ul>
+      <h1 class="navbar-source" href="#">SOURCE</h1>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
       </ul>
     </div>
+  </div>
   </div>
 </nav>
 
@@ -45,19 +48,25 @@
     <!-- Wrapper for slides -->
     <div class="carousel-inner" role="listbox">
       <div class="item active">
-        <img src="https://placehold.it/1200x400?text=IMAGE" alt="Image">
+        <img src="field.jpg" alt="Image">
         <div class="carousel-caption">
-          <h3>Sell $</h3>
-          <p>Money Money.</p>
-        </div>      
+        <div class= "item-mod">
+          <h1>Make a difference!</h1>
+          <h3>Source is the best and most successful crowdfunding platform aimed specifically at accomplishing SDG goals.</h3>
+          <button type= "button" class="btn btn-lg btn-primary">Explore Projects</button>
+
+        </div>
+        </div>
       </div>
 
       <div class="item">
-        <img src="https://placehold.it/1200x400?text=Another Image Maybe" alt="Image">
+        <img src="dude.jpg" alt="Image">
         <div class="carousel-caption">
-          <h3>More Sell $</h3>
-          <p>Lorem ipsum...</p>
-        </div>      
+        <div class= "item-mod">          
+          <h1>The 17 Sustainable Development Goals</h1>
+          <button type= "button" class="btn btn-lg btn-primary">Find out more</button>
+        </div>   
+        </div>   
       </div>
     </div>
 
@@ -71,28 +80,49 @@
       <span class="sr-only">Next</span>
     </a>
 </div>
-  
-<div class="container text-center">    
-  <h3>What We Do</h3><br>
-  <div class="row">
-    <div class="col-sm-4">
-      <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
-      <p>Current Project</p>
-    </div>
-    <div class="col-sm-4"> 
-      <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
-      <p>Project 2</p>    
-    </div>
-    <div class="col-sm-4">
-      <div class="well">
-       <p>Some text..</p>
+<div class="container">
+
+    <!-- Page Heading -->
+    <h1 class="my-4" style= text-align:center;>Top Projects
+    </h1>
+    <!-- col-lg-4 col-sm-6 mb-4" -->
+    <div class="row">
+      <div class="col-sm-12 col-lg-4">
+        <div class="card h-100">
+          <a href="source.css"><img class="card-img-top" src="monkey rider.jpeg" alt=""></a>
+          <div class="card-body">
+            <h4 class="card-title">
+              <a href="#">Project One</a>
+            </h4>
+            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur eum quasi sapiente nesciunt? Voluptatibus sit, repellat sequi itaque deserunt, dolores in, nesciunt, illum tempora ex quae? Nihil, dolorem!</p>
+          </div>
+        </div>
       </div>
-      <div class="well">
-       <p>Some text..</p>
+      <div class="col-sm-12 col-lg-4">
+        <div class="card h-100">
+          <a href="#"><img class="card-img-top" src="hunger.jpeg" alt=""></a>
+          <div class="card-body">
+            <h4 class="card-title">
+              <a href="#">Project Two</a>
+            </h4>
+            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
+          </div>
+        </div>
       </div>
-    </div>
+      <div class="col-sm-12 col-lg-4">
+        <div class="card h-100">
+          <a href="#"><img class="card-img-top" src="healthy.jpeg" alt=""></a>
+          <div class="card-body">
+            <h4 class="card-title">
+              <a href="#">Project Three</a>
+            </h4>
+            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos quisquam, error quod sed cumque, odio distinctio velit nostrum temporibus necessitatibus et facere atque iure perspiciatis mollitia recusandae vero vel quam!</p>
+          </div>
+        </div>
+      </div>
   </div>
-</div><br>
+</div>
+
 
 <footer class="container-fluid text-center">
   <p>Footer Text</p>
