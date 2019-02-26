@@ -1,0 +1,56 @@
+    /* Remove the navbar's default margin-bottom and rounded borders */ 
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+      margin-bottom: 0;
+
+    }
+    .navbar-color{
+      background-color:#72c58a;
+      color:black;
+    }
+    .item-mod{
+      margin-bottom: 12em;
+    }
+    .navbar .navbar-source{
+      display: inline-block;
+      float:none;
+      text-align:center;
+      padding-right: 8em;
+      padding-bottom: 5px;
+    }
+    .the-button{
+      background-color:lightgrey;
+      border:none;
+      color:white;
+      padding: 15px;
+      text-align: center;
+      font-size: 16px;
+    }
+    .card-img-top{
+      width: 100%;
+      height: 30%;
+    }
+    /* Add a gray background color and some padding to the footer */
+    footer {
+      background-color: #f2f2f2;
+      padding: 25px;
+    }
+
+    
+  .carousel-inner img {
+      /* width: 100%; Set width to 100% */
+      margin: auto;
+      height: 40px;
+      max-height:50%;
+      object-fit: cover;
+  }
+
+
+
+  /* Hide the carousel text when the screen is less than 600 pixels wide */
+  @media (max-width: 600px) {
+    .carousel-caption {
+      display: none; 
+    }
+  }

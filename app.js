@@ -40,9 +40,6 @@ app.get("/viewUsers", (req, res) =>{
 });
 
 app.post('/addUser', (req, res) => {
-  var newUserName = {name: req.body.newUserName};
-
-  // var UserObject = dbConnection.model('User', User, 'user_accounts');
 
   var currUser = new User({name: req.body.newUserName});
 
