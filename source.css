@@ -3,11 +3,22 @@
       margin-bottom: 0;
       border-radius: 0;
       margin-bottom: 0;
-
+    }
+    .navbar-nav{
+      font-size: 170%;
+    }
+    .navbar-inverse .navbar-nav > li > a{
+      color: black;
     }
     .navbar-color{
-      background-color:#72c58a;
+      background-color:#CBEAB9;
       color:black;
+    }
+    .alignright{
+      float:right;
+    }
+    .aligncenter{
+      float:center;
     }
     .item-mod{
       margin-bottom: 12em;
@@ -17,8 +28,16 @@
       float:none;
       text-align:center;
       padding-right: 8em;
+      font-size : 250%;
     }
-
+    .card-social{
+      display: inline-block;
+    }
+    .card-social .glyphicon-user{
+      margin-top:2%;
+      margin-left: 5px;
+      font-size: 30px;
+    }
     .the-button{
       background-color:lightgrey;
       border:none;
