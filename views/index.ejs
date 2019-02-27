@@ -1,45 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>Source</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-  <link rel="stylesheet" href="source.css">  
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-</head>
-<body>
 
-<nav class="navbar navbar-inverse sticky">
-  <div class = "navbar-color">
-    <div class="container-fluid.nav text-center">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
+<% include partials/sourceHeader %>
 
-    </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav">
-        <li><a href="#" style = color:black;>Home</a></li>
-        <li><a href="#" style = color:black;>About</a></li>
-        <li><a href="#" style = color:black;>Projects</a></li>
-        <li><a href="#" style = color:black;>Contact</a></li>
-      </ul>
-      <h1 class="navbar-source" href="#">SOURCE
-        <img class = "logo" src="logo.PNG" alt = "Image"></h1>
-
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><span class="glyphicon glyphicon-log-in" style = color:black;></span> Login</a></li>
-        <li><a href="#"><span class="glyphicon glyphicon-user" style="color:black"></span></a></li>
-      </ul>
-    </div>
-  </div>
-  </div>
-</nav>
 
 <div id="myCarousel" class="carousel slide" data-ride="carousel">
     <!-- Indicators -->
@@ -93,22 +54,22 @@
       
       
       
-    <% projects.forEach(function(project){ %>
+    <% for(var i = 0; i < 3; i++){ %> 
       <div class="col-sm-12 col-lg-4">
         <div class="card h-100">
             <div class = "parent">
-              <img class="img1" src = "<%= project.coverPath %>"/>
+              <img class="img1" src = "<%= projects[i].coverPath %>"/>
               <img class="SDG" src = "sdg_health.PNG"/>
             </div>
             <div class="card-body">
             <h4 class="card-title">
-              <a href="#"><%= project.name %></a>
+              <a href="#"><%= projects[i].name %></a>
             </h4>
-            <p class="card-text"><%= project.description %></p>
+            <p class="card-text"><%= projects[i].description %></p>
             </div>
         </div>
       </div>
-    <% }); %>
+    <% }; %>
   </div>
       
       
@@ -286,14 +247,7 @@
 
 
 </div>
-
-
-
 <!-- End Find Team & Become Member -->
 
-<footer class="container-fluid text-center">
-  <p>Source 2019™</p>
-</footer>
 
-</body>
-</html>
+<% include partials/sourceFooter %>

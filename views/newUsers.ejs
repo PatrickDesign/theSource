@@ -1,8 +1,12 @@
+<% include partials/sourceHeader %>
+
 
 <h1>All USERS:</h1>
 
-<% users.forEach(function(user){ %>
+<% users.forEach((user) => { %> 
 
   <li><%= user.name %></li>
 
 <% }); %>
+
+<% include partials/sourceFooter %>

@@ -1,3 +1,5 @@
+<% include partials/sourceHeader %>
+
 <h1>Create a new project!</h1>
 <form action="/addProject" method="POST">
   <input type="text" placeholder="Project Name..." name="newProjectName">
@@ -5,3 +7,5 @@
   <input type="text" placeholder="Project Description..." name="newProjectDescription">
   <button>Submit</button>
 </form>
+
+<% include partials/sourceFooter %>
