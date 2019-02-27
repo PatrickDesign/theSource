@@ -4,8 +4,8 @@
   <title>Bootstrap Example</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="source.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="source.css">  
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
@@ -24,14 +24,17 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Home</a></li>
+        <li class="active"><a href="#" style = color:black;>Home</a></li>
         <li><a href="#" style = color:black;>About</a></li>
         <li><a href="#" style = color:black;>Projects</a></li>
         <li><a href="#" style = color:black;>Contact</a></li>
       </ul>
-      <h1 class="navbar-source" href="#">SOURCE</h1>
+      <h1 class="navbar-source" href="#">SOURCE
+        <img class = "logo" src="logo.PNG" alt = "Image"></h1>
+
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <li><a href="#"><span class="glyphicon glyphicon-log-in" style = color:black;></span> Login</a></li>
+        <li><a href="#"><span class="glyphicon glyphicon-user" style="color:black"></span></a></li>
       </ul>
     </div>
   </div>
@@ -89,6 +92,10 @@
     <div class="row">
       <div class="col-sm-12 col-lg-4">
         <div class="card h-100">
+            <div class = "parent">
+              <img class="img1" src = "hunger.jpeg"/>
+              <img class="SDG" src = "sdg_health.PNG"/>
+            </div>
           <a href="source.css"><img class="card-img-top" src="monkey rider.jpeg" alt=""></a>
           <div class="card-body">
             <h4 class="card-title">
