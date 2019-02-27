@@ -1,148 +1,182 @@
-
 /* Start NavBar */
 
-/* Remove the navbar's default margin-bottom and rounded borders */ 
+/* Remove the navbar's default margin-bottom and rounded borders */
+
 .navbar {
   margin-bottom: 0;
   border-radius: 0;
   margin-bottom: 0;
 }
-.navbar-nav{
+
+.navbar-nav {
   font-size: 170%;
 }
-.navbar-inverse .navbar-nav > li > a{
+
+.navbar-inverse .navbar-nav>li>a {
   color: black;
 }
-.navbar-color{
-  background-color:#CBEAB9;
-  color:black;
+
+.navbar-color {
+  background-color: #CBEAB9;
+  color: black;
 }
-.alignright{
-  float:right;
+
+.alignright {
+  float: right;
 }
-.aligncenter{
-  float:center;
+
+.aligncenter {
+  float: center;
 }
-.item-mod{
+
+.item-mod {
   margin-bottom: 12em;
 }
-.navbar .navbar-source{
+
+.navbar .navbar-source {
   display: inline-block;
-  float:none;
-  text-align:center;
+  float: none;
+  text-align: center;
   padding-right: 8em;
-  font-size : 250%;
+  font-size: 250%;
 }
-.card-social{
+
+.card-social {
   display: inline-block;
 }
-.card-social .glyphicon-user{
-  margin-top:2%;
+
+.card-social .glyphicon-user {
+  margin-top: 2%;
   margin-left: 5px;
   font-size: 30px;
 }
 
 /* Hide the carousel text when the screen is less than 600 pixels wide */
+
 @media (max-width: 600px) {
   .carousel-caption {
-    display: none; 
+    display: none;
   }
 }
+
 /* End Nav Bar */
 
 /* Start Project Section */
+
 .sticky {
   position: fixed;
   top: 0;
   width: 100%;
   z-index: 100;
 }
-.the-button{
-  background-color:lightgrey;
-  border:none;
-  color:white;
+
+.the-button {
+  background-color: lightgrey;
+  border: none;
+  color: white;
   padding: 15px;
   text-align: center;
   font-size: 16px;
 }
-.logo{
+
+.logo {
   height: 50px;
   padding-bottom: 15px;
 }
-.parent{
-  position:relative;
-  top:0;
-  left:0;
+
+.parent {
+  position: relative;
+  top: 0;
+  left: 0;
 }
-.img1{
+
+.img1 {
   width: 100%;
   height: 30%;
 }
-.SDG{
+
+.SDG {
   height: 25%;
   width: 20%;
-  position:absolute;
+  position: absolute;
   top: 7%;
-  left:75%;
+  left: 75%;
 }
-.card-img-top{
+
+.card-img-top {
   width: 100%;
   height: 30%;
 }
+
 /* Add a gray background color and some padding to the footer */
+
 footer {
   background-color: #f2f2f2;
   padding: 25px;
 }
-.item{
-    max-height: 500px;
-    object-fit: cover;
+
+.item {
+  max-height: 500px;
+  object-fit: cover;
 }
+
 /* End Projects Section */
 
-
 /* Start 'Find Your Team' Section */
-.img-fluid{
+
+.img-fluid {
   height: 100%;
   width: 100%;
 }
-.about-area .section-gap{
+
+.about-area .section-gap {
   padding-top: 100%;
 }
-.container-pad{
+
+.container-pad {
   padding-top: 3%;
 }
-.container-pad-team{
+
+.container-pad-team {
   padding-top: 2%;
   padding-bottom: 3%;
 }
 
-.pad-left{
-  padding-left:20%;
+.pad-left {
+  padding-left: 20%;
 }
-.center-row{
-  display:flex;
+
+.center-row {
+  display: flex;
   align-items: center;
 }
-.right-buff{
+
+.right-buff {
   padding-left: 5%;
 }
-.vert{
-  width:4px;
-  background-color:black;
+
+.vert {
+  width: 4px;
+  background-color: black;
   height: 200px;
-  float:left;
+  float: left;
 }
 
 /* End 'Find Your Team' Section */
 
 /* Start Info Buttons */
-.buttons-div{
-  border-top-style:solid;
+
+.buttons-div {
+  border-top-style: solid;
   /* padding-top: 10%; */
-  border-bottom-style:solid;
+  border-bottom-style: solid;
 }
 
 
 
 /* End Info Buttons */
+
+.mainPageContainer {
+  margin-top: 150px;
+  margin-bottom: 200px;
+}

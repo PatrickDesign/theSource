@@ -1,8 +1,9 @@
 <% include partials/sourceHeader %>
 
 <h1>Create a new user!</h1>
-<form action="/addUser" method="POST">
-  <input type="text" placeholder="Username..." name="newUserName">
+<form action="/register" method="POST">
+  <input type="text" placeholder="Username..." name="newUserName"/>
+  <input type="password" placeholder="Password" name="newPassword"/>
   <button>Submit</button>
 </form>
 
