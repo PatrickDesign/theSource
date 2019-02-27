@@ -7,6 +7,7 @@ var bodyParser = require("body-parser");
 
 //import schemas
 var User = require("./schemas/user");
+var Project = require("./schemas/project");
 app.use(bodyParser.urlencoded({extended: true}));
 
 
@@ -25,6 +26,10 @@ app.get('/', (req, res) => {
 
 app.get("/addUser", (req, res) =>{
   res.render("addUser");
+});
+
+app.get("/addProject", (req, res) =>{
+  res.render("addProject");
 });
 
 app.get("/viewUsers", (req, res) =>{
@@ -46,6 +51,21 @@ app.post('/addUser', (req, res) => {
   currUser.save()
     .then(doc => {
       res.send("ADDED NEW USER: " + req.body.newUserName);
+    })
+   .catch(err => {
+      console.error(err)
+    })
+
+});
+
+app.post('/addProject', (req, res) => {
+
+  var currProject = new Project({name: req.body.newProjectName, coverPath: req.body.newCoverPath, description: req.body.newProjectDescription});
+
+
+  currProject.save()
+    .then(doc => {
+      res.send("ADDED NEW Project: " + req.body.newProjectName);
     })
    .catch(err => {
       console.error(err)
