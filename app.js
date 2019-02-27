@@ -36,9 +36,9 @@ app.set('views', './views');
 app.use(passport.initialize());
 app.use(passport.session());
 
-
+passport.use(new localStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser);
+passport.deserializeUser(User.deserializeUser());
 
 
 
@@ -72,19 +72,28 @@ app.post('/register', (req, res) =>
       res.redirect("/");
     });
   });
-  // var currUser = new User({ name: req.body.newUserName, password: req.body.newPassword });
-
-  // currUser.save()
-  //   .then(doc =>
-  //   {
-  //     res.send("ADDED NEW USER: " + req.body.newUserName);
-  //   })
-  //   .catch(err =>
-  //   {
-  //     console.error(err)
-  //   })
 
 });
+
+app.get("/login", (req, res) =>
+{
+  res.render("login");
+});
+
+app.post("/login", passport.authenticate("local",
+{
+  successRedirect: "/",
+  failureRedirect: "/login"
+}), (req, res) =>
+{
+
+});
+
+app.get("logout", (req, res) =>
+{
+  req.logout();
+  res.redirect("/");
+})
 
 
 //////////////
@@ -143,6 +152,18 @@ app.post('/addProject', (req, res) =>
 });
 
 //END ROUTES=========================
+
+//Helper functions
+
+function isLoggedIn(req, res, next)
+{
+  if (req.isAuthenticated())
+    return next;
+
+  res.redirect("/login");
+}
+
+///////
 
 //SPINUP SERVER
 const port = process.env.PORT || 3000;

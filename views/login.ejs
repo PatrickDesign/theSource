@@ -1,0 +1,13 @@
+<% include partials/sourceHeader %>
+
+<h1>Login!</h1>
+
+<form action="/login" method="post">
+    <input type="text" name="username" placeholder="Username..."/>
+    <input type="password" name="password" placeholder="Password!"/>
+    <button>Submit</button>
+</form>
+
+<h4>Don't have an account? Click <a href="/register">here</a> to create one!</h4>
+
+<% include partials/sourceFooter %>
