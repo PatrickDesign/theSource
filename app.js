@@ -21,7 +21,13 @@ app.set('views', './views');
 
 //ROUTES=========================
 app.get('/', (req, res) => {
-  res.render("index");
+  Project.find({}, function(err, allProjects){
+    if(err)
+      console.log(err);
+    else {
+      res.render("index", {projects: allProjects});
+    }
+  });
 });
 
 app.get("/addUser", (req, res) =>{
