@@ -56,16 +56,19 @@ app.get("/register", (req, res) =>
   res.render("addUser");
 });
 
+// app.post('/register', (req, res) =>
+// {
+//   res.send("HELLO");
+// });
 
 app.post('/register', (req, res) =>
 {
 
-  User.register(new User({ username: req.body.newUserName }), req.body.newPassword, (err, user) =>
+  User.register(new User({ username: req.body.username }), req.body.password, (err, user) =>
   {
     if (err)
     {
-      console.log(err);
-      return res.render("addUser");
+      return res.redirect("/register");
     }
     passport.authenticate("local")(req, res, () =>
     {
@@ -89,7 +92,7 @@ app.post("/login", passport.authenticate("local",
 
 });
 
-app.get("logout", (req, res) =>
+app.get("/logout", (req, res) =>
 {
   req.logout();
   res.redirect("/");
