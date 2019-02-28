@@ -23,6 +23,10 @@ app.get('/', (req, res) => {
   res.render("index");
 });
 
+app.get("/projectPage", (req, res) => {
+  res.render("projectPage");
+});
+
 app.get("/addUser", (req, res) =>{
   res.render("addUser");
 });
