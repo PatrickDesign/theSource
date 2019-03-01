@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,35 +12,9 @@
 </head>
 <body>
 
-<nav class="navbar navbar-inverse sticky">
-  <div class = "navbar-color">
-    <div class="container-fluid.nav text-center">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
 
-    </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav">
-        <li><a href="#" style = color:black;>Home</a></li>
-        <li><a href="#" style = color:black;>About</a></li>
-        <li><a href="#" style = color:black;>Projects</a></li>
-        <li><a href="#" style = color:black;>Contact</a></li>
-      </ul>
-      <h1 class="navbar-source" href="#">SOURCE
-        <img class = "logo" src="logo.PNG" alt = "Image"></h1>
+<% include partials/sourceHeader %>
 
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><span class="glyphicon glyphicon-log-in" style = color:black;></span> Login</a></li>
-        <li><a href="#"><span class="glyphicon glyphicon-user" style="color:black"></span></a></li>
-      </ul>
-    </div>
-  </div>
-  </div>
-</nav>
 
 <div id="myCarousel" class="carousel slide" data-ride="carousel">
     <!-- Indicators -->
@@ -90,51 +65,101 @@
     </h1>
     <!-- col-lg-4 col-sm-6 mb-4" -->
     <div class="row">
+      
+      
+      
+    <% for(var i = 0; i < 3; i++){ %> 
       <div class="col-sm-12 col-lg-4">
         <div class="card h-100">
             <div class = "parent">
-              <img class="img1" src = "monkey rider.jpeg"/>
+              <img class="img1" src = "<%= projects[i].coverPath %>"/>
               <img class="SDG" src = "sdg_health.PNG"/>
             </div>
-          <div class="card-body">
+            <div class="card-body">
             <h4 class="card-title">
-              <a href="#">Monkeys bein' like that</a>
+              <a href="#"><%= projects[i].name %></a>
             </h4>
-            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur eum quasi sapiente nesciunt? Voluptatibus sit, repellat sequi itaque deserunt, dolores in, nesciunt, illum tempora ex quae? Nihil, dolorem!</p>
-          </div>
+            <p class="card-text"><%= projects[i].description %></p>
+            </div>
         </div>
       </div>
-      <div class="col-sm-12 col-lg-4">
-        <div class="card h-100">
-          <div class = "parent">
-              <img class = "img1" src = "hunger.jpeg"/>
-              <img class = "SDG" src = "sdg_hunger.PNG"/>
-          </div>
-          <div class="card-body">
-            <h4 class="card-title">
-              <a href="#">Feeling like a plastic bag</a>
-            </h4>
-            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-12 col-lg-4">
-        <div class="card h-100">
-          <div class = "parent">
-              <img class = "img1" src = "healthy.jpeg"/>
-              <img class = "SDG" src = "sdg_water.PNG"/>
-          </div>
-          <!-- <a href="#"><img class="card-img-top" src="healthy.jpeg" alt=""></a> -->
-          <div class="card-body">
-            <h4 class="card-title">
-              <a href="#">Germ transfer software</a>
-            </h4>
-            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos quisquam, error quod sed cumque, odio distinctio velit nostrum temporibus necessitatibus et facere atque iure perspiciatis mollitia recusandae vero vel quam!</p>
-          </div>
-        </div>
-      </div>
+    <% }; %>
   </div>
-</div>
+      
+      
+      
+      <!--<div class="col-sm-12 col-lg-4">-->
+      <!--  <div class="card h-100">-->
+      <!--      <div class = "parent">-->
+      <!--        <img class="img1" src = "monkey rider.jpeg"/>-->
+      <!--        <img class="SDG" src = "sdg_health.PNG"/>-->
+      <!--      </div>-->
+      <!--    <div class="card-body">-->
+      <!--      <h4 class="card-title">-->
+      <!--        <a href="#">Monkeys bein' like that</a>-->
+      <!--      </h4>-->
+      <!--      <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur eum quasi sapiente nesciunt? Voluptatibus sit, repellat sequi itaque deserunt, dolores in, nesciunt, illum tempora ex quae? Nihil, dolorem!</p>-->
+      <!--    </div>-->
+      <!--  </div>-->
+      <!--</div>-->
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+<!--      <div class="col-sm-12 col-lg-4">-->
+<!--        <div class="card h-100">-->
+<!--            <div class = "parent">-->
+<!--              <img class="img1" src = "monkey rider.jpeg"/>-->
+<!--              <img class="SDG" src = "sdg_health.PNG"/>-->
+<!--            </div>-->
+<!--          <div class="card-body">-->
+<!--            <h4 class="card-title">-->
+<!--              <a href="#">Monkeys bein' like that</a>-->
+<!--            </h4>-->
+<!--            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur eum quasi sapiente nesciunt? Voluptatibus sit, repellat sequi itaque deserunt, dolores in, nesciunt, illum tempora ex quae? Nihil, dolorem!</p>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="col-sm-12 col-lg-4">-->
+<!--        <div class="card h-100">-->
+<!--          <div class = "parent">-->
+<!--              <img class = "img1" src = "hunger.jpeg"/>-->
+<!--              <img class = "SDG" src = "sdg_hunger.PNG"/>-->
+<!--          </div>-->
+<!--          <div class="card-body">-->
+<!--            <h4 class="card-title">-->
+<!--              <a href="#">Feeling like a plastic bag</a>-->
+<!--            </h4>-->
+<!--            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="col-sm-12 col-lg-4">-->
+<!--        <div class="card h-100">-->
+<!--          <div class = "parent">-->
+<!--              <img class = "img1" src = "healthy.jpeg"/>-->
+<!--              <img class = "SDG" src = "sdg_water.PNG"/>-->
+<!--          </div>-->
+          <!-- <a href="#"><img class="card-img-top" src="healthy.jpeg" alt=""></a> -->
+<!--          <div class="card-body">-->
+<!--            <h4 class="card-title">-->
+<!--              <a href="#">Germ transfer software</a>-->
+<!--            </h4>-->
+<!--            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos quisquam, error quod sed cumque, odio distinctio velit nostrum temporibus necessitatibus et facere atque iure perspiciatis mollitia recusandae vero vel quam!</p>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--  </div>-->
+<!--</div>-->
 
 	<!-- Start About Area -->
 	<section class="about-area section-gap">
@@ -236,14 +261,7 @@
 
 
 </div>
-
-
-
 <!-- End Find Team & Become Member -->
 
-<footer class="container-fluid text-center">
-  <p>Source 2019™</p>
-</footer>
 
-</body>
-</html>
+<% include partials/sourceFooter %>
