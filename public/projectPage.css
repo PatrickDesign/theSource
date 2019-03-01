@@ -1,0 +1,78 @@
+
+/* Start NavBar */
+
+/* Remove the navbar's default margin-bottom and rounded borders */ 
+.navbar {
+  margin-bottom: 0;
+  border-radius: 0;
+  margin-bottom: 0;
+}
+.navbar-nav{
+  font-size: 170%;
+}
+.navbar-inverse .navbar-nav > li > a{
+  color: black;
+}
+.navbar-color{
+  background-color:#CBEAB9;
+  color:black;
+}
+.alignright{
+  float:right;
+}
+.aligncenter{
+  float:center;
+}
+.alignleft{
+  float:left;
+}
+.item-mod{
+  margin-bottom: 12em;
+}
+.navbar .navbar-source{
+  display: inline-block;
+  float:none;
+  text-align:center;
+  padding-right: 8em;
+  font-size : 250%;
+}
+.logo{
+  height: 50px;
+  padding-bottom: 15px;
+}
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+}
+/* End Navbar */
+/* Body */
+.body{
+  padding-top: 6%;
+}
+.center{
+  text-align: center;
+  font-size: 120%;
+}
+.padding{
+  padding-top: 5%;
+}
+.glyphicon-user{
+  float:left;
+  font-size:30px;
+  padding-left: 20%;
+}
+.glyphicon-flag{
+  float:left;
+  font-size:30px;
+  padding-left: 20%;
+}
+.projectImage{
+  width: 100%;
+  height: 100%;
+}
+.team-image{
+  width: 70%;
+  height: 100%;
+}

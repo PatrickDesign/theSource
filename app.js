@@ -48,11 +48,13 @@ passport.deserializeUser(User.deserializeUser());
 //ROUTES=========================
 
 
-//Auth Routes:
+app.get("/projectPage", (req, res) => {
+  res.render("projectPage");
+});
 
-//Sign up form:
 app.get("/register", (req, res) =>
 {
+
   res.render("addUser");
 });
 
