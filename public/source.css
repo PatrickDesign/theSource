@@ -171,12 +171,38 @@ footer {
   /* padding-top: 10%; */
   border-bottom-style: solid;
 }
-
-
-
 /* End Info Buttons */
 
 .mainPageContainer {
   margin-top: 150px;
   margin-bottom: 200px;
 }
+
+/* Project Page */
+.projectImage{
+  width: 100%;
+  height: 100%;
+}
+.team-image{
+  width: 70%;
+  height: 100%;
+}
+/* comment */
+body{margin-top:20px;}
+
+.comment-wrapper .panel-body {
+    max-height:650px;
+    overflow:auto;
+}
+
+.comment-wrapper .media-list .media img {
+    width:64px;
+    height:64px;
+    border:2px solid #e5e7e8;
+}
+
+.comment-wrapper .media-list .media {
+    border-bottom:1px dashed #efefef;
+    margin-bottom:25px;
+}
+/* End comment section */
