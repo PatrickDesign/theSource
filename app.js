@@ -48,12 +48,20 @@ passport.deserializeUser(User.deserializeUser());
 //ROUTES=========================
 
 
-app.get("/projectPage", (req, res) => {
-  res.render("projectPage");
+app.get("/projects/:id", (req, res) => {
+
+  //find the project with id (get the ID from the URL)
+  Project.findById(req.params.id, (err, foundProject) =>{
+    if(err)
+      console.log(err);
+    else
+      res.render("projectPage", {project: foundProject}); //render view template with that project
+  });
 });
 
 app.get("/register", (req, res) =>
 {
+  
 
   res.render("addUser");
 });
