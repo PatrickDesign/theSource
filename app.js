@@ -121,6 +121,10 @@ app.post("/projects/:id/comments", (req, res) => {
 
 //========================================
 
+app.get("/about", (req, res) => {
+
+  res.render("about");
+});
 
 app.get("/register", (req, res) => {
 
@@ -176,6 +180,7 @@ app.get('/', (req, res) => {
     }
   });
 });
+
 
 
 app.get("/addProject", (req, res) => {
