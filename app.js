@@ -90,7 +90,7 @@ app.post("/projects/:id/comments", (req, res) => {
               project.comments.unshift(comment); //push comment to front of array of comments in project.
               //re-sort the comments based on rating
 
-              project.save(); 
+              project.save();
               res.redirect("/projects/" + req.params.id);
             }
           });
@@ -134,9 +134,30 @@ app.post("/projects/:id/comments/:commentId/downvote", (req, res) =>{
 
 //========================================
 
+
 app.get("/about", (req, res) => {
 
   res.render("about");
+});
+
+app.get("/explore", (req, res) => {
+
+  res.render("explore");
+});
+
+app.get("/search", (req, res) => {
+
+  res.render("search");
+});
+
+app.post("/search", (req, res) => {
+
+  res.redirect("/explore");
+});
+
+app.get("/contact", (req, res) => {
+
+  res.render("contact");
 });
 
 app.get("/register", (req, res) => {
