@@ -32,8 +32,13 @@
         <img class = "logo" src="/logo.PNG" alt = "Image"></h1>
 
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="/login"><span class="glyphicon glyphicon-log-in" style = color:black;></span> Login</a></li>
-        <li><a href="#"><span class="glyphicon glyphicon-user" style="color:black"></span></a></li>
+        <% if(!currentUser){ %>
+          <li><a href="/login"><span class="glyphicon glyphicon-log-in" style = "color:black;"></span> Login</a></li>
+          <li><a href="#"><span class="glyphicon glyphicon-user" style="color:black"></span></a></li>
+        <% }else{ %>
+          <li style="font-size: 16px">Logged in as <%= currentUser.username %></li>
+          <li><a href="/logout"><span class="glyphicon glyphicon-log-out" style = "color:black"></span> Logout</a></li>
+        <% } %>
       </ul>
     </div>
   </div>

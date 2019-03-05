@@ -18,6 +18,7 @@ app.use(expressSession(
     saveUninitialized: false
   }));
 
+
 //=========================
 
 //=============import schemas:
@@ -40,6 +41,11 @@ app.use(passport.session());
 passport.use(new localStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+app.use((req, res, next) => {
+  res.locals.currentUser = req.user;
+  next();
+});
+
 
 
 
