@@ -135,12 +135,19 @@
                     <div class="panel-heading">
                     </div>
                     <div class="panel-body">
+                        <% if(isLoggedInFlag){ %>
                         <form action="/projects/<%= project._id %>/comments" method="POST">
                             <textarea class="form-control" placeholder="Add a comment to <%= project.name %>" rows="3" name="commentText"></textarea>
                             <br>
                             <button>Submit</button>
                             <div class="clearfix">
                         </form>
+
+                        <% }else{ %>
+
+                            <p>Please login to post a comment!</p>
+
+                        <% } %>
                         
                         </div>
                         <hr>
@@ -154,7 +161,7 @@
                                 </a>
                                 <div class="media-body">
                                     <span class="text-muted pull-right">
-                                        <small class="text-muted"><%= comment.timePosted %></small>
+                                        <small class="text-muted"><%= comment.timePosted.toLocaleDateString("en-US") %></small>
                                     </span>
                                     <strong class="text-success">@<%= comment.author %></strong>
                                     <p>

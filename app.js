@@ -12,11 +12,11 @@ var mongoose = require("mongoose"),
 //=================Session:
 
 app.use(expressSession(
-{
-  secret: "This is a secrety about my doggie",
-  resave: false,
-  saveUninitialized: false
-}));
+  {
+    secret: "This is a secrety about my doggie",
+    resave: false,
+    saveUninitialized: false
+  }));
 
 //=========================
 
@@ -52,11 +52,12 @@ passport.deserializeUser(User.deserializeUser());
 app.get("/projects/:id", (req, res) => {
 
   //find the project with id (get the ID from the URL)
-  Project.findById(req.params.id).populate("comments").exec((err, foundProject) =>{
-    if(err)
+  Project.findById(req.params.id).populate("comments").exec((err, foundProject) => {
+    if (err)
       console.log(err);
-    else
-      res.render("projectPage", {project: foundProject}); //render view template with that project
+    else {
+      res.render("projectPage", { project: foundProject, isLoggedInFlag: isLoggedInFlag(req, res) }); //render view template with that project
+    }
   });
 });
 
@@ -78,22 +79,42 @@ app.get("/projects/:id", (req, res) => {
 //create a new comment
 app.post("/projects/:id/comments", (req, res) => {
   Project.findById(req.params.id, (err, project) => {
-    if(err){
+    if (err) {
       console.log(err);
       res.redirect("/projects/" + req.params.id);
-    }else{
+    } else {
+
       Comment.create({
-        text: req.body.commentText,
-        author: "Patrick Wees"
-      }, (err, comment) => {
-        if(err)
-          console.log(err);
-        else{
-          project.comments.push(comment);
-          project.save();
-          res.redirect("/projects/" + req.params.id);
-        }
-      });
+            text: req.body.commentText,
+            author: req.user.username
+          }, (err, comment) => {
+            if (err)
+              console.log(err);
+            else {
+              project.comments.push(comment);
+              project.save();
+              res.redirect("/projects/" + req.params.id);
+            }
+          });
+      // //grab user info
+      // User.findById(req.user._id, (err, foundUser) => {
+      //   if (err)
+      //     console.log(err);
+      //   else {
+      //     Comment.create({
+      //       text: req.body.commentText,
+      //       author: foundUser.name
+      //     }, (err, comment) => {
+      //       if (err)
+      //         console.log(err);
+      //       else {
+      //         project.comments.push(comment);
+      //         project.save();
+      //         res.redirect("/projects/" + req.params.id);
+      //       }
+      //     });
+      //   }
+      // });
     }
   });
 });
@@ -101,9 +122,8 @@ app.post("/projects/:id/comments", (req, res) => {
 //========================================
 
 
-app.get("/register", (req, res) =>
-{
-  
+app.get("/register", (req, res) => {
+
 
   res.render("addUser");
 });
@@ -113,39 +133,32 @@ app.get("/register", (req, res) =>
 //   res.send("HELLO");
 // });
 
-app.post('/register', (req, res) =>
-{
+app.post('/register', (req, res) => {
 
-  User.register(new User({ username: req.body.username }), req.body.password, (err, user) =>
-  {
-    if (err)
-    {
+  User.register(new User({ username: req.body.username }), req.body.password, (err, user) => {
+    if (err) {
       return res.redirect("/register");
     }
-    passport.authenticate("local")(req, res, () =>
-    {
+    passport.authenticate("local")(req, res, () => {
       res.redirect("/");
     });
   });
 
 });
 
-app.get("/login", (req, res) =>
-{
+app.get("/login", (req, res) => {
   res.render("login");
 });
 
 app.post("/login", passport.authenticate("local",
-{
-  successRedirect: "/",
-  failureRedirect: "/login"
-}), (req, res) =>
-{
+  {
+    successRedirect: "/",
+    failureRedirect: "/login"
+  }), (req, res) => {
 
-});
+  });
 
-app.get("/logout", (req, res) =>
-{
+app.get("/logout", (req, res) => {
   req.logout();
   res.redirect("/");
 })
@@ -154,53 +167,43 @@ app.get("/logout", (req, res) =>
 //////////////
 
 
-app.get('/', (req, res) =>
-{
-  Project.find({}, function (err, allProjects)
-  {
+app.get('/', (req, res) => {
+  Project.find({}, function (err, allProjects) {
     if (err)
       console.log(err);
-    else
-    {
+    else {
       res.render("index", { projects: allProjects });
     }
   });
 });
 
 
-app.get("/addProject", (req, res) =>
-{
+app.get("/addProject", (req, res) => {
   res.render("addProject");
 });
 
-app.get("/viewUsers", (req, res) =>
-{
+app.get("/viewUsers", (req, res) => {
 
-  User.find({}, function (err, allUsers)
-  {
+  User.find({}, function (err, allUsers) {
     if (err)
       console.log(err);
-    else
-    {
+    else {
       res.render("newUsers", { users: allUsers });
     }
   });
 
 });
 
-app.post('/addProject', (req, res) =>
-{
+app.post('/addProject', (req, res) => {
 
   var currProject = new Project({ name: req.body.newProjectName, coverPath: req.body.newCoverPath, description: req.body.newProjectDescription });
 
 
   currProject.save()
-    .then(doc =>
-    {
+    .then(doc => {
       res.send("ADDED NEW Project: " + req.body.newProjectName);
     })
-    .catch(err =>
-    {
+    .catch(err => {
       console.error(err)
     })
 
@@ -210,12 +213,17 @@ app.post('/addProject', (req, res) =>
 
 //Helper functions
 
-function isLoggedIn(req, res, next)
-{
+function isLoggedIn(req, res, next) {
   if (req.isAuthenticated())
     return next;
 
   res.redirect("/login");
+}
+
+function isLoggedInFlag(req, res) {
+  if (req.isAuthenticated())
+    return true;
+  return false;
 }
 
 ///////
