@@ -23,6 +23,7 @@ app.use(expressSession(
 //=============import schemas:
 var User = require("./schemas/user");
 var Project = require("./schemas/project");
+var Comment = require("./schemas/comment");
 app.use(bodyParser.urlencoded({ extended: true }));
 //===========================
 
@@ -51,13 +52,54 @@ passport.deserializeUser(User.deserializeUser());
 app.get("/projects/:id", (req, res) => {
 
   //find the project with id (get the ID from the URL)
-  Project.findById(req.params.id, (err, foundProject) =>{
+  Project.findById(req.params.id).populate("comments").exec((err, foundProject) =>{
     if(err)
       console.log(err);
     else
       res.render("projectPage", {project: foundProject}); //render view template with that project
   });
 });
+
+
+//COMMENT ROUTES=========================
+
+// app.get("/projects/:id/comments/new:", (req, res) => {
+
+//   Project.findById(req.params.id, (err, project) => {
+//     if(err)
+//       console.log(err);
+//     else
+//       res.render("comments/new", {})
+//   });
+
+//   res.render("comments/new");
+// });
+
+//create a new comment
+app.post("/projects/:id/comments", (req, res) => {
+  Project.findById(req.params.id, (err, project) => {
+    if(err){
+      console.log(err);
+      res.redirect("/projects/" + req.params.id);
+    }else{
+      Comment.create({
+        text: req.body.commentText,
+        author: "Patrick Wees"
+      }, (err, comment) => {
+        if(err)
+          console.log(err);
+        else{
+          project.comments.push(comment);
+          project.save();
+          res.redirect("/projects/" + req.params.id);
+        }
+      });
+    }
+  });
+});
+
+//========================================
+
 
 app.get("/register", (req, res) =>
 {
