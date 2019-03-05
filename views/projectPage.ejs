@@ -103,56 +103,7 @@
 <!-- got er from this website:
     https://www.bootdey.com/snippets/view/Simple-Comment-panel#html -->
 <!-- comment panel -->
-<div class="row bootstrap snippets center" style="padding-top:7%;display: inline-block;">
-        <div>
-            <div class="comment-wrapper">
-                <div class="panel panel-info">
-                    <div class="panel-heading">
-                    </div>
-                    <div class="panel-body">
-                        <% if(isLoggedInFlag){ %>
-                        <form action="/projects/<%= project._id %>/comments" method="POST">
-                            <textarea class="form-control" placeholder="Add a comment to <%= project.name %>" rows="3" name="commentText"></textarea>
-                            <br>
-                            <button>Submit</button>
-                            <div class="clearfix">
-                        </form>
-
-                        <% }else{ %>
-
-                            <p>Please login to post a comment!</p>
-
-                        <% } %>
-                        
-                        </div>
-                        <hr>
-                        <ul class="media-list">
-
-                        <% project.comments.forEach((comment) => { %>
-                        
-                            <li class="media">
-                                <a href="#" class="pull-left">
-                                    <img src="https://bootdey.com/img/Content/user_1.jpg" alt="" class="img-circle">
-                                </a>
-                                <div class="media-body">
-                                    <span class="text-muted pull-right">
-                                        <small class="text-muted"><%= comment.timePosted.toLocaleDateString("en-US") %></small>
-                                    </span>
-                                    <strong class="text-success">@<%= comment.author %></strong>
-                                    <p>
-                                        <%= comment.text %> </a>.
-                                    </p>
-                                </div>
-                            </li>
-                        
-                        <% }); %>
-
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <% include partials/comments %>
         </div>
 
 

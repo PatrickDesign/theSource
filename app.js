@@ -58,7 +58,8 @@ app.use((req, res, next) => {
 app.get("/projects/:id", (req, res) => {
 
   //find the project with id (get the ID from the URL)
-  Project.findById(req.params.id).populate("comments").exec((err, foundProject) => {
+  //sort comments by 'rating'
+  Project.findById(req.params.id).populate({path: "comments", options: {sort: { rating: -1 }}}).exec((err, foundProject) => {
     if (err)
       console.log(err);
     else {
@@ -70,26 +71,15 @@ app.get("/projects/:id", (req, res) => {
 
 //COMMENT ROUTES=========================
 
-// app.get("/projects/:id/comments/new:", (req, res) => {
-
-//   Project.findById(req.params.id, (err, project) => {
-//     if(err)
-//       console.log(err);
-//     else
-//       res.render("comments/new", {})
-//   });
-
-//   res.render("comments/new");
-// });
-
 //create a new comment
 app.post("/projects/:id/comments", (req, res) => {
+
+  //get project object from DB
   Project.findById(req.params.id, (err, project) => {
     if (err) {
       console.log(err);
       res.redirect("/projects/" + req.params.id);
-    } else {
-
+    } else {  //on success,
       Comment.create({
             text: req.body.commentText,
             author: req.user.username
@@ -97,33 +87,50 @@ app.post("/projects/:id/comments", (req, res) => {
             if (err)
               console.log(err);
             else {
-              project.comments.push(comment);
-              project.save();
+              project.comments.unshift(comment); //push comment to front of array of comments in project.
+              //re-sort the comments based on rating
+
+              project.save(); 
               res.redirect("/projects/" + req.params.id);
             }
           });
-      // //grab user info
-      // User.findById(req.user._id, (err, foundUser) => {
-      //   if (err)
-      //     console.log(err);
-      //   else {
-      //     Comment.create({
-      //       text: req.body.commentText,
-      //       author: foundUser.name
-      //     }, (err, comment) => {
-      //       if (err)
-      //         console.log(err);
-      //       else {
-      //         project.comments.push(comment);
-      //         project.save();
-      //         res.redirect("/projects/" + req.params.id);
-      //       }
-      //     });
-      //   }
-      // });
     }
   });
 });
+
+
+//UPVOTE a comment:
+app.post("/projects/:id/comments/:commentId/upvote", (req, res) =>{
+
+  if(isLoggedInFlag(req, res)){
+    Comment.updateOne({"_id": req.params.commentId}, {$inc: {rating: 1}}, (err, foundComment) => {
+      if(err)
+        console.log(err);
+      else{
+
+        //redirect back to project (might want to make ajax later to avoid refresh)
+        res.redirect("/projects/" + req.params.id);
+      }
+    });
+  }else{
+    res.redirect("/login");
+  }
+});
+
+//DOWNVOTE a comment:
+app.post("/projects/:id/comments/:commentId/downvote", (req, res) =>{
+  if(isLoggedInFlag(req, res)){
+    Comment.updateOne({"_id": req.params.commentId}, {$inc: {rating: -1}}, (err, foundComment) => {
+      if(err)
+        console.log(err);
+      else
+        res.redirect("/projects/" + req.params.id);
+    });
+  }else{
+    res.redirect("/login"); //redirect back to login page (need to fix UX =>redirect back to original project once they login.)
+  }
+});
+
 
 //========================================
 
