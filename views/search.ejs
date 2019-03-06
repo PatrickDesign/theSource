@@ -1,0 +1,32 @@
+<% include partials/sourceHeader %>
+
+
+
+<div class="container">
+
+    <!-- Page Heading -->
+    <h1 class="my-4" style= "padding-top:3%; padding-bottom: 3%;text-align:center;"><%= projects.length %> Search Results.
+    </h1>
+    <!-- col-lg-4 col-sm-6 mb-4" -->
+    <div class="container-fluid content-row" style = "display:flex;">
+
+    <% projects.forEach((project) => { %> 
+      <div class="col-sm-12 col-lg-4 align-items-stretch d-flex" style = "display:inline-block;">
+        <div class="card h-100">
+            <div class = "parent">
+              <img class="img1" src = "<%= project.coverPath %>"/>
+              <img class="SDG" src = "sdg_health.PNG"/>
+            </div>
+            <div class="card-body">
+            <h4 class="card-title">
+              <a href="projects/<%= project._id %>"><%= project.name %></a>
+            </h4>
+            <p class="card-text"><%= project.description %></p>
+            </div>
+        </div>
+      </div>
+    <% }); %>
+  </div>
+
+
+<% include partials/sourceFooter %>

@@ -177,19 +177,33 @@ app.get("/explore", (req, res) =>
       res.render("explore", { projects: foundProjects });
     }
   });
+
+
 });
 
-// app.get("/search", (req, res) =>
-// {
+app.get("/search", (req, res) =>
+{
+  res.render("search");
+});
 
-//   res.render("search");
-// });
 
+
+//SEARCH
 app.post("/search", (req, res) =>
 {
 
+  Project.find({ $text: { $search: req.body.projectSearch } })
+    .limit(10)
+    .exec(function (err, foundProjects)
+    {
+      if (err)
+        console.log(err);
+      else
+      {
+        res.render("search", { projects: foundProjects });
+      }
+    });
 
-  res.redirect("/explore");
 });
 
 app.get("/contact", (req, res) =>
@@ -253,6 +267,7 @@ app.get("/logout", (req, res) =>
 
 app.get('/', (req, res) =>
 {
+
   Project.find({}, function (err, allProjects)
   {
     if (err)
@@ -262,6 +277,7 @@ app.get('/', (req, res) =>
       res.render("index", { projects: allProjects });
     }
   });
+
 });
 
 

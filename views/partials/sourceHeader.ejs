@@ -34,9 +34,11 @@
         <img class = "logo" src="/logo.PNG" alt = "Image"></h1>
       
       <ul class="nav navbar-nav navbar-right" style="padding-top: 2%;">
-        <div style = "padding-top: 2%;float:left">
-            <input style = "float:left;color:black;" type="text" placeholder="Search For A Project">        
-        </div>
+        <form action="/search" method="POST" style="display:inline-block">
+          <input type="text" placeholder="Project" name="projectSearch"/>
+          <button>Search</button>
+        </form>
+
         <% if(!currentUser){ %>
           <li><a href="/login"><span class="glyphicon glyphicon-log-in" style = "color:black;"></span> Login</a></li>
           <li><a href="#"><span class="glyphicon glyphicon-user" style="color:black"></span></a></li>

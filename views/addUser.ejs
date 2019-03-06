@@ -10,8 +10,8 @@
     <input id="email" for="email" name="email" placeholder="Email..."/><br>
     <label for="password"><b>Password</b></label><br>
     <input id="password" type="password" name="password" placeholder="Password..."/><br>
-    <label for="password"><b>Repeat Password</b></label><br>
-    <input id="repeatPassword" type="password" name="repeat password" placeholder="Repeat Password..."/><br>
+    <!--<label for="password"><b>Repeat Password</b></label><br>-->
+    <!--<input id="repeatPassword" type="password" name="repeat password" placeholder="Repeat Password..."/><br>-->
     <button style="margin-top: 5px;" onclick="validate()">Submit</button>
   </form>
 </div>
@@ -28,11 +28,5 @@
     var emailPattern = "^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$";
     //must be between 4 and 8 chars and include at least one digit
     var passwordPattern = "^(?=.*\d).{4,8}$";
-
-    if(emailPattern.test(email)){
-      window.alert("email is cool");
-    }else{
-      window.alert("email is not cool");
-    }
   }
 </script>
