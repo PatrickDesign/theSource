@@ -6,19 +6,21 @@
   margin-bottom: 0;
   border-radius: 0;
   margin-bottom: 0;
-  min-height:12%;
+  min-height: 12%;
 }
 
 .navbar-nav {
   font-size: 170%;
 }
-.navbar-source{
+
+.navbar-source {
   display: inline-block;
   float: none;
   vertical-align: top;
   font-size: 250%;
 
 }
+
 .navbar-inverse .navbar-nav>li>a {
   color: black;
 }
@@ -49,6 +51,7 @@
   margin-left: 5px;
   font-size: 30px;
 }
+
 /* Hide the carousel text when the screen is less than 600 pixels wide */
 
 @media (max-width: 600px) {
@@ -117,11 +120,12 @@ footer {
   max-height: 500px;
   object-fit: cover;
 }
-.fa-map-marker{
-  color:black; 
-  float:left; 
-  font-size:2em;
-  padding-left:2em;
+
+.fa-map-marker {
+  color: black;
+  float: left;
+  font-size: 2em;
+  padding-left: 2em;
   vertical-align: middle;
 }
 
@@ -176,6 +180,7 @@ footer {
   /* padding-top: 10%; */
   border-bottom-style: solid;
 }
+
 /* End Info Buttons */
 
 .mainPageContainer {
@@ -185,33 +190,40 @@ footer {
 
 
 
-.card-font{
-  font-size:60%;
+.card-font {
+  font-size: 60%;
 }
 
 /* Project Page */
-.projectImage{
+
+.projectImage {
   width: 100%;
   height: 100%;
 }
-.team-image{
+
+.team-image {
   width: 70%;
   height: 100%;
 }
-.green{
+
+.green {
   background-color: #CBEAB9;
   color: black;
 }
-.backit-button{
+
+.backit-button {
   width: 35em;
   height: 5em;
 }
-.paddingtop{
+
+.paddingtop {
   padding-top: 5%;
 }
-.paddingbottom{
+
+.paddingbottom {
   padding-bottom: 5%;
 }
+
 .avatar {
   vertical-align: middle;
   width: 50px;
@@ -229,6 +241,7 @@ footer {
 }
 
 /* Display the columns below each other instead of side by side on small screens */
+
 @media screen and (max-width: 650px) {
   .column {
     width: 100%;
@@ -237,17 +250,21 @@ footer {
 }
 
 /* Add some shadows to create a card effect */
+
 /* .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 } */
 
 /* Some left and right padding inside the container */
+
 .container {
   padding: 0 16px;
 }
 
 /* Clear floats */
-.container::after, .row::after {
+
+.container::after,
+.row::after {
   content: "";
   clear: both;
   display: table;
@@ -272,26 +289,31 @@ footer {
 .button:hover {
   background-color: #555;
 }
-.teamphoto{
-  height:20em;
+
+.teamphoto {
+  height: 20em;
 }
+
 /* comment */
-body{margin-top:20px;}
+
+body {
+  margin-top: 20px;
+}
 
 .comment-wrapper .panel-body {
-    max-height:650px;
-    overflow:auto;
+  max-height: 650px;
+  overflow: auto;
 }
 
 .comment-wrapper .media-list .media img {
-    width:64px;
-    height:64px;
-    border:2px solid #e5e7e8;
+  width: 64px;
+  height: 64px;
+  border: 2px solid #e5e7e8;
 }
 
 .comment-wrapper .media-list .media {
-    border-bottom:1px dashed #efefef;
-    margin-bottom:25px;
+  border-bottom: 1px dashed #efefef;
+  margin-bottom: 25px;
 }
 
 .loginSquare {
@@ -304,7 +326,7 @@ body{margin-top:20px;}
 
 /* End comment section */
 
-.grid-container{
+.grid-container {
   display: inline-grid;
   grid-column-gap: 15px;
   grid-template-columns: auto auto auto;
@@ -316,5 +338,10 @@ body{margin-top:20px;}
   font-size: 20px;
   /* grid-column: 2; */
   /* grid-row: 2 / 5; */
+}
 
+
+input,
+button {
+  color: black;
 }
