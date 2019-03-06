@@ -276,4 +276,13 @@ body{margin-top:20px;}
     border-bottom:1px dashed #efefef;
     margin-bottom:25px;
 }
+
+.loginSquare {
+  width: 50%;
+  padding: 15px;
+  display: inline-block;
+  margin: 50px;
+  justify-content: center;
+}
+
 /* End comment section */

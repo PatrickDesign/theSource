@@ -1,11 +1,38 @@
 <% include partials/sourceHeader %>
-
-<h1>Create a new user!</h1>
-
-<form action="/register" method="POST">
-  <input type="text" placeholder="Username..." name="username"/>
-  <input type="password" placeholder="Password" name="password"/>
-  <button>Submit</button>
-</form>
-
+<div class="loginSquare">
+  <form action="/register" method="POST">
+    <h1>Create a new user!</h1>
+    <p>Please fill out this form to create an account</p>
+    <hr>
+    <label for="username"><b>Username</b></label><br>
+    <input id="username" type="text" name="username" placeholder="Username..."/><br>
+    <label for="email"><b>Email</b></label><br>
+    <input id="email" for="email" name="email" placeholder="Email..."/><br>
+    <label for="password"><b>Password</b></label><br>
+    <input id="password" type="password" name="password" placeholder="Password..."/><br>
+    <label for="password"><b>Repeat Password</b></label><br>
+    <input id="repeatPassword" type="password" name="repeat password" placeholder="Repeat Password..."/><br>
+    <button style="margin-top: 5px;" onclick="validate()">Submit</button>
+  </form>
+</div>
 <% include partials/sourceFooter %>
+
+<script type="text/javascript">
+  function validate(){
+    var password = document.getElementById("password").innerHTML;
+    var username = document.getElementById("username").innerHTML;
+    var email = document.getElementById("email").innerHTML;
+    //between 8-20 chars long, no _ or .
+    var usernamePattern = "^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$";
+    //ensures top level domain is between 2 and 4 chars long
+    var emailPattern = "^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$";
+    //must be between 4 and 8 chars and include at least one digit
+    var passwordPattern = "^(?=.*\d).{4,8}$";
+
+    if(emailPattern.test(email)){
+      window.alert("email is cool");
+    }else{
+      window.alert("email is not cool");
+    }
+  }
+</script>

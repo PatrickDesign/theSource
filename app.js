@@ -90,7 +90,7 @@ app.post("/projects/:id/comments", (req, res) => {
               project.comments.unshift(comment); //push comment to front of array of comments in project.
               //re-sort the comments based on rating
 
-              project.save(); 
+              project.save();
               res.redirect("/projects/" + req.params.id);
             }
           });
@@ -148,7 +148,7 @@ app.get("/register", (req, res) => {
 
 app.post('/register', (req, res) => {
 
-  User.register(new User({ username: req.body.username }), req.body.password, (err, user) => {
+  User.register(new User({ username: req.body.username, email: req.body.email }), req.body.password, (err, user) => {
     if (err) {
       return res.redirect("/register");
     }
