@@ -1,12 +1,39 @@
 <% include partials/sourceHeader %>
 
 <h1>Create a new project!</h1>
-<form action="/addProject" method="POST">
+<!-- <form action="/addProject" method="POST">
   <input type="text" placeholder="Project Name..." name="newProjectName">
   <input type="text" placeholder="Cover Path..." name="newCoverPath">
   <textarea type="text" placeholder="Project Description..." name="newProjectDescription">
   </textarea>
   <button>Submit</button>
+</form> -->
+
+<form action="/addProject" method="POST">
+<div class="form-group">
+  <label>Title:</label>
+  <input type="text" class="form-control" placeholder="My Awesome Project..." name="newProjectName">
+</div>
+<div class="form-group">
+  <label>Cover Image Path:</label>
+  <input type="text" class="form-control" placeholder="Great_Pic.jpg" name="newCoverPath">
+</div>
+<div class="form-group">
+  <label for="comment">Project description:</label>
+  <textarea class="form-control" rows="5" name="newProjectDescription" placeholder="A description of my project ..."></textarea>
+</div>
+<label class="radio-inline"><input type="radio" name="optradio" checked>All or nothing</label>
+<label class="radio-inline"><input type="radio" name="optradio">Keep it all</label>
+<div class="form-group">
+  <label>Goal to reach:</label>
+  <input type="number" class="form-control" name="newProjectGoal" placeholder="100">
+</div>
+<div class="form-group">
+  <label>Meet goal by:</label>
+  <input type="date" class="form-control" name="newProjectDate">
+</div>
+<br>
+<button>Submit</button>
 </form>
 
 <% include partials/sourceFooter %>
