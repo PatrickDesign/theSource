@@ -12,11 +12,11 @@ var mongoose = require("mongoose"),
 //=================Session:
 
 app.use(expressSession(
-  {
-    secret: "This is a secrety about my doggie",
-    resave: false,
-    saveUninitialized: false
-  }));
+{
+  secret: "This is a secrety about my doggie",
+  resave: false,
+  saveUninitialized: false
+}));
 
 
 //=========================
@@ -41,7 +41,8 @@ app.use(passport.session());
 passport.use(new localStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
-app.use((req, res, next) => {
+app.use((req, res, next) =>
+{
   res.locals.currentUser = req.user;
   next();
 });
@@ -55,14 +56,17 @@ app.use((req, res, next) => {
 //ROUTES=========================
 
 
-app.get("/projects/:id", (req, res) => {
+app.get("/projects/:id", (req, res) =>
+{
 
   //find the project with id (get the ID from the URL)
   //sort comments by 'rating'
-  Project.findById(req.params.id).populate({path: "comments", options: {sort: { rating: -1 }}}).exec((err, foundProject) => {
+  Project.findById(req.params.id).populate({ path: "comments", options: { sort: { rating: -1 } } }).exec((err, foundProject) =>
+  {
     if (err)
       console.log(err);
-    else {
+    else
+    {
       res.render("projectPage", { project: foundProject, isLoggedInFlag: isLoggedInFlag(req, res) }); //render view template with that project
     }
   });
@@ -72,61 +76,80 @@ app.get("/projects/:id", (req, res) => {
 //COMMENT ROUTES=========================
 
 //create a new comment
-app.post("/projects/:id/comments", (req, res) => {
+app.post("/projects/:id/comments", (req, res) =>
+{
 
   //get project object from DB
-  Project.findById(req.params.id, (err, project) => {
-    if (err) {
+  Project.findById(req.params.id, (err, project) =>
+  {
+    if (err)
+    {
       console.log(err);
       res.redirect("/projects/" + req.params.id);
-    } else {  //on success,
-      Comment.create({
-            text: req.body.commentText,
-            author: req.user.username
-          }, (err, comment) => {
-            if (err)
-              console.log(err);
-            else {
-              project.comments.unshift(comment); //push comment to front of array of comments in project.
-              //re-sort the comments based on rating
+    }
+    else
+    { //on success,
+      Comment.create(
+      {
+        text: req.body.commentText,
+        author: req.user.username
+      }, (err, comment) =>
+      {
+        if (err)
+          console.log(err);
+        else
+        {
+          project.comments.unshift(comment); //push comment to front of array of comments in project.
+          //re-sort the comments based on rating
 
-              project.save();
-              res.redirect("/projects/" + req.params.id);
-            }
-          });
+          project.save();
+          res.redirect("/projects/" + req.params.id);
+        }
+      });
     }
   });
 });
 
 
 //UPVOTE a comment:
-app.post("/projects/:id/comments/:commentId/upvote", (req, res) =>{
+app.post("/projects/:id/comments/:commentId/upvote", (req, res) =>
+{
 
-  if(isLoggedInFlag(req, res)){
-    Comment.updateOne({"_id": req.params.commentId}, {$inc: {rating: 1}}, (err, foundComment) => {
-      if(err)
+  if (isLoggedInFlag(req, res))
+  {
+    Comment.updateOne({ "_id": req.params.commentId }, { $inc: { rating: 1 } }, (err, foundComment) =>
+    {
+      if (err)
         console.log(err);
-      else{
+      else
+      {
 
         //redirect back to project (might want to make ajax later to avoid refresh)
         res.redirect("/projects/" + req.params.id);
       }
     });
-  }else{
+  }
+  else
+  {
     res.redirect("/login");
   }
 });
 
 //DOWNVOTE a comment:
-app.post("/projects/:id/comments/:commentId/downvote", (req, res) =>{
-  if(isLoggedInFlag(req, res)){
-    Comment.updateOne({"_id": req.params.commentId}, {$inc: {rating: -1}}, (err, foundComment) => {
-      if(err)
+app.post("/projects/:id/comments/:commentId/downvote", (req, res) =>
+{
+  if (isLoggedInFlag(req, res))
+  {
+    Comment.updateOne({ "_id": req.params.commentId }, { $inc: { rating: -1 } }, (err, foundComment) =>
+    {
+      if (err)
         console.log(err);
       else
         res.redirect("/projects/" + req.params.id);
     });
-  }else{
+  }
+  else
+  {
     res.redirect("/login"); //redirect back to login page (need to fix UX =>redirect back to original project once they login.)
   }
 });
@@ -135,32 +158,49 @@ app.post("/projects/:id/comments/:commentId/downvote", (req, res) =>{
 //========================================
 
 
-app.get("/about", (req, res) => {
+app.get("/about", (req, res) =>
+{
 
   res.render("about");
 });
 
-app.get("/explore", (req, res) => {
+app.get("/explore", (req, res) =>
+{
+
+  //Start displaying all projects
+  Project.find({}, (err, foundProjects) =>
+  {
+    if (err)
+      console.log(err);
+    else
+    {
+      res.render("explore", { projects: foundProjects });
+    }
+  });
 
   res.render("explore");
 });
 
-app.get("/search", (req, res) => {
+app.get("/search", (req, res) =>
+{
 
   res.render("search");
 });
 
-app.post("/search", (req, res) => {
+app.post("/search", (req, res) =>
+{
 
   res.redirect("/explore");
 });
 
-app.get("/contact", (req, res) => {
+app.get("/contact", (req, res) =>
+{
 
   res.render("contact");
 });
 
-app.get("/register", (req, res) => {
+app.get("/register", (req, res) =>
+{
 
 
   res.render("addUser");
@@ -171,32 +211,39 @@ app.get("/register", (req, res) => {
 //   res.send("HELLO");
 // });
 
-app.post('/register', (req, res) => {
+app.post('/register', (req, res) =>
+{
 
-  User.register(new User({ username: req.body.username, email: req.body.email }), req.body.password, (err, user) => {
-    if (err) {
+  User.register(new User({ username: req.body.username, email: req.body.email }), req.body.password, (err, user) =>
+  {
+    if (err)
+    {
       return res.redirect("/register");
     }
-    passport.authenticate("local")(req, res, () => {
+    passport.authenticate("local")(req, res, () =>
+    {
       res.redirect("/");
     });
   });
 
 });
 
-app.get("/login", (req, res) => {
+app.get("/login", (req, res) =>
+{
   res.render("login");
 });
 
 app.post("/login", passport.authenticate("local",
-  {
-    successRedirect: "/",
-    failureRedirect: "/login"
-  }), (req, res) => {
+{
+  successRedirect: "/",
+  failureRedirect: "/login"
+}), (req, res) =>
+{
 
-  });
+});
 
-app.get("/logout", (req, res) => {
+app.get("/logout", (req, res) =>
+{
   req.logout();
   res.redirect("/");
 })
@@ -205,11 +252,14 @@ app.get("/logout", (req, res) => {
 //////////////
 
 
-app.get('/', (req, res) => {
-  Project.find({}, function (err, allProjects) {
+app.get('/', (req, res) =>
+{
+  Project.find({}, function (err, allProjects)
+  {
     if (err)
       console.log(err);
-    else {
+    else
+    {
       res.render("index", { projects: allProjects });
     }
   });
@@ -217,32 +267,39 @@ app.get('/', (req, res) => {
 
 
 
-app.get("/addProject", (req, res) => {
+app.get("/addProject", (req, res) =>
+{
   res.render("addProject");
 });
 
-app.get("/viewUsers", (req, res) => {
+app.get("/viewUsers", (req, res) =>
+{
 
-  User.find({}, function (err, allUsers) {
+  User.find({}, function (err, allUsers)
+  {
     if (err)
       console.log(err);
-    else {
+    else
+    {
       res.render("newUsers", { users: allUsers });
     }
   });
 
 });
 
-app.post('/addProject', (req, res) => {
+app.post('/addProject', (req, res) =>
+{
 
   var currProject = new Project({ name: req.body.newProjectName, coverPath: req.body.newCoverPath, description: req.body.newProjectDescription });
 
 
   currProject.save()
-    .then(doc => {
+    .then(doc =>
+    {
       res.send("ADDED NEW Project: " + req.body.newProjectName);
     })
-    .catch(err => {
+    .catch(err =>
+    {
       console.error(err)
     })
 
@@ -252,14 +309,16 @@ app.post('/addProject', (req, res) => {
 
 //Helper functions
 
-function isLoggedIn(req, res, next) {
+function isLoggedIn(req, res, next)
+{
   if (req.isAuthenticated())
     return next;
 
   res.redirect("/login");
 }
 
-function isLoggedInFlag(req, res) {
+function isLoggedInFlag(req, res)
+{
   if (req.isAuthenticated())
     return true;
   return false;
