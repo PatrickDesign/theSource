@@ -166,7 +166,6 @@ app.get("/about", (req, res) =>
 
 app.get("/explore", (req, res) =>
 {
-
   //Start displaying all projects
   Project.find({}, (err, foundProjects) =>
   {
@@ -177,15 +176,14 @@ app.get("/explore", (req, res) =>
       res.render("explore", { projects: foundProjects });
     }
   });
-
-
 });
+
+
 
 app.get("/search", (req, res) =>
 {
   res.render("search");
 });
-
 
 
 //SEARCH
@@ -214,8 +212,6 @@ app.get("/contact", (req, res) =>
 
 app.get("/register", (req, res) =>
 {
-
-
   res.render("addUser");
 });
 
