@@ -13,6 +13,8 @@ Then:
 npm install --save
 npm install passport
 npm install passport-local
+npm install passport-local-mongoose
+npm install express-session
 ```
 
 Then to run the program:
