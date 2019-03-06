@@ -135,6 +135,31 @@ app.post("/projects/:id/comments/:commentId/downvote", (req, res) =>{
 //========================================
 
 
+app.get("/about", (req, res) => {
+
+  res.render("about");
+});
+
+app.get("/explore", (req, res) => {
+
+  res.render("explore");
+});
+
+app.get("/search", (req, res) => {
+
+  res.render("search");
+});
+
+app.post("/search", (req, res) => {
+
+  res.redirect("/explore");
+});
+
+app.get("/contact", (req, res) => {
+
+  res.render("contact");
+});
+
 app.get("/register", (req, res) => {
 
 
@@ -189,6 +214,7 @@ app.get('/', (req, res) => {
     }
   });
 });
+
 
 
 app.get("/addProject", (req, res) => {
