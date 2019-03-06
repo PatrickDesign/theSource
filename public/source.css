@@ -6,19 +6,26 @@
   margin-bottom: 0;
   border-radius: 0;
   margin-bottom: 0;
+  min-height:12%;
 }
 
 .navbar-nav {
   font-size: 170%;
 }
+.navbar-source{
+  display: inline-block;
+  float: none;
+  vertical-align: top;
+  font-size: 250%;
 
+}
 .navbar-inverse .navbar-nav>li>a {
   color: black;
 }
 
 .navbar-color {
   background-color: #CBEAB9;
-  color: black;
+  color: #CBEAB9;
 }
 
 .alignright {
@@ -33,14 +40,6 @@
   margin-bottom: 12em;
 }
 
-.navbar .navbar-source {
-  display: inline-block;
-  float: none;
-  text-align: center;
-  padding-right: 8em;
-  font-size: 250%;
-}
-
 .card-social {
   display: inline-block;
 }
@@ -50,7 +49,6 @@
   margin-left: 5px;
   font-size: 30px;
 }
-
 /* Hide the carousel text when the screen is less than 600 pixels wide */
 
 @media (max-width: 600px) {
@@ -119,6 +117,13 @@ footer {
   max-height: 500px;
   object-fit: cover;
 }
+.fa-map-marker{
+  color:black; 
+  float:left; 
+  font-size:2em;
+  padding-left:2em;
+  vertical-align: middle;
+}
 
 /* End Projects Section */
 
@@ -180,7 +185,9 @@ footer {
 
 
 
-
+.card-font{
+  font-size:60%;
+}
 
 /* Project Page */
 .projectImage{
@@ -200,8 +207,18 @@ footer {
   height: 5em;
 }
 .paddingtop{
-  padding-top: 3%;
+  padding-top: 5%;
 }
+.paddingbottom{
+  padding-bottom: 5%;
+}
+.avatar {
+  vertical-align: middle;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
 /* Meet the Team */
 
 .column {
