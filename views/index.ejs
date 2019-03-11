@@ -77,7 +77,7 @@
             <h4 class="card-title">
               <a href="projects/<%= projects[i]._id %>"><%= projects[i].name %></a>
             </h4>
-            <p class="card-text"><%= projects[i].description %></p>
+            <p class="card-text"><%= projects[i].description.substring(0,200) %>...</p>
             </div>
         </div>
       </div>
