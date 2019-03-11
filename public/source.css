@@ -457,3 +457,8 @@ button {
   text-align: center;
 }
 /* End pagination */
+
+/*SOCIAL*/
+.card-inner{
+    margin-left: 4rem;
+}

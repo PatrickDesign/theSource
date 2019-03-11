@@ -95,23 +95,18 @@
             </div>
             <!-- usergen projectdescription -->
             <div class = "container padding paddingtop">
-                <nav aria-label="Page navigation example" style = "text-align: center;">
-                    <ul class="pagination pg-blue pagination-lg">
-                      <li class="page-item">
-                        <a class="page-link" href="#">About</a>
-                      </li>
-                      <li class="page-item"><a class="page-link" href = "#">FAQ</a></li>
-                      <li class="page-item"><a class="page-link" href = "#">Updates</a></li>
-                    </ul>
-                    <!--  pagination -->
                     <div class="wrapper">
                         <div class="container">
-                          
+                          <h1>projects/<%=project.id%>/?page=</h1>
                           <div class="row">
                             <div class="col-sm-12">
                               <h1>jQuery Pagination</h1>
                               <p>Simple pagination using the TWBS pagination JS library. Click the buttons below to navigate to the appropriate content</p>
-                              <ul id="pagination-demo" class="pagination-sm"></ul>
+                              <ul id="pagination-demo demo" class="pagination-lg">
+                                <li class= "page-item"><a class = "page-link" href = "#about">About</a></li>
+                                <li class="page-item"><a class="page-link" href = "#faq">FAQ</a></li>
+                                <li class="page-item"><a class="page-link" href = "#updates">Updates</a></li>
+                              </ul>
                             </div>
                           </div>
                       
