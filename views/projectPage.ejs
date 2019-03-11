@@ -27,9 +27,9 @@
                 </div>
                 <div class = "col-lg-6">
                     <div class = " row money-goal">
-                        <h2>$165,000 out of $200,000</h2>
+                        <h2>$<%= project.earnings %> out of $<%= project.goal %></h2>
                         <div class="progress">
-                                <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                                <div class="progress-bar" role="progressbar" style="width: <%= project.earnings/project.goal * 100 %>%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                     </div>
                     <div class = "row funders alignleft">
