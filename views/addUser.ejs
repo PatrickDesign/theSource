@@ -5,14 +5,15 @@
     <p>Please fill out this form to create an account</p>
     <hr>
     <label for="username"><b>Username</b></label><br>
-    <input id="username" type="text" name="username" placeholder="Username..."/><br>
+    <input id="username" class = "form-control" type="text" name="username" placeholder="Username..."/><br>
     <label for="email"><b>Email</b></label><br>
-    <input id="email" for="email" name="email" placeholder="Email..."/><br>
+    <input id="email"  class = "form-control" for="email" name="email" placeholder="Email..."/><br>
     <label for="password"><b>Password</b></label><br>
-    <input id="password" type="password" name="password" placeholder="Password..."/><br>
-    <!--<label for="password"><b>Repeat Password</b></label><br>-->
-    <!--<input id="repeatPassword" type="password" name="repeat password" placeholder="Repeat Password..."/><br>-->
-    <button style="margin-top: 5px;" onclick="validate()">Submit</button>
+    <input id="password"  class = "form-control" type="password" name="password" placeholder="Password..."/><br>
+    <label for="password"><b>Confirm Password</b></label><br>
+    <input id="password"  class = "form-control" type="password" name="password" placeholder="Password..."/><br>
+
+    <button style="margin-top: 5px;" class="btn btn-primary" onclick="validate()">Submit</button>
   </form>
 </div>
 <% include partials/sourceFooter %>
