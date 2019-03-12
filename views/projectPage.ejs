@@ -95,7 +95,7 @@
             </div>
             <!-- usergen projectdescription -->
             <div class = "container padding paddingtop">
-                    <div class="wrapper">
+                    <!-- <div class="wrapper">
                         <div class="container">
                           <h1>projects/<%=project.id%>/?page=</h1>
                           <div class="row">
@@ -112,22 +112,40 @@
                       
                           <div id="page-content" class="page-content">Page 1</div>
                         </div>
-                      </div>
-                  </nav>
-                <h1 style = "text-decoration:underline;text-align:center;padding-bottom:2%;">About This Project</h1>
-            </div>
-             <div class = "container">
-                <p style = "font-size: 20px;"><%= project.description %></p>
-             </div>
-            <div class = "container">
-              <div style = "float:right">
-              <!-- social feed -->
-              <h1>Social Feed</h1>
+                      </div> -->
+                  <div class="layoutMenu" id="solutionMenu">
+                    <div class="row paddingtop">
+        
+                        <div class="col-md-3 col-sm-6 col-xs-12 noMargin">
+                            <a data-toggle="tab" href="#about" id="aboutButton" class="layoutButton active" bkgrdImage='url("../images/webImage.jpg")'>About</a>
+                        </div>
+                        <div class="col-md-3 col-sm-6 col-xs-12 noMargin">
+                            <a data-toggle="tab" href="#faq" id="faqButton" class ="layoutButton" bkgrdImage='url("../images/matrix2.jpg")'>FAQ</a>
+                        </div>
+                        <div class="col-md-3 col-sm-6 col-xs-12 noMargin">
+                            <a data-toggle="tab" href="#updates" id="updatesButton" class="layoutButton" bkgrdImage='url("../images/gis.jpg")'>Updates</a>
+                        </div>
+                        <div class="col-md-3 col-sm-6 col-xs-12 noMargin">
+                            <a data-toggle="tab" href="#research" id="researchButton" class="layoutButton" bkgrdImage='url("../images/surveyPic.jpg")'>Team</a>
+                        </div>
+                    </div>
+                </div>
+                <div class = "tab-content">
+                <div id = "about" class = "tab-pane fade in">
+                  <h1 style = "text-decoration:underline;text-align:center;padding-bottom:2%;">About This Project</h1>
+                 <div class = "container">
+                    <p style = "font-size: 20px;"><%= project.description %></p>
+                 </div>
+                </div>
+                <div id="faq" class="tab-pane fade in">
+                <h1>
+                  This is the faq section
+                </h1>
+                </div>
+                <div id="updates" class="tab-pane fade in">
+                  <h1>This is the updates section</h1>
+                </div>
               </div>
-              <div style = "float:left">
-              <h1></h1>
-              </div>
-
             </div>
 
 
