@@ -10,7 +10,7 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-  
+
 </head>
 <body>
   <nav class="navbar navbar-inverse sticky navbar-color">
@@ -46,15 +46,21 @@
           <li><a href="/login"><span class="glyphicon glyphicon-log-in" style = "color:black;"></span> Login</a></li>
           <li><a href="#"><span class="glyphicon glyphicon-user" style="color:black"></span></a></li>
         <% }else{ %>
-          <li style="font-size: 16px; color:black; padding:15px;">Logged in as
-                                    
-          <%= currentUser.username %>
-          <img src="https://bootdey.com/img/Content/user_1.jpg" width="45" alt="" class="img-circle">
-            
-            
-          </li>
+          <!-- <li style="font-size: 16px; color:black; padding:15px;">Logged in as
 
-          <li><a href="/logout"><span class="glyphicon glyphicon-log-out" style = "color:black"></span> Logout</a></li>
+          <%= currentUser.username %> -->
+          <img src="https://bootdey.com/img/Content/user_1.jpg" width="45" alt="" class="img-circle">
+          <li><a class="dropdown" style="float: right;">
+            Account <i class="fa fa-caret-down"></i>
+            <div class="dropdown-content" style="right:0;">
+              <a href="/dashboard">User Dashboard</a>
+              <a href="/logout">Logout</a>
+            </div>
+          </a>
+          </li>
+          <!-- </li> -->
+
+          <!-- <li><a href="/logout"><span class="glyphicon glyphicon-log-out" style = "color:black"></span> Logout</a></li> -->
         <% } %>
       </ul>
     </div>
