@@ -1,8 +1,8 @@
 <% include partials/sourceHeader %>
 <div class="loginSquare">
   <form action="/register" method="POST">
-    <h1>Create a new user!</h1>
-    <p>Please fill out this form to create an account</p>
+    <h1>Create a new account:</h1>
+    <p>Please fill out this form to join Source</p>
     <hr>
     <label for="username"><b>Username</b></label><br>
     <input id="username" class = "form-control" type="text" name="username" placeholder="Username..."/><br>
@@ -12,7 +12,10 @@
     <input id="password"  class = "form-control" type="password" name="password" placeholder="Password..."/><br>
     <label for="password"><b>Confirm Password</b></label><br>
     <input id="password"  class = "form-control" type="password" name="password" placeholder="Password..."/><br>
-
+    <div>
+    <label class="radio-inline"><input type="checkbox" name="sendEmails" checked>Keep me up to date with the projects I am following or funding via emails</label>
+    </div>
+    <br>
     <button style="margin-top: 5px;" class="btn btn-primary" onclick="validate()">Submit</button>
   </form>
 </div>

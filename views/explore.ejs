@@ -9,9 +9,9 @@
 </form>
 
 <main class="main-area">
-        
+
       <div class="grid-container">
-        <% for(var i = 0; i < 6; i++){ %> 
+        <% for(var i = 0; i < 6; i++){ %>
           <div class="grid-item" style = "grid-column: <%=i%3+1%>;">
             <div class="card">
               <div class = "parent">
@@ -22,7 +22,7 @@
                 <h4 class="card-title">
                   <a href="projects/<%= projects[i]._id %>"><%= projects[i].name %></a>
                 </h4>
-                <p class="card-text"><%= projects[i].description.substring(0,200) %></p>
+                <p class="card-text"><%= projects[i].description.substring(0,200) %>...</p>
               </div>
             </div>
           </div>
@@ -30,7 +30,7 @@
 
         </div>
 
-  
+
 </main>
 
 
