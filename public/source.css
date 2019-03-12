@@ -462,3 +462,8 @@ button {
 .card-inner{
     margin-left: 4rem;
 }
+
+.indexProgressBar{
+  width:80%;
+  margin:0 auto;
+}

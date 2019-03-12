@@ -46,7 +46,14 @@
           <li><a href="/login"><span class="glyphicon glyphicon-log-in" style = "color:black;"></span> Login</a></li>
           <li><a href="#"><span class="glyphicon glyphicon-user" style="color:black"></span></a></li>
         <% }else{ %>
-          <li style="font-size: 16px; color:black; padding:15px;">Logged in as <%= currentUser.username %></li>
+          <li style="font-size: 16px; color:black; padding:15px;">Logged in as
+                                    
+          <%= currentUser.username %>
+          <img src="https://bootdey.com/img/Content/user_1.jpg" width="45" alt="" class="img-circle">
+            
+            
+          </li>
+
           <li><a href="/logout"><span class="glyphicon glyphicon-log-out" style = "color:black"></span> Logout</a></li>
         <% } %>
       </ul>
