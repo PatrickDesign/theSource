@@ -470,6 +470,7 @@ button {
 .dropdown{
   position: relative;
   display: inline-block;
+  color:black;
 }
 
 .dropdown-content{
@@ -496,6 +497,3 @@ button {
   display: block;
 }
 
-.dropdown:hover .dropdown-content {
-  display: block;
-}
