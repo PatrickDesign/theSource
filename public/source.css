@@ -6,7 +6,6 @@
   margin-bottom: 0;
   border-radius: 0;
   margin-bottom: 0;
-  min-height: 12%;
 }
 
 .navbar-nav {
@@ -516,7 +515,55 @@ button {
   margin: 0 auto;
 }
 
-.layoutButton {
+
+.dropdown{
+  position: relative;
+  display: inline-block;
+  color:black;
+  margin: 0px 15px 15px 15px;
+}
+
+.dropdown-content{
+  display: none;
+  position: absolute;
+  right: 0;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 999;
+}
+
+.dropdown-content a{
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  font-size: large;
+}
+
+.dropdown-content a:hover{background-color: #f1f1f1;}
+
+.dropdown:hover .dropdown-content{
+  display: block;
+}
+
+.userMetric {
+  text-decoration:none;
+  color:black;
+  cursor:pointer;
+}
+
+.userMetricElement {
+  color:black;
+  cursor:pointer;
+  padding: 5px;
+}
+
+.userMetricElement:hover {
+  background-color: #f1f1f1;
+}
+
+.layoutButton{
   border-style: solid;
   font-size: 2em;
   color: black;
@@ -525,6 +572,8 @@ button {
   white-space: nowrap;
 }
 
+
 .grid-item {
   max-width: 400px;
 }
+
