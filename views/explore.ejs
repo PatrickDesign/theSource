@@ -33,6 +33,12 @@
                 <h4 class="card-title">
                   <a href="projects/<%= projects[i]._id %>"><%= projects[i].name %></a>
                 </h4>
+                <div class = " row money-goal">
+                    <h2 style = "text-align: center;">$<%= projects[i].earnings %> out of $<%= projects[i].goal %></h2>
+                    <div class="progress indexProgressBar">
+                            <div class="progress-bar" role="progressbar" style="width: <%= projects[i].earnings/projects[i].goal * 100 %>%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
                 <p class="card-text"><%= projects[i].description.substring(0,200) %>...</p>
               </div>
             </div>

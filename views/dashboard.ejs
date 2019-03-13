@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>about</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="source.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+<% include partials/sourceHeader %>
+<h1><img src="https://bootdey.com/img/Content/user_1.jpg" width="90" alt="" class="img-circle">  <%= currentUser.username %></h1>
+<hr style="border: 3px solid;">
+<h2>Total Money Contributed: $597</h2>
+<hr>
+<div class="userMetric" onclick="toggle_visibility('proj_create');"><h3>Projects Created <i class="fa fa-caret-down"></i> </h3></div>
+<div id="proj_create" style="display:none;">
+  <hr>
+  <div class="userMetricElement">Project Name 1</div>
+  <div class="userMetricElement">Project Name 2</div>
+  <div class="userMetricElement">Project Name 3</div>
+</div>
+<hr>
+<div class="userMetric" onclick="toggle_visibility('proj_contrib');"><h3>Projects Contributed Towards <i class="fa fa-caret-down"></i> </h3></div>
+<div id="proj_contrib" style="display:none;">
+  <hr>
+  <div class="userMetricElement">Project Name 1</div>
+  <div class="userMetricElement">Project Name 2</div>
+  <div class="userMetricElement">Project Name 3</div>
+</div>
+<hr>
+<div class="userMetric" onclick="toggle_visibility('proj_follow');"><h3>Projects Followed <i class="fa fa-caret-down"></i> </h3></div>
+<div id="proj_follow" style="display:none;">
+  <hr>
+  <div class="userMetricElement">Project Name 1</div>
+  <div class="userMetricElement">Project Name 2</div>
+  <div class="userMetricElement">Project Name 3</div>
+</div>
+<hr>
+<div class="userMetric" onclick="toggle_visibility('proj_comments');"><h3>Comments Made <i class="fa fa-caret-down"></i> </h3></div>
+<div id="proj_comments" style="display:none;">
+  <hr>
+  <div class="userMetricElement">Comment 1</div>
+  <div class="userMetricElement">Comment 2</div>
+  <div class="userMetricElement">Comment 3</div>
+</div>
+
+<hr>
+</body>
+
+
+<% include partials/sourceFooter %>
+
+
+<script type="text/javascript">
+
+    function toggle_visibility(id) {
+       var x = document.getElementById(id);
+       if(x.style.display == 'block')
+          x.style.display = 'none';
+       else
+          x.style.display = 'block';
+    }
+</script>
