@@ -8,6 +8,17 @@
   <button>Search</button>
 </form>
 
+<h3>Filter by SDG Goal:</h3>
+<form method="POST" action="/explore">
+  <div class="form-group">
+    <select class="form-control" name="sdgCategory">
+      <% sdgCategories.forEach((category) => { %>
+        <option><%= category %></option>
+      <% }); %>
+    </select>
+  </div>
+</form>
+
 <main class="main-area">
 
       <div class="grid-container">

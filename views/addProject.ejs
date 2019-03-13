@@ -23,8 +23,8 @@
   <textarea class="form-control" rows="5" name="newProjectDescription" placeholder="A description of my project ..."></textarea>
 </div>
 <div>
-<label class="radio-inline"><input type="radio" name="optradio" checked>All or nothing</label>
-<label class="radio-inline"><input type="radio" name="optradio">Keep it all</label>
+<label class="radio-inline"><input type="radio" name="newProjectFundingType" value="1" checked>All or nothing</label>
+<label class="radio-inline"><input type="radio" name="newProjectFundingType" value="0">Keep it all</label>
 </div>
 <div class="form-group">
   <label>Goal to reach:</label>
@@ -37,26 +37,11 @@
 <br>
 <div class="form-group">
   <label>Select a related goal:</label>
-  <select class="form-control" name="newProjectGoal">
-    <option>No Poverty</option>
-    <option>Zero Hunger</option>
-    <option>Good Health and Well-being</option>
-    <option>Quality Education</option>
-    <option>Gender Equality</option>
-    <option>Clean Water and Sanitation</option>
-    <option>Affordable and Clean Energy</option>
-    <option>Decent Work and Economic Growth</option>
-    <option>Industry, Innovation and Infrastructure</option>
-    <option>Reduced Inequality</option>
-    <option>Sustainable Cities and Communities</option>
-    <option>Responsible Consumption and Production</option>
-    <option>Climate Action</option>
-    <option>Life Below Water</option>
-    <option>Life on Land</option>
-    <option>Peace and Justice Strong Institutions</option>
-    <option>Partnerships to achieve the Goal</option>
-
-  </select>
+  <select class="form-control" name="sdgCategory">
+      <% sdgCategories.forEach((category) => { %>
+        <option><%= category %></option>
+      <% }); %>
+    </select>
 </div>
 <button type="submit" class="btn btn-primary">Submit</button>
 </form>

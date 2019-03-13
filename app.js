@@ -44,6 +44,7 @@ passport.deserializeUser(User.deserializeUser());
 app.use((req, res, next) =>
 {
   res.locals.currentUser = req.user;
+  res.locals.sdgCategories = ["No Poverty", "Zero Hunger", "Good Health and Well-Being", "Quality Education", "Gender Equality", "Clean Water and Sanitation", "Affordable and Clean Energy", "Decent Work and Economic Growth", "Industry, Innovation and Infastructure", "Reduced Inequalities", "Sustainable Cities and Communities", "Responsible Production and Consumption", "Climate Action", "Life Below Water", "Life On Land", "Peace, Justice and Strong Institutions", "Partnerships for the Goals"];
   next();
 });
 
@@ -178,6 +179,14 @@ app.get("/explore", (req, res) =>
   });
 });
 
+//Filter routes:
+app.post("/explore", (req, res) =>
+{
+
+  Project.find({ 'sdgCategory': req.body.sdgCategory })
+
+});
+
 
 
 app.get("/search", (req, res) =>
@@ -301,7 +310,7 @@ app.get("/viewUsers", (req, res) =>
 app.post('/addProject', (req, res) =>
 {
 
-  var currProject = new Project({ name: req.body.newProjectName, coverPath: req.body.newCoverPath, description: req.body.newProjectDescription });
+  var currProject = new Project({ name: req.body.newProjectName, coverPath: req.body.newCoverPath, description: req.body.newProjectDescription, goal: req.body.newProjectGoal, sdgCategory: req.body.newProjectSDGGoal, fundingType: req.body.newProjectFundingType });
 
 
   currProject.save()
