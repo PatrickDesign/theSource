@@ -3,9 +3,16 @@ var mongoose = require("mongoose"),
 
 var userSchema = new mongoose.Schema(
 {
-    name: String,
+    username: String,
     password: String,
-    email: String
+    email: String,
+
+    comments: [
+    {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Comment"
+
+    }]
 });
 
 userSchema.plugin(passportLocalMongoose);
