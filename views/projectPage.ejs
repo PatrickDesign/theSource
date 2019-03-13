@@ -126,35 +126,40 @@
                             <a data-toggle="tab" href="#updates" id="updatesButton" class="layoutButton" bkgrdImage='url("../images/gis.jpg")'>Updates</a>
                         </div>
                         <div class="col-md-3 col-sm-6 col-xs-12 noMargin">
-                            <a data-toggle="tab" href="#research" id="researchButton" class="layoutButton" bkgrdImage='url("../images/surveyPic.jpg")'>Team</a>
+                            <a data-toggle="tab" href="#team" id="researchButton" class="layoutButton" bkgrdImage='url("../images/surveyPic.jpg")'>Team</a>
                         </div>
                     </div>
                 </div>
                 <div class = "tab-content">
                 <div id = "about" class = "tab-pane fade in">
-                  <h1 style = "text-decoration:underline;text-align:center;padding-bottom:2%;">About This Project</h1>
+                  <h1 style = "text-align:center;padding-bottom:2%;">About This Project</h1>
                  <div class = "container">
                     <p style = "font-size: 20px;"><%= project.description %></p>
                  </div>
                 </div>
                 <div id="faq" class="tab-pane fade in">
-                <h1>
-                  This is the faq section
-                </h1>
+                    <div class = "row">
+                        <h1 style = "text-align:center;">FAQ</h1>
+                        <p style = "font-weight:bold;"> How will you be implementing the project?</p>
+                        <p> We begin by taking your money. </p>
+                        <p style = "font-weight:bold;"> What time frame is feasible for your project?</p>
+                        <p> We are aiming to be completed with the project by next spring. </p>
+                        <p style = "font-weight:bold;"> What is your inspiration? </p>
+                        <p> We are inspired by mostly monetary gain. </p>
+                        <p style = "font-weight:bold;"> What methods do you accept for payment? </p>
+                        <p> We accept PayPal, Venmo and Cash </p>
+                        
+                    </div>
                 </div>
                 <div id="updates" class="tab-pane fade in">
-                  <h1>This is the updates section</h1>
+                  <h1 style = "text-align:center;">Project Updates</h1>
+                  <h2 style="text-decoration:underline;">Gaining Traction!</h2>
+                  <p> $275 out of $1000 raised so far!</p>
+                  <h2 style="text-decoration:underline;">New Member Joined!</h2>
+                  <p> Jim Carrey has joined as our PR mentor!</p>
                 </div>
-              </div>
-            </div>
-
-
-
-                <div class = "row padding paddingtop">
-                    <h1 style = "text-align:center; text-decoration: underline;">Team Members</h1>
-                </div>
-
-                <div class="row">
+                <div id="team" class="tab-pane fade in">
+                  <div class="row paddingtop">
                         <div class="column">
                           <div class="card">
                             <img class = "teamphoto" src="/ghandi.jpeg" alt="Ghandi" style="width:100%">
@@ -194,10 +199,14 @@
                           </div>
                         </div>
                       </div>
-                      <div class = "row donate-now padding paddingtop">
-                          <button type="button" class="btn btn-primary btn-block green" style="height:3em;font-size:28px;">Donate Now!</button>
-                      </div>           
+                </div>
+              </div>
             </div>
+                
+            <div class = "row donate-now padding paddingtop">
+                  <button type="button" class="btn btn-primary btn-block green" style="height:3em;font-size:28px;">Donate Now!</button>
+            </div>           
+        </div>
 
 <!-- got er from this website:
     https://www.bootdey.com/snippets/view/Simple-Comment-panel#html -->
