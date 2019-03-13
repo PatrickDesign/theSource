@@ -101,7 +101,9 @@ app.post("/projects/:id/comments", (req, res) =>
         else
         {
           project.comments.unshift(comment); //push comment to front of array of comments in project.
-          //re-sort the comments based on rating
+
+
+          // req.user.comments.unshift(comment);
 
           project.save();
           res.redirect("/projects/" + req.params.id);
@@ -183,7 +185,6 @@ app.get("/explore", (req, res) =>
         console.log(err);
       else
       {
-        console.log(foundProjects.length + "!!!!");
         res.render("explore", { projects: foundProjects });
       }
     });
@@ -353,6 +354,7 @@ app.get("/viewUsers", (req, res) =>
 app.post('/addProject', (req, res) =>
 {
 
+<<<<<<< HEAD
   var currProject = new Project({ name: req.body.newProjectName, coverPath: req.body.newCoverPath,
     description: req.body.newProjectDescription,
     about: req.body.newProjectAbout,
@@ -360,12 +362,17 @@ app.post('/addProject', (req, res) =>
     fundingType: req.body.newProjectFundingType,
     goal: req.body.newProjectGoal,
      sdgCategory: req.body.newProjectSDGGoal});
+=======
+  var newId = mongoose.Types.ObjectId();
+
+  var currProject = new Project({ name: req.body.newProjectName, coverPath: req.body.newCoverPath, description: req.body.newProjectDescription, goal: req.body.newProjectGoal, sdgCategory: req.body.newProjectSDGGoal, fundingType: req.body.newProjectFundingType, sdgCategory: req.body.newProjectSDGCategory, _id: newId });
+>>>>>>> 88e3713be08be8c821655d5f1cf350042c211d32
 
 
   currProject.save()
     .then(doc =>
     {
-      res.render("/projects/" + doc._id);
+      res.redirect("/projects/" + doc._id); //redirect to newly created project
     })
     .catch(err =>
     {
