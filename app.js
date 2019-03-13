@@ -160,8 +160,12 @@ app.post("/projects/:id/comments/:commentId/downvote", (req, res) =>
 
 app.get("/about", (req, res) =>
 {
-
   res.render("about");
+});
+
+app.get("/dashboard", (req, res) =>
+{
+  res.render("dashboard");
 });
 
 app.get("/explore", (req, res) =>
