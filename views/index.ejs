@@ -68,10 +68,10 @@
         <div class="card h-100">
             <div class = "parent">
               <img class="img1" src = "<%= projects[i].coverPath %>"/>
-              <img class="SDG" src = "icons/1.png"/>
+              <img class="SDG" src = "icons/<%= projects[i].sdgCategory %>.png" />
             </div>
             <div class="card-body">
-            <h4 class="card-title">
+            <h4 class="card-title" style = "text-align:center;">
               <a href="projects/<%= projects[i]._id %>"><%= projects[i].name %></a>
             </h4>
             <div class = " row money-goal">
@@ -87,7 +87,6 @@
     <% }; %>
   </div>
 </div>
-
 	<!-- Start About Area -->
 	<section class="about-area section-gap">
       <div class="container container-pad">
@@ -98,15 +97,14 @@
           <div class="col-lg-4 col-md-4 about-right">
             <div class="section-title pad-left">
               <h2 class="mb-4 paddingtop" style = "font-weight:bold;">
-                Find Your Team!</h2>
+                Look For Projects! </h2>
             </div>
             <div class="mb-35 wow fadeIn pad-left" data-wow-duration=".8s" data-wow-delay=".3s">
-              <p>We have created a platform for you to contribute to other
-                projects and recruit team members for a project of your own.
+              <p>We have created a platform that helps you find projects that you believe in.
               </p>
             </div>
-            <a href="#" class="primary-btn" data-text="Read More">
-              <p class = "pad-left ">Read More</p>
+            <a href="/explore" class="primary-btn" data-text="Read More">
+              <p class = "pad-left ">Look For Projects</p>
             </a>
           </div>
         </div>
