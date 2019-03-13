@@ -516,24 +516,24 @@ button {
 }
 
 
-.dropdown{
+.dropdown {
   position: relative;
   display: inline-block;
-  color:black;
+  color: black;
   margin: 0px 15px 15px 15px;
 }
 
-.dropdown-content{
+.dropdown-content {
   display: none;
   position: absolute;
   right: 0;
   background-color: #f9f9f9;
   min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 999;
 }
 
-.dropdown-content a{
+.dropdown-content a {
   color: black;
   padding: 12px 16px;
   text-decoration: none;
@@ -541,21 +541,23 @@ button {
   font-size: large;
 }
 
-.dropdown-content a:hover{background-color: #f1f1f1;}
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
 
-.dropdown:hover .dropdown-content{
+.dropdown:hover .dropdown-content {
   display: block;
 }
 
 .userMetric {
-  text-decoration:none;
-  color:black;
-  cursor:pointer;
+  text-decoration: none;
+  color: black;
+  cursor: pointer;
 }
 
 .userMetricElement {
-  color:black;
-  cursor:pointer;
+  color: black;
+  cursor: pointer;
   padding: 5px;
 }
 
@@ -563,7 +565,7 @@ button {
   background-color: #f1f1f1;
 }
 
-.layoutButton{
+.layoutButton {
   border-style: solid;
   font-size: 2em;
   color: black;
@@ -577,3 +579,6 @@ button {
   max-width: 400px;
 }
 
+.commentContainer {
+  padding: 15px;
+}

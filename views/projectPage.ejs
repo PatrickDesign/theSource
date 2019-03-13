@@ -18,7 +18,16 @@
             <div class = "row padding paddingtop">
                 <div class = "col-lg-6">
                     <div>
-                    <img class = "cup projectImage" src="/<%= project.coverPath %>" alt = "Image"></h1>
+                    <img class = "cup projectImage" src=
+                        <% if(project.coverPath.indexOf("http") == -1){ %>
+                            "/<%= project.coverPath %>" //Case where the image is on our server
+                        <% }else{ %>
+                            "<%= project.coverPath %>" //this is a web link
+                        <% } %>
+                     alt = "Image">
+                    
+                    
+                    
                     </div>
                     <div style="padding-top:4%;vertical-align: middle;">
                         <span class = "fa fa-map-marker" style = "padding-top:3%;"></span>
