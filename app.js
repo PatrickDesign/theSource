@@ -171,23 +171,62 @@ app.get("/dashboard", (req, res) =>
 
 app.get("/explore", (req, res) =>
 {
-  //Start displaying all projects
-  Project.find({}, (err, foundProjects) =>
+
+  if (req.query !== {})
   {
-    if (err)
-      console.log(err);
-    else
+    //Display only the projects with this category
+    var categoryName = req.query.category;
+    console.log(categoryName);
+    Project.find({ 'sdgCategory': categoryName }, (err, foundProjects) =>
     {
-      res.render("explore", { projects: foundProjects });
-    }
-  });
+      if (err)
+        console.log(err);
+      else
+      {
+        console.log(foundProjects.length + "!!!!");
+        res.render("explore", { projects: foundProjects });
+      }
+    });
+  }
+  else
+  {
+    //Start displaying all projects
+    Project.find({}, (err, foundProjects) =>
+    {
+      if (err)
+        console.log(err);
+      else
+      {
+        res.render("explore", { projects: foundProjects });
+      }
+    });
+  }
+
+
 });
 
 //Filter routes:
 app.post("/explore", (req, res) =>
 {
 
-  Project.find({ 'sdgCategory': req.body.sdgCategory })
+  // Project.find({}, function (err, allProjects)
+  // {
+  //   if (err)
+  //     console.log(err);
+  //   else
+  //   {
+  //     res.render("index", { projects: allProjects });
+  //   }
+  // });
+
+
+  Project.find({ 'sdgCategory': req.body.sdgCategory }, (err, foundProjects) =>
+  {
+    if (err)
+      console.log(err);
+    else
+      res.redirect("/explore?category=" + req.body.sdgCategory);
+  });
 
 });
 
@@ -314,18 +353,19 @@ app.get("/viewUsers", (req, res) =>
 app.post('/addProject', (req, res) =>
 {
 
-  var currProject = new Project({ name: req.body.newProjectName, coverPath: req.body.newCoverPath, description: req.body.newProjectDescription, goal: req.body.newProjectGoal, sdgCategory: req.body.newProjectSDGGoal, fundingType: req.body.newProjectFundingType });
+  var currProject = new Project({ name: req.body.newProjectName, coverPath: req.body.newCoverPath, description: req.body.newProjectDescription, goal: req.body.newProjectGoal, sdgCategory: req.body.newProjectSDGGoal, fundingType: req.body.newProjectFundingType, sdgCategory: req.body.newProjectSDGCategory });
 
 
   currProject.save()
     .then(doc =>
     {
       res.send("ADDED NEW Project: " + req.body.newProjectName);
+      res.render("/projectPage/" + doc._id);
     })
     .catch(err =>
     {
       console.error(err)
-    })
+    });
 
 });
 

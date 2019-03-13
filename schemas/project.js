@@ -10,6 +10,7 @@ var projectSchema = new mongoose.Schema(
 	sdgCategory: String,
 	fundingType: Number, // this is a boolean: 1 = all or nothing 0 = keep it all
 
+
 	comments: [
 	{
 		type: mongoose.Schema.Types.ObjectId,
