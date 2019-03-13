@@ -359,7 +359,6 @@ app.post('/addProject', (req, res) =>
   currProject.save()
     .then(doc =>
     {
-      res.send("ADDED NEW Project: " + req.body.newProjectName);
       res.render("/projectPage/" + doc._id);
     })
     .catch(err =>
