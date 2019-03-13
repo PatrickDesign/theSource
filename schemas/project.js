@@ -5,8 +5,11 @@ var projectSchema = new mongoose.Schema(
 	name: String,
 	coverPath: String,
 	description: String,
-	goal: Number,
-	earnings: Number,
+	goal: { type: Number, default: 0.0 },
+	earnings: { type: Number, default: 0.0 },
+	sdgCategory: String,
+	fundingType: Number, // this is a boolean: 1 = all or nothing 0 = keep it all
+
 	comments: [
 	{
 		type: mongoose.Schema.Types.ObjectId,
