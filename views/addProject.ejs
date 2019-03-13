@@ -12,32 +12,43 @@
 <form action="/addProject" method="POST">
 <div class="form-group">
   <label>Title:</label>
-  <input type="text" class="form-control" placeholder="My Awesome Project..." name="newProjectName">
+  <input required type="text" class="form-control" placeholder="My Awesome Project..." name="newProjectName">
 </div>
 <div class="form-group">
   <label>Cover Image Path:</label>
-  <input type="text" class="form-control" placeholder="Great_Pic.jpg" name="newCoverPath">
+  <input required type="text" class="form-control" placeholder="Great_Pic.jpg" name="newCoverPath">
 </div>
 <div class="form-group">
   <label for="comment">Project description:</label>
-  <textarea class="form-control" rows="5" name="newProjectDescription" placeholder="A description of my project ..."></textarea>
+  <textarea required class="form-control" rows="5" name="newProjectDescription" placeholder="A basic description of my project ..."></textarea>
 </div>
+
+<div class="form-group">
+  <label for="comment">About project:</label>
+  <textarea class="form-control" rows="5" name="newProjectAbout" placeholder="Some more info to appear in the about section of my project ..."></textarea>
+</div>
+
+<div class="form-group">
+  <label for="comment">FAQ:</label>
+  <textarea class="form-control" rows="5" name="newProjectFAQ" placeholder="Some frequently asked questions for my project ..."></textarea>
+</div>
+
 <div>
 <label class="radio-inline"><input type="radio" name="newProjectFundingType" value="1" checked>All or nothing</label>
 <label class="radio-inline"><input type="radio" name="newProjectFundingType" value="0">Keep it all</label>
 </div>
 <div class="form-group">
   <label>Goal to reach:</label>
-  <input type="number" class="form-control" name="newProjectGoal" placeholder="100">
+  <input required type="number" class="form-control" name="newProjectGoal" placeholder="100">
 </div>
 <div class="form-group">
   <label>Meet goal by:</label>
-  <input type="date" class="form-control" name="newProjectDate">
+  <input required type="date" class="form-control" name="newProjectDate">
 </div>
 <br>
 <div class="form-group">
   <label>Select a related goal:</label>
-  <select class="form-control" name="sdgCategory">
+  <select required class="form-control" name="newProjectSDGGoal">
       <% sdgCategories.forEach((category) => { %>
         <option><%= category %></option>
       <% }); %>
