@@ -174,8 +174,9 @@ app.get("/dashboard", (req, res) =>
 app.get("/explore", (req, res) =>
 {
 
-  if (req.query !== {})
+  if (Object.keys(req.query).length > 0)
   {
+
     //Display only the projects with this category
     var categoryName = req.query.category;
     console.log(categoryName);
