@@ -354,19 +354,23 @@ app.get("/viewUsers", (req, res) =>
 app.post('/addProject', (req, res) =>
 {
 
-<<<<<<< HEAD
-  var currProject = new Project({ name: req.body.newProjectName, coverPath: req.body.newCoverPath,
+
+  var currProject = new Project(
+  {
+    name: req.body.newProjectName,
+    coverPath: req.body.newCoverPath,
     description: req.body.newProjectDescription,
     about: req.body.newProjectAbout,
     FAQ: req.body.newProjectFAQ,
     fundingType: req.body.newProjectFundingType,
     goal: req.body.newProjectGoal,
-     sdgCategory: req.body.newProjectSDGGoal});
-=======
+    sdgCategory: req.body.newProjectSDGGoal
+  });
+
   var newId = mongoose.Types.ObjectId();
 
   var currProject = new Project({ name: req.body.newProjectName, coverPath: req.body.newCoverPath, description: req.body.newProjectDescription, goal: req.body.newProjectGoal, sdgCategory: req.body.newProjectSDGGoal, fundingType: req.body.newProjectFundingType, sdgCategory: req.body.newProjectSDGCategory, _id: newId });
->>>>>>> 88e3713be08be8c821655d5f1cf350042c211d32
+
 
 
   currProject.save()
