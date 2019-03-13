@@ -471,6 +471,7 @@ button {
   position: relative;
   display: inline-block;
   color:black;
+  margin: 0px 15px 15px 15px;
 }
 
 .dropdown-content{
@@ -497,3 +498,18 @@ button {
   display: block;
 }
 
+.userMetric {
+  text-decoration:none;
+  color:black;
+  cursor:pointer;
+}
+
+.userMetricElement {
+  color:black;
+  cursor:pointer;
+  padding: 5px;
+}
+
+.userMetricElement:hover {
+  background-color: #f1f1f1;
+}
