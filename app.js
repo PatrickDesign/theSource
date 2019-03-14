@@ -324,7 +324,16 @@ app.get('/', (req, res) =>
       console.log(err);
     else
     {
-      res.render("index", { projects: allProjects });
+      Project.find({$expr:{$gte:["$earnings", "$goal"]}}, function(err, finishedProjects)
+      {
+        if(err)
+          console.log(err);
+        else
+        {
+          res.render("index", { projects: allProjects, finishedProjects: finishedProjects });
+        }
+      });
+      // res.render("index", { projects: allProjects });
     }
   });
 

@@ -80,7 +80,7 @@
                         <div class="progress-bar" role="progressbar" style="width: <%= projects[i].earnings/projects[i].goal * 100 %>%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
             </div>
-            <p class="card-text"><%= projects[i].description.substring(0,200) %>...</p>
+            <p class="card-text" style = "padding-top:5%;"><%= projects[i].description.substring(0,200) %>...</p>
             </div>
         </div>
       </div>
@@ -113,64 +113,42 @@
 <!-- End of About Area -->
 
 <!-- Success Stories -->
-<div class="container">
+<div class="container" style = "padding-bottom: 5%;">
     <!-- Page Heading -->
-    <h1 class="my-4 paddingtop paddingbottom" style= "text-align:center;">Success Stories
+    <h1 class="my-4" style= "text-align:center;padding-bottom:2%;padding-top:2%;">Success Stories
       </h1>
       <!-- col-lg-4 col-sm-6 mb-4" -->
-      <div class="container-fluid content-row paddingbottom">
-        <div class="col-sm-12 col-lg-4 align-items-stretch">
-          <div class="card h-100">
-              <div class = "parent">
-                <img class="img1" src = "monkey rider.jpeg"/>
-                <img class="SDG" src = "sdg_health.PNG"/>
-              </div>
-            <div class="card-body">
-              <h4 class="card-title">
-                <a href="#">Monkeys bein' like that</a>
-              </h4>
-              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur eum quasi sapiente nesciunt? Voluptatibus sit, repellat sequi itaque deserunt, dolores in, nesciunt, illum tempora ex quae? Nihil, dolorem!</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-12 col-lg-4">
-          <div class="card h-100">
+  <div class="container-fluid content-row" style = "display:flex;">
+
+    <% for(var i = 0; i < 3; i++){ %>
+      <div class="col-sm-12 col-lg-4 align-items-stretch d-flex" style = "display:inline-block;">
+        <div class="card h-100">
             <div class = "parent">
-                <img class = "img1" src = "hunger.jpeg"/>
-                <img class = "SDG" src = "sdg_hunger.PNG"/>
+              <img class="img1" src = "<%= finishedProjects[i].coverPath %>"/>
+              <img class="SDG" src = "icons/<%= finishedProjects[i].sdgCategory %>.png"/>
             </div>
             <div class="card-body">
-              <h4 class="card-title">
-                <a href="#">Sidewalk Slammer</a>
-              </h4>
-              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
+            <h4 class="card-title" style = "text-align:center;">
+              <a href="projects/<%= projects[i]._id %>"><%= finishedProjects[i].name %></a>
+            </h4>
+            <div class = " row money-goal">
+                <h2 style = "text-align: center;">$<%= finishedProjects[i].earnings %> out of $<%= finishedProjects[i].goal %></h2>
             </div>
-          </div>
+            <p class="card-text"><%= finishedProjects[i].description.substring(0,200) %>...</p>
+            </div>
         </div>
-        <div class="col-sm-12 col-lg-4">
-          <div class="card h-100">
-            <div class = "parent">
-                <img class = "img1" src = "healthy.jpeg"/>
-                <img class = "SDG" src = "sdg_water.PNG"/>
-            </div>
-            <!-- <a href="#"><img class="card-img-top" src="healthy.jpeg" alt=""></a> -->
-            <div class="card-body">
-              <h4 class="card-title">
-                <a href="#">Hands</a>
-              </h4>
-              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos quisquam, error quod sed cumque, odio distinctio velit nostrum temporibus necessitatibus et facere atque iure perspiciatis mollitia recusandae vero vel quam!</p>
-            </div>
-          </div>
-        </div>
-    </div>
+      </div>
+    <% }; %>
   </div>
 </div>
 <!-- End of Success Stories -->
 <% if(currentUser){ %>
 <!--Social-->
+
   <% include partials/socialMedia %>
 <!--End Social-->
 <% } %>
+
 <!-- Find Team & Become Member -->
 <div class="container buttons-div container-pad-team paddingtop" >
     <div class="row align-items-center justify-content-start center-row right-buff">
@@ -181,7 +159,7 @@
         <div class="vertical-line vert"></div>
         <div class = "pad"></div>
         <div class="col-lg-4 col-md-4">
-          <div class="section-title pad-left">
+          <div class="section-title pad-left" style = "text-align:center;">
             <h2 class="mb-4" style = "text-align: center;">
               Become A Member</h2>
               <button type="button" class="btn btn-secondary">Look For Members</button>
@@ -190,6 +168,7 @@
       </div>
 
 
+</div>
 </div>
 <!-- End Find Team & Become Member -->
 
