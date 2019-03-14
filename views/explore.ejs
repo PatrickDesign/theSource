@@ -26,6 +26,19 @@
         <% var i = 0; 
           projects.forEach((project) => { %>
           <div class="grid-item" style = "grid-column: <%=i%3+1%>;">
+
+            <div class="card">
+              <div class = "parent">
+                  <img class="imgexplore" src = "<%= projects[i].coverPath %>"/>
+              <img class="SDG" src = "icons/<%= projects[i].sdgCategory %>.png" />
+              </div>
+              <div class="card-body">
+                <h4 class="card-title" style = "text-align:center;">
+                  <a href="projects/<%= projects[i]._id %>"><%= projects[i].name %></a>
+                </h4>
+                <p class="card-text"><%= projects[i].description.substring(0,200) %>...</p>
+              </div>
+
             <div class="card h-100">
             <div class = "parent">
               <img class="img1" src = "<%= project.coverPath %>"/>
