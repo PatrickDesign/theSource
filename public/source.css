@@ -92,7 +92,7 @@
 
 .img1 {
   width: 100%;
-  height: 16em;
+  height: 14em;
 }
 
 .imgexplore {
@@ -581,4 +581,9 @@ button {
 
 .commentContainer {
   padding: 15px;
+}
+.money-goal{
+  vertical-align: middle;
+  align-items:center;
+}
 }
