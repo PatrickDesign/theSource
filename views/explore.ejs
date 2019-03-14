@@ -9,9 +9,10 @@
 </form>
 
 <h3>Filter by SDG Goal:</h3>
-<form method="POST" action="/explore">
+<form method="POST" action="/explore" id="categoryForm">
   <div class="form-group">
-    <select class="form-control" name="sdgCategory">
+    <select class="form-control" id="categorySelect" name="sdgCategory">
+      <option value="" selected disabled>Select a category</option>
       <% sdgCategories.forEach((category) => { %>
         <option><%= category %></option>
       <% }); %>
@@ -22,8 +23,10 @@
 <main class="main-area">
 
       <div class="grid-container">
-        <% for(var i = 0; i < 6; i++){ %>
+        <% var i = 0; 
+          projects.forEach((project) => { %>
           <div class="grid-item" style = "grid-column: <%=i%3+1%>;">
+
             <div class="card">
               <div class = "parent">
                   <img class="imgexplore" src = "<%= projects[i].coverPath %>"/>
@@ -35,9 +38,28 @@
                 </h4>
                 <p class="card-text"><%= projects[i].description.substring(0,200) %>...</p>
               </div>
+
+            <div class="card h-100">
+            <div class = "parent">
+              <img class="img1" src = "<%= project.coverPath %>"/>
+             <img class="SDG" src = "icons/<%= project.sdgCategory %>.png"/>
             </div>
+            <div class="card-body">
+            <h4 class="card-title">
+              <a href="projects/<%= project._id %>"><%= project.name %></a>
+            </h4>
+            <div class = " row money-goal">
+                <h2 style = "text-align: center;">$<%= project.earnings %> out of $<%= project.goal %></h2>
+                <div class="progress indexProgressBar">
+                        <div class="progress-bar" role="progressbar" style="width: <%= project.earnings/project.goal * 100 %>%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            </div>
+            <p class="card-text"><%= project.description.substring(0,200) %>...</p>
+            </div>
+        </div>
           </div>
-          <% }; %>
+          <% 
+          i++; }); %>
 
         </div>
 

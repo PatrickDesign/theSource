@@ -101,7 +101,9 @@ app.post("/projects/:id/comments", (req, res) =>
         else
         {
           project.comments.unshift(comment); //push comment to front of array of comments in project.
-          //re-sort the comments based on rating
+
+
+          // req.user.comments.unshift(comment);
 
           project.save();
           res.redirect("/projects/" + req.params.id);
@@ -161,29 +163,72 @@ app.post("/projects/:id/comments/:commentId/downvote", (req, res) =>
 
 app.get("/about", (req, res) =>
 {
-
   res.render("about");
+});
+
+app.get("/dashboard", (req, res) =>
+{
+  res.render("dashboard");
 });
 
 app.get("/explore", (req, res) =>
 {
-  //Start displaying all projects
-  Project.find({}, (err, foundProjects) =>
+
+  if (Object.keys(req.query).length > 0)
   {
-    if (err)
-      console.log(err);
-    else
+
+    //Display only the projects with this category
+    var categoryName = req.query.category;
+    console.log(categoryName);
+    Project.find({ 'sdgCategory': categoryName }, (err, foundProjects) =>
     {
-      res.render("explore", { projects: foundProjects });
-    }
-  });
+      if (err)
+        console.log(err);
+      else
+      {
+        res.render("explore", { projects: foundProjects });
+      }
+    });
+  }
+  else
+  {
+    //Start displaying all projects
+    Project.find({}, (err, foundProjects) =>
+    {
+      if (err)
+        console.log(err);
+      else
+      {
+        res.render("explore", { projects: foundProjects });
+      }
+    });
+  }
+
+
 });
 
 //Filter routes:
 app.post("/explore", (req, res) =>
 {
 
-  Project.find({ 'sdgCategory': req.body.sdgCategory })
+  // Project.find({}, function (err, allProjects)
+  // {
+  //   if (err)
+  //     console.log(err);
+  //   else
+  //   {
+  //     res.render("index", { projects: allProjects });
+  //   }
+  // });
+
+
+  Project.find({ 'sdgCategory': req.body.sdgCategory }, (err, foundProjects) =>
+  {
+    if (err)
+      console.log(err);
+    else
+      res.redirect("/explore?category=" + req.body.sdgCategory);
+  });
 
 });
 
@@ -310,18 +355,34 @@ app.get("/viewUsers", (req, res) =>
 app.post('/addProject', (req, res) =>
 {
 
-  var currProject = new Project({ name: req.body.newProjectName, coverPath: req.body.newCoverPath, description: req.body.newProjectDescription, goal: req.body.newProjectGoal, sdgCategory: req.body.newProjectSDGGoal, fundingType: req.body.newProjectFundingType });
+
+  var currProject = new Project(
+  {
+    name: req.body.newProjectName,
+    coverPath: req.body.newCoverPath,
+    description: req.body.newProjectDescription,
+    about: req.body.newProjectAbout,
+    FAQ: req.body.newProjectFAQ,
+    fundingType: req.body.newProjectFundingType,
+    goal: req.body.newProjectGoal,
+    sdgCategory: req.body.newProjectSDGGoal
+  });
+
+  var newId = mongoose.Types.ObjectId();
+
+  var currProject = new Project({ name: req.body.newProjectName, coverPath: req.body.newCoverPath, description: req.body.newProjectDescription, goal: req.body.newProjectGoal, sdgCategory: req.body.newProjectSDGGoal, fundingType: req.body.newProjectFundingType, sdgCategory: req.body.newProjectSDGCategory, _id: newId });
+
 
 
   currProject.save()
     .then(doc =>
     {
-      res.send("ADDED NEW Project: " + req.body.newProjectName);
+      res.redirect("/projects/" + doc._id); //redirect to newly created project
     })
     .catch(err =>
     {
       console.error(err)
-    })
+    });
 
 });
 
