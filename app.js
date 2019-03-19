@@ -365,17 +365,6 @@ app.post('/addProject', (req, res) =>
 {
 
 
-  var currProject = new Project(
-  {
-    name: req.body.newProjectName,
-    coverPath: req.body.newCoverPath,
-    description: req.body.newProjectDescription,
-    about: req.body.newProjectAbout,
-    FAQ: req.body.newProjectFAQ,
-    fundingType: req.body.newProjectFundingType,
-    goal: req.body.newProjectGoal,
-    sdgCategory: req.body.newProjectSDGGoal
-  });
 
   var newId = mongoose.Types.ObjectId();
 
