@@ -1,6 +1,6 @@
-<% include partials/sourceHeader %>   
+<% include partials/sourceHeader %>
 <script src="/jquery/jquery.js"></script>
-	<h1 style = "font-weight: bold;font-size:3em; text-align: center;"><%= project.name %></h1>
+	<h1 style = "font-weight: bold;font-size:3em; text-align: center;"><%= project.name %> <a href= <%= "/projects/" + project._id + "/edit" %>> (edit) </a></h1>
         <div class = "project">
             <div class = "row" style = "padding-top:5%;">
                 <div class = "col-lg-6">
@@ -8,21 +8,27 @@
                     <h4 style = "display: inline-block; padding-left:4%;">Created by Joeseph Baxter</h4>
                 </div>
                 <div class = "col-lg-6">
-                    <p>Description of omnis iste natus error sit voluptatem 
-                        accusantium doloremque laudantium, totam rem aperiam, 
-                        eaque ipsa quae ab illo inventore veritatis et quasi 
-                        architecto beatae vitae dicta sunt.</p>
+                    <p style = "font-size: 12px;"><%= project.description %></p>
                 </div>
             </div>
             <!-- project pic and info -->
             <div class = "row padding paddingtop">
                 <div class = "col-lg-6">
                     <div>
-                    <img class = "cup projectImage" src="/<%= project.coverPath %>" alt = "Image"></h1>
+                    <img class = "cup projectImage" src=
+                        <% if(project.coverPath.indexOf("http") == -1){ %>
+                            "/<%= project.coverPath %>" //Case where the image is on our server
+                        <% }else{ %>
+                            "<%= project.coverPath %>" //this is a web link
+                        <% } %>
+                     alt = "Image">
+
+
+
                     </div>
                     <div style="padding-top:4%;vertical-align: middle;">
                         <span class = "fa fa-map-marker" style = "padding-top:3%;"></span>
-                        <h3 style="float:left;padding-left:1em;">Togo,Africa</h3>
+                        <h3 style="float:left;padding-left:1em;">La Paz ,Bolivia</h3>
                     </div>
                 </div>
                 <div class = "col-lg-6">
@@ -40,29 +46,56 @@
                         <button type="button" class="btn btn-primary green backit-button">Back This Project</button>
                     </div>
                     <div class = "row" style = "padding-top:3%;">
-                        <button type="button" class="btn btn-light" style="align-items:center;float:left;background-color:lightgrey;">Follow Project<span class = "glyphicon glyphicon-heart-empty" style="color:red;padding-left:2em;"></span></button>
+                    <% 
+
+                    var isInArray;
+
+                    if(currentUser){
+                      if(currentUser.followedProjects != null){
+
+                        isInArray = currentUser.followedProjects.some((projectId) => {
+                              return projectId.equals(project._id);
+                          }); 
+
+                      }else{
+                        isInArray = false;
+                      }
+                    }else{
+                      isInArray = false;
+                    }
+                    if(!isInArray){ 
+                    %>
+                      <form method="POST" action="/projects/<%= project._id %>/follow">
+                          <button type="submit" class="btn btn-light" style="align-items:center;float:left;background-color:lightgrey;">Follow Project<span class = "glyphicon glyphicon-heart-empty" style="color:red;padding-left:2em;"></span></button>
+                      </form>
+                    <% }else{ %>
+                      <form method="POST" action="/projects/<%= project._id %>/unfollow">
+                      <button type="submit" class="btn btn-light" style="align-items:center;float:left;background-color:lightgrey;">Unfollow Project<span class = "glyphicon glyphicon-heart-empty" style="color:red;padding-left:2em;"></span></button>
+                      </form>
+
+                    <% } %>
                         <!-- Social Buttons -->
                     <div class = "social-button" style = "float:right;">
                         <a href="#0" class="c-link c-link--facebook c-tooltip" aria-label="Facebook">
                             <svg class="c-icon"><use xlink:href="#icon--facebook"></use></svg>
                         </a>
-                        
+
                         <a href="#0" class="c-link c-link--twitter c-tooltip" aria-label="Twitter">
                             <svg class="c-icon"><use xlink:href="#icon--twitter"></use></svg>
                         </a>
-                        
+
                         <a href="#0" class="c-link c-link--google c-tooltip" aria-label="Google+">
                             <svg class="c-icon"><use xlink:href="#icon--google"></use></svg>
                         </a>
-                        
+
                         <a href="#0" class="c-link c-link--instagram c-tooltip" aria-label="Instagram">
                             <svg class="c-icon"><use xlink:href="#icon--instagram"></use></svg>
                         </a>
-                        
+
                         <a href="#0" class="c-link c-link--snapchat c-tooltip" aria-label="Snapchat">
                             <svg class="c-icon"><use xlink:href="#icon--snapchat"></use></svg>
                         </a>
-                        
+
                         <svg style="display: none">
                             <symbol id="icon--facebook" viewBox="0 0 24 24">
                                 <path d="M19,4V7H17A1,1 0 0,0 16,8V10H19V13H16V20H13V13H11V10H13V7.5C13,5.56 14.57,4 16.5,4M20,2H4A2,2 0 0,0 2,4V20A2,2 0 0,0 4,22H20A2,2 0 0,0 22,20V4C22,2.89 21.1,2 20,2Z" />
@@ -86,9 +119,9 @@
                         <!-- social buttons end                         -->
                       </div>
                     </div>
-                      
+
                     <div class = "paddingtop row fund-type alignleft">
-                        <p>**All or Nothing: This project will only get funded if 
+                        <p>**All or Nothing: This project will only get funded if
                             the goal is met by March 27th, 2019 12pm PST</p>
                     </div>
                 </div>
@@ -109,13 +142,13 @@
                               </ul>
                             </div>
                           </div>
-                      
+
                           <div id="page-content" class="page-content">Page 1</div>
                         </div>
                       </div> -->
                   <div class="layoutMenu" id="solutionMenu">
                     <div class="row paddingtop">
-        
+
                         <div class="col-md-3 col-sm-6 col-xs-12 noMargin">
                             <a data-toggle="tab" href="#about" id="aboutButton" class="layoutButton active" bkgrdImage='url("../images/webImage.jpg")'>About</a>
                         </div>
@@ -134,21 +167,37 @@
                 <div id = "about" class = "tab-pane fade in">
                   <h1 style = "text-align:center;padding-bottom:2%;">About This Project</h1>
                  <div class = "container">
-                    <p style = "font-size: 20px;"><%= project.description %></p>
+
+
+									 <% if(project.about){ %>
+										 <p style = "font-size: 20px;"><%= project.about %></p>
+									 <% }else{ %>
+										 <p style = "font-size: 20px;"><%= project.description %></p>
+									 <% } %>
+
+
+
                  </div>
                 </div>
+
                 <div id="faq" class="tab-pane fade in">
                     <div class = "row">
                         <h1 style = "text-align:center;">FAQ</h1>
-                        <p style = "font-weight:bold;"> How will you be implementing the project?</p>
-                        <p> We begin by taking your money. </p>
-                        <p style = "font-weight:bold;"> What time frame is feasible for your project?</p>
-                        <p> We are aiming to be completed with the project by next spring. </p>
-                        <p style = "font-weight:bold;"> What is your inspiration? </p>
-                        <p> We are inspired by mostly monetary gain. </p>
-                        <p style = "font-weight:bold;"> What methods do you accept for payment? </p>
-                        <p> We accept PayPal, Venmo and Cash </p>
-                        
+												<% if(project.FAQ){ %>
+		 										 <p style = "font-size: 20px;"><%= project.FAQ %></p>
+		 									 <% }else{ %>
+												 <p style = "font-weight:bold;"> How will you be implementing the project?</p>
+												 <p> We begin by taking your money. </p>
+												 <p style = "font-weight:bold;"> What time frame is feasible for your project?</p>
+												 <p> We are aiming to be completed with the project by next spring. </p>
+												 <p style = "font-weight:bold;"> What is your inspiration? </p>
+												 <p> We are inspired by mostly monetary gain. </p>
+												 <p style = "font-weight:bold;"> What methods do you accept for payment? </p>
+												 <p> We accept PayPal, Venmo and Cash </p>
+		 									 <% } %>
+
+
+
                     </div>
                 </div>
                 <div id="updates" class="tab-pane fade in">
@@ -172,7 +221,7 @@
                             </div>
                           </div>
                         </div>
-                      
+
                         <div class="column">
                           <div class="card">
                             <img src="/jim.jpg" class="teamphoto" alt="Jim" style="width:100%">
@@ -185,7 +234,7 @@
                             </div>
                           </div>
                         </div>
-                      
+
                         <div class="column">
                           <div class="card">
                             <img class= "teamphoto" src="/lincoln.jpg" alt="Lincoln" style="width:100%">
@@ -202,10 +251,10 @@
                 </div>
               </div>
             </div>
-                
+
             <div class = "row donate-now padding paddingtop">
                   <button type="button" class="btn btn-primary btn-block green" style="height:3em;font-size:28px;">Donate Now!</button>
-            </div>           
+            </div>
         </div>
 
 <!-- got er from this website:

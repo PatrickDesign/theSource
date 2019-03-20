@@ -1,6 +1,6 @@
 <% include partials/sourceHeader %>
 
-<h1>Create a new project!</h1>
+<h1>You are editing: <%= project.name %></h1>
 <!-- <form action="/addProject" method="POST">
   <input type="text" placeholder="Project Name..." name="newProjectName">
   <input type="text" placeholder="Cover Path..." name="newCoverPath">
@@ -11,21 +11,17 @@
 
 <form action="/addProject" method="POST">
 <div class="form-group">
-  <label>Title:</label>
-  <input required type="text" class="form-control" placeholder="My Awesome Project..." name="newProjectName">
-</div>
-<div class="form-group">
   <label>Cover Image Path:</label>
-  <input required type="text" class="form-control" placeholder="Great_Pic.jpg" name="newCoverPath">
+  <input required type="text" class="form-control" value = "<%= project.coverPath %>" placeholder="Great_Pic.jpg" name="newCoverPath">
 </div>
 <div class="form-group">
   <label for="comment">Project description:</label>
-  <textarea required class="form-control" rows="5" name="newProjectDescription" placeholder="A basic description of my project ..."></textarea>
+  <textarea required class="form-control" rows="5" name="newProjectDescription" placeholder="A basic description of my project ..."><%= project.description %></textarea>
 </div>
 
 <div class="form-group">
   <label for="comment">About project:</label>
-  <textarea class="form-control" rows="5" name="newProjectAbout" placeholder="Some more info to appear in the about section of my project ..."></textarea>
+  <textarea class="form-control" rows="5" name="newProjectAbout" placeholder="Some more info to appear in the about section of my project ..."><%= project.about %></textarea>
 </div>
 
 <div class="form-group">
@@ -33,27 +29,15 @@
   <textarea class="form-control" rows="5" name="newProjectFAQ" placeholder="Some frequently asked questions for my project ..."></textarea>
 </div>
 
-<div>
-<label class="radio-inline"><input type="radio" name="newProjectFundingType" value="1" checked>All or nothing</label>
-<label class="radio-inline"><input type="radio" name="newProjectFundingType" value="0">Keep it all</label>
-</div>
-<div class="form-group">
-  <label>Goal to reach:</label>
-  <input required type="number" class="form-control" name="newProjectGoal" placeholder="100">
-</div>
-<div class="form-group">
-  <label>Meet goal by:</label>
-  <input required type="date" class="form-control" name="newProjectDate">
-</div>
 <br>
-<div class="form-group">
+<!-- <div class="form-group">
   <label>Select a related goal:</label>
   <select required class="form-control" name="newProjectSDGGoal">
       <% sdgCategories.forEach((category) => { %>
         <option><%= category %></option>
       <% }); %>
     </select>
-</div>
+</div> -->
 <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 

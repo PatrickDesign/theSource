@@ -32,7 +32,7 @@
         <li><a href="/addProject" style = color:black;>Create</a></li>
         <li><a href="/contact" style = color:black;>Contact</a></li>
       </ul>
-      <h1 class="navbar-source" style = "color:black;" href="#">SOURCE
+      <h1 class="navbar-source" style = "color:black;padding-right: 5em;" href="#">SOURCE
         <img class = "logo" src="/logo.PNG" alt = "Image"></h1>
 
       <ul class="nav navbar-nav navbar-right" style="padding-top: 2%;">
@@ -53,6 +53,7 @@
 	  <img src="https://bootdey.com/img/Content/user_1.jpg" width="45" alt="" class="img-circle">
 	  <i class="fa fa-caret-down"></i>
 	    <div class="dropdown-content" style="right:0;">
+	            <h5>Logged in as: <%= currentUser.username %> </h5>
               <a href="/dashboard">User Dashboard</a>
               <a href="/logout">Logout</a>
             </div>

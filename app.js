@@ -1,3 +1,17 @@
+//Todo's:
+  //1.) IMPROVE FRONT END ROUGH EDGES
+    //1a) NAVBAR
+  //2.) Create edit project page
+    //2a) Allow owners to add updates easily to projects
+  //3.) Special outline for project owners in comments section of their projects
+  //4.) Finish User dashboard
+  //5.) Create 'money' form to 'donate'
+
+  //6.) Organize codebase
+
+
+
+
 var express = require("express");
 var dbConnection = require("./connections"); //get db connection
 var app = express();
@@ -80,17 +94,9 @@ app.get("/projects/:id", (req, res) =>
 app.post("/projects/:id/comments", (req, res) =>
 {
 
-  //get project object from DB
-  Project.findById(req.params.id, (err, project) =>
-  {
-    if (err)
-    {
-      console.log(err);
-      res.redirect("/projects/" + req.params.id);
-    }
-    else
-    { //on success,
-      Comment.create(
+
+
+  Comment.create(
       {
         text: req.body.commentText,
         author: req.user.username
@@ -100,15 +106,44 @@ app.post("/projects/:id/comments", (req, res) =>
           console.log(err);
         else
         {
-          project.comments.unshift(comment); //push comment to front of array of comments in project.
-          //re-sort the comments based on rating
 
-          project.save();
+          //Add comment to both project history and user history.
+
+          //query to find the user db object:
+           User.findById(req.user._id, (err, foundUser) =>
+            {
+
+              if(err)
+                console.log(err);
+              else{
+                foundUser.comments.unshift(comment); //add comment to found user's comments array.
+                foundUser.save(); //update db
+              }
+
+            });
+
+
+
+
+           Project.findById(req.params.id, (err, project) =>
+            {
+              if (err)
+              {
+                console.log(err);
+                res.redirect("/projects/" + req.params.id);
+              }
+              else
+              { //on success,
+                project.comments.unshift(comment); //push comment to front of array of comments in project.
+                project.save();
+              }
+          });
+
           res.redirect("/projects/" + req.params.id);
-        }
-      });
+
     }
   });
+
 });
 
 
@@ -172,8 +207,9 @@ app.get("/dashboard", (req, res) =>
 app.get("/explore", (req, res) =>
 {
 
-  if (req.query !== {})
+  if (Object.keys(req.query).length > 0)
   {
+
     //Display only the projects with this category
     var categoryName = req.query.category;
     console.log(categoryName);
@@ -183,7 +219,6 @@ app.get("/explore", (req, res) =>
         console.log(err);
       else
       {
-        console.log(foundProjects.length + "!!!!");
         res.render("explore", { projects: foundProjects });
       }
     });
@@ -322,7 +357,16 @@ app.get('/', (req, res) =>
       console.log(err);
     else
     {
-      res.render("index", { projects: allProjects });
+      Project.find({$expr:{$gte:["$earnings", "$goal"]}}, function(err, finishedProjects)
+      {
+        if(err)
+          console.log(err);
+        else
+        {
+          res.render("index", { projects: allProjects, finishedProjects: finishedProjects });
+        }
+      });
+      // res.render("index", { projects: allProjects });
     }
   });
 
@@ -350,22 +394,181 @@ app.get("/viewUsers", (req, res) =>
 
 });
 
+
+//FOLLOW A PROJECT
+app.post('/projects/:id/follow', (req, res) =>
+{
+  Project.findById(req.params.id, (err, foundProject) => 
+  {
+    if(err)
+      console.log(err);
+    else{
+      
+      User.findById(req.user._id, (err, foundUser) =>
+      {
+        if(err)
+          console.log(err);
+        else{
+          foundUser.followedProjects.unshift(foundProject); //add project to user following list
+          foundUser.save();
+          foundProject.followingUsers.unshift(foundUser); //add user to project followers list
+          foundProject.save((err, project) => {
+            res.redirect("/projects/" + req.params.id);
+          });
+        }
+      });
+    }
+  });
+
+
+});
+
+
+//UNFOLLOW a project
+app.post('/projects/:id/unfollow', (req, res) =>
+{
+  Project.findById(req.params.id, (err, foundProject) => 
+  {
+    if(err)
+      console.log(err);
+    else{
+      
+      User.findById(req.user._id, (err, foundUser) =>
+      {
+        if(err)
+          console.log(err);
+        else{
+
+          //Remove project from user list, and user from project list
+          foundUser.followedProjects.forEach((project, index) => {
+
+            if (project.equals(foundProject._id))
+              foundUser.followedProjects.splice(index, 1);
+
+          });
+
+          foundProject.followingUsers.forEach((user, index) => {
+
+            if (user.equals(foundUser._id))
+              foundProject.followingUsers.splice(index, 1);
+
+          });
+
+
+          foundUser.save();
+          foundProject.save( (err, newProjectName) => {
+            res.redirect("/projects/" + req.params.id);
+          });
+        }
+      });
+    }
+  });
+
+});
+
+//Actually edit a project model:
+app.post("/projects/:id/edit", (req, res) =>
+{
+
+  Project.updateOne({"_id" : req.params.id}, {"FAQ" : req.params.newProjectFAQ, "about" : req.params.newProjectAbout, "description" : req.params.newProjectDescription, "coverPath" : req.params.newCoverPath},  (err, updatedProject) => 
+  {
+
+    if(err)
+      console.log(err);
+    else{
+      updatedProject.save((err, savedProject) => 
+      {
+        return res.redirect("/projects/" + req.params.id);
+      });
+    }
+
+  });
+
+  res.redirect("/projects/" + req.params.id);
+
+});
+
+
+//Edit a project (view):
+  //could create 'isProjectOwner' middleware
+app.get("/projects/:id/edit", (req, res) => 
+{
+
+  if(req.user == null){
+    return res.redirect("/projects/" + req.params.id);
+  }
+
+
+
+  Project.findById(req.params.id, (err, foundProject) =>
+  {
+    if(err)
+      console.log(err);
+    else{
+
+
+      //check if user is owner of requested project:
+      isInArray = foundProject.owners.some((projectOwner) => {
+          return projectOwner.equals(req.user._id);
+      }); 
+
+      if(isInArray){
+        return res.render("projectEdit", {project: foundProject});
+      }else{
+        return res.redirect("/projects/" + req.params.id);
+      }
+
+    }
+
+  });
+
+});
+
+
+
+
 app.post('/addProject', (req, res) =>
 {
 
-  var currProject = new Project({ name: req.body.newProjectName, coverPath: req.body.newCoverPath, description: req.body.newProjectDescription, goal: req.body.newProjectGoal, sdgCategory: req.body.newProjectSDGGoal, fundingType: req.body.newProjectFundingType, sdgCategory: req.body.newProjectSDGCategory });
 
 
-  currProject.save()
-    .then(doc =>
-    {
-      res.send("ADDED NEW Project: " + req.body.newProjectName);
-      res.render("/projectPage/" + doc._id);
-    })
-    .catch(err =>
-    {
-      console.error(err)
+  var newId = mongoose.Types.ObjectId();
+
+  var currProject = new Project({ name: req.body.newProjectName,
+    coverPath: req.body.newCoverPath,
+    description: req.body.newProjectDescription,
+    about: req.body.newProjectAbout,
+    FAQ: req.body.newProjectFAQ,
+    goal: req.body.newProjectGoal,
+    sdgCategory: req.body.newProjectSDGGoal,
+    fundingType: req.body.newProjectFundingType,
+    sdgCategory: req.body.newProjectSDGCategory,
+    _id: newId });
+
+
+
+  currProject.save((err, createdProject) =>{
+
+      //Associate owners with a project.
+      User.findById(req.user._id, (err, foundUser) => 
+      {
+
+        if(err)
+          console.log(err)
+        else{
+          //Adding owner information to project object.
+          createdProject.owners.unshift(foundUser);
+          foundUser.ownedProjects.unshift(createdProject);
+          foundUser.save();
+          createdProject.save();
+        }
+
+      });
+
+      res.redirect("/projects/" + createdProject._id); //redirect to newly created project
+
     });
+
 
 });
 
