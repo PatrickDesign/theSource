@@ -1,3 +1,17 @@
+//Todo's:
+  //1.) IMPROVE FRONT END ROUGH EDGES
+    //1a) NAVBAR
+  //2.) Create edit project page
+    //2a) Allow owners to add updates easily to projects
+  //3.) Special outline for project owners in comments section of their projects
+  //4.) Finish User dashboard
+  //5.) Create 'money' form to 'donate'
+
+  //6.) Organize codebase
+
+
+
+
 var express = require("express");
 var dbConnection = require("./connections"); //get db connection
 var app = express();
@@ -450,8 +464,68 @@ app.post('/projects/:id/unfollow', (req, res) =>
     }
   });
 
+});
+
+//Actually edit a project model:
+app.post("/projects/:id/edit", (req, res) =>
+{
+
+  Project.updateOne({"_id" : req.params.id}, {"FAQ" : req.params.newProjectFAQ, "about" : req.params.newProjectAbout, "description" : req.params.newProjectDescription, "coverPath" : req.params.newCoverPath},  (err, updatedProject) => 
+  {
+
+    if(err)
+      console.log(err);
+    else{
+      updatedProject.save((err, savedProject) => 
+      {
+        return res.redirect("/projects/" + req.params.id);
+      });
+    }
+
+  });
+
+  res.redirect("/projects/" + req.params.id);
 
 });
+
+
+//Edit a project (view):
+  //could create 'isProjectOwner' middleware
+app.get("/projects/:id/edit", (req, res) => 
+{
+
+  if(req.user == null){
+    return res.redirect("/projects/" + req.params.id);
+  }
+
+
+
+  Project.findById(req.params.id, (err, foundProject) =>
+  {
+    if(err)
+      console.log(err);
+    else{
+
+
+      //check if user is owner of requested project:
+      isInArray = foundProject.owners.some((projectOwner) => {
+          return projectOwner.equals(req.user._id);
+      }); 
+
+      if(isInArray){
+        return res.render("projectEdit", {project: foundProject});
+      }else{
+        return res.redirect("/projects/" + req.params.id);
+      }
+
+    }
+
+  });
+
+});
+
+
+
 
 app.post('/addProject', (req, res) =>
 {
@@ -474,16 +548,16 @@ app.post('/addProject', (req, res) =>
 
 
   currProject.save((err, createdProject) =>{
-    //Associate owners with a project.
+
+      //Associate owners with a project.
       User.findById(req.user._id, (err, foundUser) => 
       {
 
         if(err)
           console.log(err)
         else{
+          //Adding owner information to project object.
           createdProject.owners.unshift(foundUser);
-          //Adding to owner doc
-          console.log("ADDING!!!!!");
           foundUser.ownedProjects.unshift(createdProject);
           foundUser.save();
           createdProject.save();

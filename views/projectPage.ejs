@@ -1,6 +1,6 @@
 <% include partials/sourceHeader %>
 <script src="/jquery/jquery.js"></script>
-	<h1 style = "font-weight: bold;font-size:3em; text-align: center;"><%= project.name %></h1>
+	<h1 style = "font-weight: bold;font-size:3em; text-align: center;"><%= project.name %> <a href= <%= "/projects/" + project._id + "/edit" %>> (edit) </a></h1>
         <div class = "project">
             <div class = "row" style = "padding-top:5%;">
                 <div class = "col-lg-6">
