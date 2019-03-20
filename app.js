@@ -80,17 +80,9 @@ app.get("/projects/:id", (req, res) =>
 app.post("/projects/:id/comments", (req, res) =>
 {
 
-  //get project object from DB
-  Project.findById(req.params.id, (err, project) =>
-  {
-    if (err)
-    {
-      console.log(err);
-      res.redirect("/projects/" + req.params.id);
-    }
-    else
-    { //on success,
-      Comment.create(
+
+
+  Comment.create(
       {
         text: req.body.commentText,
         author: req.user.username
@@ -100,17 +92,44 @@ app.post("/projects/:id/comments", (req, res) =>
           console.log(err);
         else
         {
-          project.comments.unshift(comment); //push comment to front of array of comments in project.
+
+          //Add comment to both project history and user history.
+
+          //query to find the user db object:
+           User.findById(req.user._id, (err, foundUser) =>
+            {
+
+              if(err)
+                console.log(err);
+              else{
+                foundUser.comments.unshift(comment); //add comment to found user's comments array.
+                foundUser.save(); //update db
+              }
+
+            });
 
 
-          // req.user.comments.unshift(comment);
 
-          project.save();
+
+           Project.findById(req.params.id, (err, project) =>
+            {
+              if (err)
+              {
+                console.log(err);
+                res.redirect("/projects/" + req.params.id);
+              }
+              else
+              { //on success,
+                project.comments.unshift(comment); //push comment to front of array of comments in project.
+                project.save();
+              }
+          });
+
           res.redirect("/projects/" + req.params.id);
-        }
-      });
+
     }
   });
+
 });
 
 
@@ -381,15 +400,28 @@ app.post('/addProject', (req, res) =>
 
 
 
-  currProject.save()
-    .then(doc =>
-    {
-      res.redirect("/projects/" + doc._id); //redirect to newly created project
-    })
-    .catch(err =>
-    {
-      console.error(err)
+  currProject.save((err, createdProject) =>{
+    //Associate owners with a project.
+      User.findById(req.user._id, (err, foundUser) => 
+      {
+
+        if(err)
+          console.log(err)
+        else{
+          createdProject.owners.unshift(foundUser);
+          //Adding to owner doc
+          console.log("ADDING!!!!!");
+          foundUser.ownedProjects.unshift(createdProject);
+          foundUser.save();
+          createdProject.save();
+        }
+
+      });
+
+      res.redirect("/projects/" + createdProject._id); //redirect to newly created project
+
     });
+
 
 });
 

@@ -7,6 +7,12 @@ var userSchema = new mongoose.Schema(
     password: String,
     email: String,
 
+    ownedProjects: [
+    {
+    	type: mongoose.Schema.Types.ObjectId,
+    	ref: "Project"
+    }],
+
     comments: [
     {
         type: mongoose.Schema.Types.ObjectId,

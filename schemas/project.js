@@ -12,6 +12,12 @@ var projectSchema = new mongoose.Schema(
 	earnings: { type: Number, default: 0.0 },
 	sdgCategory: String,
 
+	owners: [
+	{
+		type: mongoose.Schema.Types.ObjectId,
+		ref: "User"
+	}],
+
 	comments: [
 	{
 		type: mongoose.Schema.Types.ObjectId,
