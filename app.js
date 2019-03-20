@@ -381,6 +381,7 @@ app.get("/viewUsers", (req, res) =>
 });
 
 
+//FOLLOW A PROJECT
 app.post('/projects/:id/follow', (req, res) =>
 {
   Project.findById(req.params.id, (err, foundProject) => 
@@ -397,17 +398,58 @@ app.post('/projects/:id/follow', (req, res) =>
           foundUser.followedProjects.unshift(foundProject); //add project to user following list
           foundUser.save();
           foundProject.followingUsers.unshift(foundUser); //add user to project followers list
-          foundProject.save();
+          foundProject.save((err, project) => {
+            res.redirect("/projects/" + req.params.id);
+          });
         }
       });
     }
   });
 
 
-  
+});
 
-  console.log("Followed project!");
-  res.redirect("/projects/" + req.params.id);
+
+//UNFOLLOW a project
+app.post('/projects/:id/unfollow', (req, res) =>
+{
+  Project.findById(req.params.id, (err, foundProject) => 
+  {
+    if(err)
+      console.log(err);
+    else{
+      
+      User.findById(req.user._id, (err, foundUser) =>
+      {
+        if(err)
+          console.log(err);
+        else{
+
+          //Remove project from user list, and user from project list
+          foundUser.followedProjects.forEach((project, index) => {
+
+            if (project.equals(foundProject._id))
+              foundUser.followedProjects.splice(index, 1);
+
+          });
+
+          foundProject.followingUsers.forEach((user, index) => {
+
+            if (user.equals(foundUser._id))
+              foundProject.followingUsers.splice(index, 1);
+
+          });
+
+
+          foundUser.save();
+          foundProject.save( (err, newProjectName) => {
+            res.redirect("/projects/" + req.params.id);
+          });
+        }
+      });
+    }
+  });
+
 
 });
 

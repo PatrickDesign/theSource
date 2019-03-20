@@ -46,10 +46,34 @@
                         <button type="button" class="btn btn-primary green backit-button">Back This Project</button>
                     </div>
                     <div class = "row" style = "padding-top:3%;">
+                    <% 
 
-                    <form method="POST" action="/projects/<%= project._id %>/follow">
-                        <button type="submit" class="btn btn-light" style="align-items:center;float:left;background-color:lightgrey;">Follow Project<span class = "glyphicon glyphicon-heart-empty" style="color:red;padding-left:2em;"></span></button>
-                    </form>
+                    var isInArray;
+
+                    if(currentUser){
+                      if(currentUser.followedProjects != null){
+
+                        isInArray = currentUser.followedProjects.some((projectId) => {
+                              return projectId.equals(project._id);
+                          }); 
+
+                      }else{
+                        isInArray = false;
+                      }
+                    }else{
+                      isInArray = false;
+                    }
+                    if(!isInArray){ 
+                    %>
+                      <form method="POST" action="/projects/<%= project._id %>/follow">
+                          <button type="submit" class="btn btn-light" style="align-items:center;float:left;background-color:lightgrey;">Follow Project<span class = "glyphicon glyphicon-heart-empty" style="color:red;padding-left:2em;"></span></button>
+                      </form>
+                    <% }else{ %>
+                      <form method="POST" action="/projects/<%= project._id %>/unfollow">
+                      <button type="submit" class="btn btn-light" style="align-items:center;float:left;background-color:lightgrey;">Unfollow Project<span class = "glyphicon glyphicon-heart-empty" style="color:red;padding-left:2em;"></span></button>
+                      </form>
+
+                    <% } %>
                         <!-- Social Buttons -->
                     <div class = "social-button" style = "float:right;">
                         <a href="#0" class="c-link c-link--facebook c-tooltip" aria-label="Facebook">
