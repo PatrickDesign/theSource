@@ -380,6 +380,37 @@ app.get("/viewUsers", (req, res) =>
 
 });
 
+
+app.post('/projects/:id/follow', (req, res) =>
+{
+  Project.findById(req.params.id, (err, foundProject) => 
+  {
+    if(err)
+      console.log(err);
+    else{
+      
+      User.findById(req.user._id, (err, foundUser) =>
+      {
+        if(err)
+          console.log(err);
+        else{
+          foundUser.followedProjects.unshift(foundProject); //add project to user following list
+          foundUser.save();
+          foundProject.followingUsers.unshift(foundUser); //add user to project followers list
+          foundProject.save();
+        }
+      });
+    }
+  });
+
+
+  
+
+  console.log("Followed project!");
+  res.redirect("/projects/" + req.params.id);
+
+});
+
 app.post('/addProject', (req, res) =>
 {
 

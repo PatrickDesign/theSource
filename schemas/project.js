@@ -18,6 +18,12 @@ var projectSchema = new mongoose.Schema(
 		ref: "User"
 	}],
 
+	followingUsers: [
+	{
+		type: mongoose.Schema.Types.ObjectId,
+		ref: "User"
+	}],
+
 	comments: [
 	{
 		type: mongoose.Schema.Types.ObjectId,
