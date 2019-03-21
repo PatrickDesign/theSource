@@ -83,24 +83,29 @@ app.use((req, res, next) =>
 
 //UserRoues======================
 
-app.post('/users/:id/update', (req, res) => 
+app.post('/users/:id/update', (req, res) =>
 {
-  if(req.body.inlineRadioOptions){
-    User.updateOne({"_id" : req.user._id}, { $set: {bio: req.body.userBio, avatar: req.body.inlineRadioOptions}}, (err, updatedUser) =>
+  if (req.body.inlineRadioOptions)
+  {
+    User.updateOne({ "_id": req.user._id }, { $set: { bio: req.body.userBio, avatar: req.body.inlineRadioOptions } }, (err, updatedUser) =>
     {
-      if(err)
-          console.log(err);
-      else{
-          res.redirect('/dashboard')
+      if (err)
+        console.log(err);
+      else
+      {
+        res.redirect('/dashboard')
       }
     });
-  }else{
-    User.updateOne({"_id" : req.user._id}, { $set: {bio: req.body.userBio}}, (err, updatedUser) =>
+  }
+  else
+  {
+    User.updateOne({ "_id": req.user._id }, { $set: { bio: req.body.userBio } }, (err, updatedUser) =>
     {
-      if(err)
-          console.log(err);
-      else{
-          res.redirect('/dashboard')
+      if (err)
+        console.log(err);
+      else
+      {
+        res.redirect('/dashboard')
       }
     });
   }
@@ -110,28 +115,30 @@ app.post('/users/:id/update', (req, res) =>
 
 app.post('/users/:id/follow', (req, res) =>
 {
-  User.findById(req.params.id, (err, userGettingFollowed) => 
+  User.findById(req.params.id, (err, userGettingFollowed) =>
   {
-    if(err)
+    if (err)
       console.log(err);
-    else{
+    else
+    {
 
       User.findById(req.user._id, (err, userDoingTheFollowing) =>
       {
-        if(err)
+        if (err)
           console.log(err);
-        else{
+        else
+        {
           userGettingFollowed.followers.unshift(userDoingTheFollowing);
           userDoingTheFollowing.followedUsers.unshift(userGettingFollowed);
 
           userDoingTheFollowing.save();
           userGettingFollowed.save((err, savedUser) =>
           {
-            if(err)
+            if (err)
               console.log(err);
             else
-            //redirect back to user we just followed
-            return res.redirect('/users/' + req.params.id);
+              //redirect back to user we just followed
+              return res.redirect('/users/' + req.params.id);
           });
         }
       })
@@ -143,17 +150,19 @@ app.post('/users/:id/follow', (req, res) =>
 //Unfollow a user
 app.post('/users/:id/unfollow', (req, res) =>
 {
-  User.findById(req.params.id, (err, userGettingUnFollowed) => 
+  User.findById(req.params.id, (err, userGettingUnFollowed) =>
   {
-    if(err)
+    if (err)
       console.log(err);
-    else{
+    else
+    {
 
       User.findById(req.user._id, (err, userDoingTheUnFollowing) =>
       {
-        if(err)
+        if (err)
           console.log(err);
-        else{
+        else
+        {
 
 
 
@@ -180,11 +189,11 @@ app.post('/users/:id/unfollow', (req, res) =>
           userDoingTheUnFollowing.save();
           userGettingUnFollowed.save((err, savedUser) =>
           {
-            if(err)
+            if (err)
               console.log(err);
             else
-            //redirect back to user we just followed
-            return res.redirect('/users/' + req.params.id);
+              //redirect back to user we just followed
+              return res.redirect('/users/' + req.params.id);
           });
         }
       })
@@ -197,16 +206,17 @@ app.post('/users/:id/unfollow', (req, res) =>
 
 
 //Route to view a generic user's account
-app.get('/users/:id', (req, res) => 
+app.get('/users/:id', (req, res) =>
 {
 
-  User.findById(req.params.id).populate({ path: "comments", populate: {path: "author"}, options: { sort: { rating: -1 } } }).populate("followedUsers").populate("followers").exec((err, foundUser) =>
+  User.findById(req.params.id).populate({ path: "comments", populate: { path: "author" }, options: { sort: { rating: -1 } } }).populate("followedUsers").populate("followers").exec((err, foundUser) =>
   {
-    if(err)
+    if (err)
       console.log(err);
-    else{
+    else
+    {
 
-     return res.render("viewUser", {user: foundUser});
+      return res.render("viewUser", { user: foundUser });
 
     }
   });
@@ -222,7 +232,7 @@ app.get("/projects/:id", (req, res) =>
 
   //find the project with id (get the ID from the URL)
   //sort comments by 'rating'
-  Project.findById(req.params.id).populate({ path: "comments", populate: {path: "author"}, options: { sort: { rating: -1 } } }).populate(
+  Project.findById(req.params.id).populate({ path: "comments", populate: { path: "author" }, options: { sort: { rating: -1 } } }).populate(
   {
     path: "updates",
     populate: { path: "author" }
@@ -279,17 +289,17 @@ app.post("/projects/:id/comments", (req, res) =>
 
             foundProject.comments.unshift(createdComment); //push comment to front of array of comments in project.
             foundProject.save((err, savedProject) =>
-              {
-                res.redirect("/projects/" + req.params.id);
-              });
+            {
+              res.redirect("/projects/" + req.params.id);
+            });
           });
-          
+
         }
       });
 
-      
 
-      
+
+
     }
 
   });
@@ -351,7 +361,7 @@ app.get("/about", (req, res) =>
 
 app.get("/dashboard", (req, res) =>
 {
-  User.findById(req.user._id).populate({ path: "comments", populate: [{path: "author"}, {path: "project"}], options: { sort: { rating: -1 } } }).populate("followedUsers").populate("followers").populate({ path: "followedProjects , ownedProjects" }).exec((err, foundUser) =>
+  User.findById(req.user._id).populate({ path: "comments", populate: [{ path: "author" }, { path: "project" }], options: { sort: { rating: -1 } } }).populate("followedUsers").populate("followers").populate("followedProjects").populate("ownedProjects").exec((err, foundUser) =>
   {
     if (err)
       console.log(err);
@@ -522,17 +532,21 @@ app.get('/', (req, res) =>
         else
         {
 
-          if(req.user){
-            User.findById(req.user._id).populate({path: "notifications", populate: [{path: "author"},{path: "project"}]}).exec((err, foundUser) =>
+          if (req.user)
+          {
+            User.findById(req.user._id).populate({ path: "notifications", populate: [{ path: "author" }, { path: "project" }] }).exec((err, foundUser) =>
             {
-              if(err)
+              if (err)
                 console.log(err);
-              else{
+              else
+              {
                 res.render("index", { projects: allProjects, finishedProjects: finishedProjects, user: foundUser });
               }
             });
-          }else{
-                res.render("index", { projects: allProjects, finishedProjects: finishedProjects});
+          }
+          else
+          {
+            res.render("index", { projects: allProjects, finishedProjects: finishedProjects });
           }
 
         }
@@ -607,28 +621,32 @@ app.post('/projects/:id/updates/addUpdate', (req, res) =>
           }, (err, newUpdate) =>
           {
 
-
             //Add notifications to all following users
-            Notification.create({
+            Notification.create(
+            {
               title: foundProject.name + " just posted a new update",
               type: "PU", //Project update
               project: foundProject,
               author: foundUser,
-              notificationBody: req.body.newUpdateText.substring(0,200)
-            }, (err, createdNotif) =>{
+              notificationBody: req.body.newUpdateText.substring(0, 200)
+            }, (err, createdNotif) =>
+            {
 
-              if(err)
+              if (err)
                 console.log(err);
-              else{
+              else
+              {
 
                 //Send notification to all following users:
-                foundProject.followingUsers.forEach((followingUser) => {
+                foundProject.followingUsers.forEach((followingUser) =>
+                {
 
                   User.findById(followingUser, (err, userToUpdate) =>
                   {
-                    if(err)
+                    if (err)
                       console.log(err)
-                    else{
+                    else
+                    {
                       userToUpdate.notifications.unshift(createdNotif);
                       userToUpdate.save();
                     }
