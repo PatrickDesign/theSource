@@ -76,7 +76,7 @@ app.get("/projects/:id", (req, res) =>
 
   //find the project with id (get the ID from the URL)
   //sort comments by 'rating'
-  Project.findById(req.params.id).populate({ path: "comments", options: { sort: { rating: -1 } } }).exec((err, foundProject) =>
+  Project.findById(req.params.id).populate({ path: "comments", options: { sort: { rating: -1 } } }).populate("owners").exec((err, foundProject) =>
   {
     if (err)
       console.log(err);
@@ -207,7 +207,7 @@ app.get("/dashboard", (req, res) =>
       console.log(err);
     else
     {
-      res.render("dashboard", { user: foundUser }); //render view template with that project
+      res.render("dashboard", { user: foundUser });
     }
   });
 });
@@ -407,7 +407,7 @@ app.get("/viewUsers", (req, res) =>
   // {
 
   //   if(req.params.donationAmount > 0){
-  //     return res.redirec 
+  //     return res.redirec
   //   }
 
   // });
@@ -418,7 +418,7 @@ app.get("/viewUsers", (req, res) =>
   {
 
     // req.body.donationAmount contains the amount to update project by
-    Project.findById(req.params.id, (err, projectToUpdate) => 
+    Project.findById(req.params.id, (err, projectToUpdate) =>
     {
       if(err)
         console.log(err);
@@ -442,28 +442,31 @@ app.get("/viewUsers", (req, res) =>
 //FOLLOW A PROJECT
 app.post('/projects/:id/follow', (req, res) =>
 {
-  Project.findById(req.params.id, (err, foundProject) =>
-  {
-    if(err)
-      console.log(err);
-    else{
+  if(isLoggedInFlag(req, res)){
+    Project.findById(req.params.id, (err, foundProject) =>
+    {
+      if(err)
+        console.log(err);
+      else{
 
-      User.findById(req.user._id, (err, foundUser) =>
-      {
-        if(err)
-          console.log(err);
-        else{
-          foundUser.followedProjects.unshift(foundProject); //add project to user following list
-          foundUser.save();
-          foundProject.followingUsers.unshift(foundUser); //add user to project followers list
-          foundProject.save((err, project) => {
-            res.redirect("/projects/" + req.params.id);
-          });
-        }
-      });
-    }
-  });
-
+        User.findById(req.user._id, (err, foundUser) =>
+        {
+          if(err)
+            console.log(err);
+          else{
+            foundUser.followedProjects.unshift(foundProject); //add project to user following list
+            foundUser.save();
+            foundProject.followingUsers.unshift(foundUser); //add user to project followers list
+            foundProject.save((err, project) => {
+              res.redirect("/projects/" + req.params.id);
+            });
+          }
+        });
+      }
+    });
+  }else{
+    res.redirect("/login");
+  }
 
 });
 
