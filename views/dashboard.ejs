@@ -1,6 +1,6 @@
 
 <% include partials/sourceHeader %>
-<h1><img src="https://bootdey.com/img/Content/user_1.jpg" width="90" alt="" class="img-circle">  <%= currentUser.username %></h1>
+<h1><img src="<%= currentUser.avatar%>" width="90" alt="" class="img-circle">  <%= currentUser.username %></h1>
 <hr style="border: 3px solid;">
 <h2>Total Money Contributed: $ <%= currentUser.contributed %></h2>
 <hr>
