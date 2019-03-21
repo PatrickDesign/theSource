@@ -500,7 +500,7 @@ app.get('/', (req, res) =>
         {
 
           if(req.user){
-            User.findById(req.user._id).populate({path: "notifications", populate: {path: "author"}}).exec((err, foundUser) =>
+            User.findById(req.user._id).populate({path: "notifications", populate: [{path: "author"},{path: "project"}]}).exec((err, foundUser) =>
             {
               if(err)
                 console.log(err);
@@ -588,6 +588,8 @@ app.post('/projects/:id/updates/addUpdate', (req, res) =>
             //Add notifications to all following users
             Notification.create({
               title: foundProject.name + " just posted a new update",
+              type: "PU", //Project update
+              project: foundProject,
               author: foundUser,
               notificationBody: req.body.newUpdateText.substring(0,200)
             }, (err, createdNotif) =>{

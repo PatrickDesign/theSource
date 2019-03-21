@@ -3,7 +3,7 @@
             <div class="comment-wrapper">
                 <div class="panel panel-info">
                     <div class="panel-heading">
-                    Updates from around the Source
+                    <h2>Updates from around the Source</h2>
                         <hr>
                     </div>
                     <div class="panel-body">
@@ -17,11 +17,14 @@
                                 <a href="/users/<%=notification.author._id%>" class="pull-left">
                                     <img src="<%=notification.author.avatar%>" alt="" class="img-circle">
                                 </a>
+                                <% if(notification.type == "PU"){ %>
+                                    <h4><strong>Project update from <a href="/projects/<%=notification.project._id%>"><%= notification.project.name %></a></strong></h4>
+                                <% } %>
                                 <div class="media-body">
                                 <span class="text-muted pull-right">
                                         <small class="text-muted"><%= notification.timePosted.toLocaleDateString("en-US") %></small>
                                     </span>
-                                    <h3><%=notification.title%></h3>
+                                    <h5><%=notification.title%></h5>
                                     <p>
                                         <%= notification.notificationBody %> </a>.
                                     </p>
