@@ -82,54 +82,10 @@ app.use((req, res, next) =>
 
 //UserRoues======================
 
-app.post('/users/:id/update', (req, res) => 
-{
-  if(req.body.inlineRadioOptions){
-    User.updateOne({"_id" : req.user._id}, { $set: {bio: req.body.userBio, avatar: req.body.inlineRadioOptions}}, (err, updatedUser) =>
-    {
-      if(err)
-          console.log(err);
-      else{
-          res.redirect('/dashboard')
-      }
-    });
-  }else{
-    User.updateOne({"_id" : req.user._id}, { $set: {bio: req.body.userBio}}, (err, updatedUser) =>
-    {
-      if(err)
-          console.log(err);
-      else{
-          res.redirect('/dashboard')
-      }
-    });
-  }
-});
-
-
-//Route to view a generic user's account
-app.get('/users/:id', (req, res) => 
-{
-
-  User.findById(req.params.id).populate({ path: "comments", populate: {path: "author"}, options: { sort: { rating: -1 } } }).exec((err, foundUser) =>
-  {
-    if(err)
-      console.log(err);
-    else{
-
-     return res.render("viewUser", {user: foundUser});
-
-    }
-  });
-
-});
-
-
-
 //Follow/Unfollow logic:
 
 app.post('/users/:id/follow', (req, res) =>
 {
-
   User.findById(req.params.id, (err, userGettingFollowed) => 
   {
     if(err)
@@ -155,10 +111,81 @@ app.post('/users/:id/follow', (req, res) =>
           });
         }
       })
+    }
+  });
+});
 
+
+//Unfollow a user
+app.post('/users/:id/unfollow', (req, res) =>
+{
+  User.findById(req.params.id, (err, userGettingUnFollowed) => 
+  {
+    if(err)
+      console.log(err);
+    else{
+
+      User.findById(req.user._id, (err, userDoingTheUnFollowing) =>
+      {
+        if(err)
+          console.log(err);
+        else{
+
+
+
+
+
+          //Remove the 'unfollower' from the 'unfollowed's list
+          userGettingUnFollowed.followers.forEach((follower, index) =>
+          {
+
+            if (follower.equals(userDoingTheUnFollowing._id))
+              userGettingUnFollowed.followers.splice(index, 1);
+
+          });
+
+          //Remove the unfollowed user from the unfollower's list
+          userDoingTheUnFollowing.followedUsers.forEach((userFollowed, index) =>
+          {
+
+            if (userFollowed.equals(userGettingUnFollowed._id))
+              userDoingTheUnFollowing.followedUsers.splice(index, 1);
+
+          });
+
+          userDoingTheUnFollowing.save();
+          userGettingUnFollowed.save((err, savedUser) =>
+          {
+            if(err)
+              console.log(err);
+            else
+            //redirect back to user we just followed
+            return res.redirect('/users/' + req.params.id);
+          });
+        }
+      })
     }
   });
 
+});
+
+
+
+
+//Route to view a generic user's account
+app.get('/users/:id', (req, res) => 
+{
+
+  User.findById(req.params.id).populate({ path: "comments", populate: {path: "author"}, options: { sort: { rating: -1 } } }).populate("followedUsers").populate("followers").exec((err, foundUser) =>
+  {
+    if(err)
+      console.log(err);
+    else{
+
+     return res.render("viewUser", {user: foundUser});
+
+    }
+  });
 
 });
 
@@ -300,7 +327,7 @@ app.get("/about", (req, res) =>
 
 app.get("/dashboard", (req, res) =>
 {
-  User.findById(req.user._id).populate({ path: "comments", populate: [{path: "author"}, {path: "project"}], options: { sort: { rating: -1 } } }).populate({ path: "followedProjects , ownedProjects" }).exec((err, foundUser) =>
+  User.findById(req.user._id).populate({ path: "comments", populate: [{path: "author"}, {path: "project"}], options: { sort: { rating: -1 } } }).populate("followedUsers").populate("followers").populate({ path: "followedProjects , ownedProjects" }).exec((err, foundUser) =>
   {
     if (err)
       console.log(err);

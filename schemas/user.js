@@ -31,6 +31,20 @@ var userSchema = new mongoose.Schema(
         ref: "Update"
     }],
 
+    //List of all people this user has followed
+    followedUsers: [
+    {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
+    }],
+
+    //People who have followed this user
+    followers: [
+    {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
+    }],
+
     comments: [
     {
         type: mongoose.Schema.Types.ObjectId,

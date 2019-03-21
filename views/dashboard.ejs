@@ -40,6 +40,31 @@
 
 <hr>
 
+<div class="userMetric" onclick="toggle_visibility('followers');"><h3>Followers <i class="fa fa-caret-down"></i> </h3></div>
+<div id="followers" style="display:none;">
+  <hr>
+ <!--  <div class="userMetricElement">Comment 1</div>
+  <div class="userMetricElement">Comment 2</div>
+  <div class="userMetricElement">Comment 3</div> -->
+  <% var followerSource = user.followers %>
+  <% include partials/userList %>
+</div>
+
+<hr>
+
+
+<div class="userMetric" onclick="toggle_visibility('following');"><h3>Following <i class="fa fa-caret-down"></i> </h3></div>
+<div id="following" style="display:none;">
+  <hr>
+ <!--  <div class="userMetricElement">Comment 1</div>
+  <div class="userMetricElement">Comment 2</div>
+  <div class="userMetricElement">Comment 3</div> -->
+  <% var followerSource = user.followedUsers %>
+  <% include partials/userList %>
+</div>
+
+<hr>
+
 <div class="userMetric" onclick="toggle_visibility('user_details');"><h3>User details <i class="fa fa-caret-down"></i> </h3></div>
 <div id="user_details" style="display:none;">
   <hr>

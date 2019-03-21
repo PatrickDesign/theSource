@@ -20,6 +20,7 @@ if(currentUser){
 <h1><img src="<%= user.avatar%>" width="90" alt="" class="img-circle">  <%= user.username %>
 
 <!-- This is the logic to determine which 'follow button' to show. -->
+<% if(!user._id.equals(currentUser._id)){ %> <!-- this is so user's cant follow themselves -->
 <% if(!isFollowing){
 %>
   <div class = "userFollowButton">
@@ -35,6 +36,7 @@ if(currentUser){
 </div>
 
 <% } %></h1>
+<% } %>
 
 
 
@@ -73,6 +75,32 @@ if(currentUser){
   <div class="userMetricElement">Comment 2</div>
   <div class="userMetricElement">Comment 3</div> -->
   <% include partials/userComments %>
+</div>
+
+<hr>
+
+
+<div class="userMetric" onclick="toggle_visibility('followers');"><h3>Followers <i class="fa fa-caret-down"></i> </h3></div>
+<div id="followers" style="display:none;">
+  <hr>
+ <!--  <div class="userMetricElement">Comment 1</div>
+  <div class="userMetricElement">Comment 2</div>
+  <div class="userMetricElement">Comment 3</div> -->
+  <% var followerSource = user.followers %>
+  <% include partials/userList %>
+</div>
+
+<hr>
+
+
+<div class="userMetric" onclick="toggle_visibility('following');"><h3>Following <i class="fa fa-caret-down"></i> </h3></div>
+<div id="following" style="display:none;">
+  <hr>
+ <!--  <div class="userMetricElement">Comment 1</div>
+  <div class="userMetricElement">Comment 2</div>
+  <div class="userMetricElement">Comment 3</div> -->
+  <% var followerSource = user.followedUsers %>
+  <% include partials/userList %>
 </div>
 
 <hr>
