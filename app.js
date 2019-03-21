@@ -209,7 +209,7 @@ app.post('/users/:id/unfollow', (req, res) =>
 app.get('/users/:id', (req, res) =>
 {
 
-  User.findById(req.params.id).populate({ path: "comments", populate: { path: "author" }, options: { sort: { rating: -1 } } }).populate("followedUsers").populate("followers").exec((err, foundUser) =>
+  User.findById(req.params.id).populate({ path: "comments", populate: { path: "author" }, options: { sort: { rating: -1 } } }).populate("followedUsers").populate("followers").populate("followedProjects").populate("ownedProjects").exec((err, foundUser) =>
   {
     if (err)
       console.log(err);
