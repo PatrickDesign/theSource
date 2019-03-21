@@ -47,6 +47,7 @@ var User = require("./schemas/user");
 var Project = require("./schemas/project");
 var Comment = require("./schemas/comment");
 var Update = require("./schemas/update");
+var Notification = require("./schemas/notification")
 app.use(bodyParser.urlencoded({ extended: true }));
 //===========================
 
@@ -553,7 +554,7 @@ app.post('/projects/:id/updates/addUpdate', (req, res) =>
     {
 
       //now find the project that we are adding the update to:
-      Project.findById(req.params.id, (err, foundProject) =>
+      Project.findById(req.params.id).populate("followingUsers").exec((err, foundProject) =>
       {
         if (err)
           console.log(err);
@@ -569,6 +570,38 @@ app.post('/projects/:id/updates/addUpdate', (req, res) =>
             updateText: req.body.newUpdateText
           }, (err, newUpdate) =>
           {
+
+
+            //Add notifications to all following users
+            Notification.create({
+              title: foundProject.name + " just posted a new update",
+              author: foundUser,
+              notificationBody: req.body.newUpdateText.substring(0,200)
+            }, (err, createdNotif) =>{
+
+              if(err)
+                console.log(err);
+              else{
+
+                //Send notification to all following users:
+                foundProject.followingUsers.forEach((followingUser) => {
+
+                  User.findById(followingUser, (err, userToUpdate) =>
+                  {
+                    if(err)
+                      console.log(err)
+                    else{
+                      userToUpdate.notifications.unshift(createdNotif);
+                      userToUpdate.save();
+                    }
+                  });
+                });
+
+              }
+
+            });
+
+
 
             if (err)
               console.log(err);

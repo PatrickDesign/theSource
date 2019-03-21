@@ -51,6 +51,12 @@ var userSchema = new mongoose.Schema(
         ref: "Comment"
 
     }],
+
+    notifications: [
+    {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "notification"
+    }],
     
     contributed: { type: Number, default: 0.0 }
 });
