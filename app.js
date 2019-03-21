@@ -72,6 +72,36 @@ app.use((req, res, next) =>
 //ROUTES=========================
 
 
+
+//UserRoues======================
+
+app.post('/users/:id/update', (req, res) => 
+{
+  if(req.body.inlineRadioOptions){
+    User.updateOne({"_id" : req.user._id}, { $set: {bio: req.body.userBio, avatar: req.body.inlineRadioOptions}}, (err, updatedUser) =>
+    {
+      if(err)
+          console.log(err);
+      else{
+          res.redirect('/dashboard')
+      }
+    });
+  }else{
+    User.updateOne({"_id" : req.user._id}, { $set: {bio: req.body.userBio}}, (err, updatedUser) =>
+    {
+      if(err)
+          console.log(err);
+      else{
+          res.redirect('/dashboard')
+      }
+    });
+  }
+});
+
+
+//===============================
+
+
 app.get("/projects/:id", (req, res) =>
 {
 
@@ -324,7 +354,7 @@ app.get("/register", (req, res) =>
 app.post('/register', (req, res) =>
 {
 
-  User.register(new User({ username: req.body.username, email: req.body.email, avatar: req.body.inlineRadioOptions }), req.body.password, (err, user) =>
+  User.register(new User({ username: req.body.username, email: req.body.email, avatar: req.body.inlineRadioOptions, bio: req.body.userBio }), req.body.password, (err, user) =>
   {
     if (err)
     {

@@ -38,6 +38,44 @@
 
 <hr> -->
 
+<div class="userMetric" onclick="toggle_visibility('user_details');"><h3>User details <i class="fa fa-caret-down"></i> </h3></div>
+<div id="user_details" style="display:none;">
+  <hr>
+
+  <form method="POST" action="users/<%= currentUser._id %>/update">
+
+  <form action="/register" method="POST">
+    <h1>Update your account details:</h1>
+    <p>Modify your avatar or account bio!</p>
+    <hr>
+    <p><strong>Username:</strong> <%= currentUser.username %></h3>
+    <p><strong>Email:</strong> <%= currentUser.email %></p><br>
+    
+    <!--buttons-->
+    
+    <% include partials/avatarChoices %>
+
+
+    <div class="form-group">
+    <label for="comment">Bio:</label>
+    <textarea required class="form-control" rows="5" name="userBio" placeholder="Tell the community about yourself ..."><%= currentUser.bio %></textarea>
+    </div>     
+
+    <!--<label for="password"><b>Confirm Password</b></label><br>-->
+    <!--<input id="password"  class = "form-control" type="password" name="password" placeholder="Password..."/><br>-->
+    <div>
+    <label class="radio-inline"><input type="checkbox" name="sendEmails" checked>Keep me up to date with the projects I am following or funding via emails</label>
+    </div>
+    <br>
+    <button style="margin-top: 5px;" class="btn btn-primary" onclick="validate()">Update your account!</button>
+  </form>
+</div>
+
+  </form>
+
+
+<hr>
+
 
 <script type="text/javascript">
 

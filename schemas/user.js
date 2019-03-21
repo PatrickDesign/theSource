@@ -7,6 +7,8 @@ var userSchema = new mongoose.Schema(
     password: String,
     email: String,
     avatar: String,
+    bio: String,
+    // sendEmail: Boolean,
 
     ownedProjects: [
     {
