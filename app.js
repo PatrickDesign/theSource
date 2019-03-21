@@ -107,7 +107,7 @@ app.get("/projects/:id", (req, res) =>
 
   //find the project with id (get the ID from the URL)
   //sort comments by 'rating'
-  Project.findById(req.params.id).populate({ path: "comments", options: { sort: { rating: -1 } } }).populate(
+  Project.findById(req.params.id).populate({ path: "comments", populate: {path: "author"}, options: { sort: { rating: -1 } } }).populate(
   {
     path: "updates",
     populate: { path: "author" }
@@ -129,39 +129,18 @@ app.get("/projects/:id", (req, res) =>
 app.post("/projects/:id/comments", (req, res) =>
 {
 
+  //Add comment to both project history and user history.
 
+  //query to find the user db object:
+  User.findById(req.user._id, (err, foundUser) =>
+  {
 
-  Comment.create(
-  {
-    text: req.body.commentText,
-    author: req.user.username
-  }, (err, comment) =>
-  {
     if (err)
       console.log(err);
     else
     {
 
-      //Add comment to both project history and user history.
-
-      //query to find the user db object:
-      User.findById(req.user._id, (err, foundUser) =>
-      {
-
-        if (err)
-          console.log(err);
-        else
-        {
-          foundUser.comments.unshift(comment); //add comment to found user's comments array.
-          foundUser.save(); //update db
-        }
-
-      });
-
-
-
-
-      Project.findById(req.params.id, (err, project) =>
+      Project.findById(req.params.id, (err, foundProject) =>
       {
         if (err)
         {
@@ -170,14 +149,34 @@ app.post("/projects/:id/comments", (req, res) =>
         }
         else
         { //on success,
-          project.comments.unshift(comment); //push comment to front of array of comments in project.
-          project.save();
+
+
+          //create comment
+          Comment.create(
+          {
+            text: req.body.commentText,
+            author: foundUser,
+            project: foundProject
+          }, (err, createdComment) =>
+          {
+            foundUser.comments.unshift(createdComment); //add comment to found user's comments array.
+            foundUser.save(); //update db
+
+            foundProject.comments.unshift(createdComment); //push comment to front of array of comments in project.
+            foundProject.save((err, savedProject) =>
+              {
+                res.redirect("/projects/" + req.params.id);
+              });
+          });
+          
         }
       });
 
-      res.redirect("/projects/" + req.params.id);
+      
 
+      
     }
+
   });
 
 });

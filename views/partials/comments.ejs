@@ -27,13 +27,13 @@
                         
                             <li class="media commentContainer">
                                 <a href="#" class="pull-left">
-                                    <img src="https://bootdey.com/img/Content/user_1.jpg" alt="" class="img-circle">
+                                    <img src="<%=comment.author.avatar%>" alt="" class="img-circle">
                                 </a>
                                 <div class="media-body">
                                     <span class="text-muted pull-right">
                                         <small class="text-muted"><%= comment.timePosted.toLocaleDateString("en-US") %></small>
                                     </span>
-                                    <strong class="text-success">@<%= comment.author %></strong>
+                                    <strong class="text-success">@<%= comment.author.username %></strong>
                                     <p>
                                         <%= comment.text %> </a>.
                                     </p>

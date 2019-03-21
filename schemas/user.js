@@ -6,7 +6,10 @@ var userSchema = new mongoose.Schema(
     username: String,
     password: String,
     email: String,
-    avatar: String,
+    avatar: {
+        type: String,
+        default: "/avatar/1.png"
+    },
     bio: String,
     // sendEmail: Boolean,
 

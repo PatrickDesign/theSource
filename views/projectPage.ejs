@@ -22,8 +22,8 @@
         <div class = "project">
             <div class = "row" style = "padding-top:5%;">
                 <div class = "col-lg-6">
-                    <img src="https://bootdey.com/img/Content/user_1.jpg" alt="Avatar" class="avatar"/>
 										<% project.owners.forEach((user) => { %>
+                    <img src="<%= user.avatar %>" alt="Avatar" class="avatar"/>
 									    <h4 style = "display: inline-block; padding-left:4%;">Created by <%= user.username %></h4>
 									  <% }); %>
                 </div>
