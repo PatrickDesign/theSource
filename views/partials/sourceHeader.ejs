@@ -29,7 +29,14 @@
         <li><a href="/" style = color:black;>Home</a></li>
         <li><a href="/about" style = color:black;>About</a></li>
         <li><a href="/explore" style = color:black;>Explore</a></li>
-        <li><a href="/addProject" style = color:black;>Create</a></li>
+
+        <%if(currentUser){%>
+          <li><a href="/addProject" style = color:black;>Create</a></li>
+
+          <%}else{%>
+            <li><a href="/login" style = color:black;>Create</a></li>
+            <%}%>
+
         <li><a href="/contact" style = color:black;>Contact</a></li>
       </ul>
       <h1 class="navbar-source" style = "color:black;padding-right: 5em;" href="#">SOURCE

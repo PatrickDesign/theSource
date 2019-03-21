@@ -407,7 +407,7 @@ app.get("/viewUsers", (req, res) =>
   // {
 
   //   if(req.params.donationAmount > 0){
-  //     return res.redirec 
+  //     return res.redirec
   //   }
 
   // });
@@ -418,7 +418,7 @@ app.get("/viewUsers", (req, res) =>
   {
 
     // req.body.donationAmount contains the amount to update project by
-    Project.findById(req.params.id, (err, projectToUpdate) => 
+    Project.findById(req.params.id, (err, projectToUpdate) =>
     {
       if(err)
         console.log(err);
