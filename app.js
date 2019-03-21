@@ -1,13 +1,13 @@
 //Todo's:
-  //1.) IMPROVE FRONT END ROUGH EDGES
-    //1a) NAVBAR
-  //2.) Create edit project page
-    //2a) Allow owners to add updates easily to projects
-  //3.) Special outline for project owners in comments section of their projects
-  //4.) Finish User dashboard
-  //5.) Create 'money' form to 'donate'
+//1.) IMPROVE FRONT END ROUGH EDGES
+//1a) NAVBAR
+//2.) Create edit project page
+//2a) Allow owners to add updates easily to projects
+//3.) Special outline for project owners in comments section of their projects
+//4.) Finish User dashboard
+//5.) Create 'money' form to 'donate'
 
-  //6.) Organize codebase
+//6.) Organize codebase
 
 
 
@@ -39,6 +39,7 @@ app.use(expressSession(
 var User = require("./schemas/user");
 var Project = require("./schemas/project");
 var Comment = require("./schemas/comment");
+var Update = require("./schemas/update");
 app.use(bodyParser.urlencoded({ extended: true }));
 //===========================
 
@@ -76,7 +77,11 @@ app.get("/projects/:id", (req, res) =>
 
   //find the project with id (get the ID from the URL)
   //sort comments by 'rating'
-  Project.findById(req.params.id).populate({ path: "comments", options: { sort: { rating: -1 } } }).populate("owners").exec((err, foundProject) =>
+  Project.findById(req.params.id).populate({ path: "comments", options: { sort: { rating: -1 } } }).populate(
+  {
+    path: "updates",
+    populate: { path: "author" }
+  }).populate("owners").exec((err, foundProject) =>
   {
     if (err)
       console.log(err);
@@ -97,49 +102,50 @@ app.post("/projects/:id/comments", (req, res) =>
 
 
   Comment.create(
+  {
+    text: req.body.commentText,
+    author: req.user.username
+  }, (err, comment) =>
+  {
+    if (err)
+      console.log(err);
+    else
+    {
+
+      //Add comment to both project history and user history.
+
+      //query to find the user db object:
+      User.findById(req.user._id, (err, foundUser) =>
       {
-        text: req.body.commentText,
-        author: req.user.username
-      }, (err, comment) =>
-      {
+
         if (err)
           console.log(err);
         else
         {
+          foundUser.comments.unshift(comment); //add comment to found user's comments array.
+          foundUser.save(); //update db
+        }
 
-          //Add comment to both project history and user history.
-
-          //query to find the user db object:
-           User.findById(req.user._id, (err, foundUser) =>
-            {
-
-              if(err)
-                console.log(err);
-              else{
-                foundUser.comments.unshift(comment); //add comment to found user's comments array.
-                foundUser.save(); //update db
-              }
-
-            });
+      });
 
 
 
 
-           Project.findById(req.params.id, (err, project) =>
-            {
-              if (err)
-              {
-                console.log(err);
-                res.redirect("/projects/" + req.params.id);
-              }
-              else
-              { //on success,
-                project.comments.unshift(comment); //push comment to front of array of comments in project.
-                project.save();
-              }
-          });
-
+      Project.findById(req.params.id, (err, project) =>
+      {
+        if (err)
+        {
+          console.log(err);
           res.redirect("/projects/" + req.params.id);
+        }
+        else
+        { //on success,
+          project.comments.unshift(comment); //push comment to front of array of comments in project.
+          project.save();
+        }
+      });
+
+      res.redirect("/projects/" + req.params.id);
 
     }
   });
@@ -365,9 +371,9 @@ app.get('/', (req, res) =>
       console.log(err);
     else
     {
-      Project.find({$expr:{$gte:["$earnings", "$goal"]}}, function(err, finishedProjects)
+      Project.find({ $expr: { $gte: ["$earnings", "$goal"] } }, function (err, finishedProjects)
       {
-        if(err)
+        if (err)
           console.log(err);
         else
         {
@@ -403,98 +409,175 @@ app.get("/viewUsers", (req, res) =>
 });
 
 
-  // app.post('/projects/:id/startPayment', (req, res) =>
-  // {
+// app.post('/projects/:id/startPayment', (req, res) =>
+// {
 
-  //   if(req.params.donationAmount > 0){
-  //     return res.redirec
-  //   }
+//   if(req.params.donationAmount > 0){
+//     return res.redirec
+//   }
 
-  // });
+// });
 
-  app.get('/projects/:id/updates/addUpdate', (req, res) =>
+app.post('/projects/:id/updates/addUpdate', (req, res) =>
+{
+
+
+
+  //Find the current author:
+  User.findById(req.user._id, (err, foundUser) =>
   {
 
-    User.findById(req.currentUser._id, (err, foundUser) =>
+    if (err)
+      console.log(err);
+    else
     {
-
-      if(err)
-        console.log(err);
-      else{
-
-        Project.findById(req.params.id, (err, foundProject) =>
+      //now find the project that we are adding the update to:
+      Project.findById(req.params.id, (err, foundProject) =>
+      {
+        if (err)
+          console.log(err);
+        else
         {
 
-          if(err)
-            console.log(err);
-          else{
-            //At this point, we found the user and the project
-            return res.render("addUpdate", {project: foundProject, user: foundUser})
-          }
+          //Create the update:
+          Update.create(
+          {
+            title: req.body.newUpdateTitle,
+            author: foundUser,
+            img: req.body.newCoverPath,
+            updateText: req.body.newUpdateText
+          }, (err, newUpdate) =>
+          {
 
-        });
+            if (err)
+              console.log(err);
+            else
+            {
+              //now we have the project and the user, and the update
+              foundProject.updates.unshift(newUpdate);
+              foundUser.updates.unshift(newUpdate);
+              foundUser.save();
+              foundProject.save((err, savedProject) =>
+              {
+                if (err)
+                  console.log(err);
+                else
+                  res.redirect('/projects/' + req.params.id);
+              });
 
-      }
 
-    });
+            }
 
-    return res.redirect("/projects/" + req.params.id);
+
+
+          });
+
+
+
+        }
+      });
+    }
+
+  })
+
+});
+
+app.get('/projects/:id/updates/addUpdate', (req, res) =>
+{
+
+  User.findById(req.user._id, (err, foundUser) =>
+  {
+
+    if (err)
+      console.log(err);
+    else
+    {
+      console.log("Found user");
+      Project.findById(req.params.id, (err, foundProject) =>
+      {
+
+        if (err)
+          console.log(err);
+        else
+        {
+          console.log("Found project");
+          //At this point, we found the user and the project
+          return res.render("addUpdate", { project: foundProject, user: foundUser });
+        }
+
+      });
+
+    }
 
   });
+
+  // return res.redirect("/projects/" + req.params.id);
+
+});
 
 
 //Update a project's earnings field
-  app.post('/projects/:id/acceptPayment', (req, res) =>
+app.post('/projects/:id/acceptPayment', (req, res) =>
+{
+
+  // req.body.donationAmount contains the amount to update project by
+  Project.findById(req.params.id, (err, projectToUpdate) =>
   {
-
-    // req.body.donationAmount contains the amount to update project by
-    Project.findById(req.params.id, (err, projectToUpdate) =>
+    if (err)
+      console.log(err);
+    else
     {
-      if(err)
-        console.log(err);
-      else{
-        if(req.body.donationAmount > 0){
-          projectToUpdate.earnings = (parseInt(projectToUpdate.earnings) + parseInt(req.body.donationAmount));
-          projectToUpdate.save((err, project) =>
-            {
-              return res.redirect("/projects/" + projectToUpdate._id);
-            });
-        }else{
+      if (req.body.donationAmount > 0)
+      {
+        projectToUpdate.earnings = (parseInt(projectToUpdate.earnings) + parseInt(req.body.donationAmount));
+        projectToUpdate.save((err, project) =>
+        {
           return res.redirect("/projects/" + projectToUpdate._id);
-        }
+        });
       }
-
-    });
+      else
+      {
+        return res.redirect("/projects/" + projectToUpdate._id);
+      }
+    }
 
   });
+
+});
 
 
 //FOLLOW A PROJECT
 app.post('/projects/:id/follow', (req, res) =>
 {
-  if(isLoggedInFlag(req, res)){
+  if (isLoggedInFlag(req, res))
+  {
     Project.findById(req.params.id, (err, foundProject) =>
     {
-      if(err)
+      if (err)
         console.log(err);
-      else{
+      else
+      {
 
         User.findById(req.user._id, (err, foundUser) =>
         {
-          if(err)
+          if (err)
             console.log(err);
-          else{
+          else
+          {
             foundUser.followedProjects.unshift(foundProject); //add project to user following list
             foundUser.save();
             foundProject.followingUsers.unshift(foundUser); //add user to project followers list
-            foundProject.save((err, project) => {
+            foundProject.save((err, project) =>
+            {
               res.redirect("/projects/" + req.params.id);
             });
           }
         });
       }
     });
-  }else{
+  }
+  else
+  {
     res.redirect("/login");
   }
 
@@ -506,25 +589,29 @@ app.post('/projects/:id/unfollow', (req, res) =>
 {
   Project.findById(req.params.id, (err, foundProject) =>
   {
-    if(err)
+    if (err)
       console.log(err);
-    else{
+    else
+    {
 
       User.findById(req.user._id, (err, foundUser) =>
       {
-        if(err)
+        if (err)
           console.log(err);
-        else{
+        else
+        {
 
           //Remove project from user list, and user from project list
-          foundUser.followedProjects.forEach((project, index) => {
+          foundUser.followedProjects.forEach((project, index) =>
+          {
 
             if (project.equals(foundProject._id))
               foundUser.followedProjects.splice(index, 1);
 
           });
 
-          foundProject.followingUsers.forEach((user, index) => {
+          foundProject.followingUsers.forEach((user, index) =>
+          {
 
             if (user.equals(foundUser._id))
               foundProject.followingUsers.splice(index, 1);
@@ -533,7 +620,8 @@ app.post('/projects/:id/unfollow', (req, res) =>
 
 
           foundUser.save();
-          foundProject.save( (err, newProjectName) => {
+          foundProject.save((err, newProjectName) =>
+          {
             res.redirect("/projects/" + req.params.id);
           });
         }
@@ -547,12 +635,13 @@ app.post('/projects/:id/unfollow', (req, res) =>
 app.post("/projects/:id/edit", (req, res) =>
 {
 
-  Project.updateOne({"_id" : req.params.id}, {"FAQ" : req.params.newProjectFAQ, "about" : req.params.newProjectAbout, "description" : req.params.newProjectDescription, "coverPath" : req.params.newCoverPath},  (err, updatedProject) =>
+  Project.updateOne({ "_id": req.params.id }, { "FAQ": req.params.newProjectFAQ, "about": req.params.newProjectAbout, "description": req.params.newProjectDescription, "coverPath": req.params.newCoverPath }, (err, updatedProject) =>
   {
 
-    if(err)
+    if (err)
       console.log(err);
-    else{
+    else
+    {
       updatedProject.save((err, savedProject) =>
       {
         return res.redirect("/projects/" + req.params.id);
@@ -567,11 +656,12 @@ app.post("/projects/:id/edit", (req, res) =>
 
 
 //Edit a project (view):
-  //could create 'isProjectOwner' middleware
+//could create 'isProjectOwner' middleware
 app.get("/projects/:id/edit", (req, res) =>
 {
 
-  if(req.user == null){
+  if (req.user == null)
+  {
     return res.redirect("/projects/" + req.params.id);
   }
 
@@ -579,19 +669,24 @@ app.get("/projects/:id/edit", (req, res) =>
 
   Project.findById(req.params.id, (err, foundProject) =>
   {
-    if(err)
+    if (err)
       console.log(err);
-    else{
+    else
+    {
 
 
       //check if user is owner of requested project:
-      isInArray = foundProject.owners.some((projectOwner) => {
-          return projectOwner.equals(req.user._id);
+      isInArray = foundProject.owners.some((projectOwner) =>
+      {
+        return projectOwner.equals(req.user._id);
       });
 
-      if(isInArray){
-        return res.render("projectEdit", {project: foundProject});
-      }else{
+      if (isInArray)
+      {
+        return res.render("projectEdit", { project: foundProject });
+      }
+      else
+      {
         return res.redirect("/projects/" + req.params.id);
       }
 
@@ -611,7 +706,9 @@ app.post('/addProject', (req, res) =>
 
   var newId = mongoose.Types.ObjectId();
 
-  var currProject = new Project({ name: req.body.newProjectName,
+  var currProject = new Project(
+  {
+    name: req.body.newProjectName,
     coverPath: req.body.newCoverPath,
     description: req.body.newProjectDescription,
     about: req.body.newProjectAbout,
@@ -620,31 +717,34 @@ app.post('/addProject', (req, res) =>
     sdgCategory: req.body.newProjectSDGGoal,
     fundingType: req.body.newProjectFundingType,
     sdgCategory: req.body.newProjectSDGCategory,
-    _id: newId });
+    _id: newId
+  });
 
 
 
-  currProject.save((err, createdProject) =>{
+  currProject.save((err, createdProject) =>
+  {
 
-      //Associate owners with a project.
-      User.findById(req.user._id, (err, foundUser) =>
+    //Associate owners with a project.
+    User.findById(req.user._id, (err, foundUser) =>
+    {
+
+      if (err)
+        console.log(err)
+      else
       {
-
-        if(err)
-          console.log(err)
-        else{
-          //Adding owner information to project object.
-          createdProject.owners.unshift(foundUser);
-          foundUser.ownedProjects.unshift(createdProject);
-          foundUser.save();
-          createdProject.save();
-        }
-
-      });
-
-      res.redirect("/projects/" + createdProject._id); //redirect to newly created project
+        //Adding owner information to project object.
+        createdProject.owners.unshift(foundUser);
+        foundUser.ownedProjects.unshift(createdProject);
+        foundUser.save();
+        createdProject.save();
+      }
 
     });
+
+    res.redirect("/projects/" + createdProject._id); //redirect to newly created project
+
+  });
 
 
 
