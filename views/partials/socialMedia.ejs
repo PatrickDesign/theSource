@@ -1,37 +1,37 @@
-<div class="container" style="padding-bottom: 5%;">
-    <div style = "border-style:solid;align-text:center;">
+<div class="row bootstrap snippets center" style="padding-top:7%;display: inline-block;">
+        <div>
+            <div class="comment-wrapper">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                    Updates from around the Source
+                        <hr>
+                    </div>
+                    <div class="panel-body">
+                        
 
-    	<h2 class="text-center">Connect With The Source Community!</h2>
+                        <ul class="media-list">
 
-        <!-- One post -->
-    	<div class="card">
-    	    <div class="card-body">
-    	        <div class="row">
-            	    <div class="col-md-2">
-            	        <img src="/avatar/4.png" class="img img-rounded img-fluid" style = "width:150px;height:150px;padding:20px;"/>
-            	        <p class="text-secondary text-center">15 Minutes Ago</p>
-            	    </div>
-            	    <div class="col-md-10" style = "padding-top:3%;">
-            	        <p>
-            	            <a class="float-left" href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong>Maniruzzaman Akash</strong></a>
-            	            <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                            <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-            	            <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-            	            <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                        <% user.notifications.forEach((notification) => { %>
+                        
+                            <li class="media commentContainer">
+                                <a href="/users/<%=notification.author._id%>" class="pull-left">
+                                    <img src="<%=notification.author.avatar%>" alt="" class="img-circle">
+                                </a>
+                                <div class="media-body">
+                                <span class="text-muted pull-right">
+                                        <small class="text-muted"><%= notification.timePosted.toLocaleDateString("en-US") %></small>
+                                    </span>
+                                    <h3><%=notification.title%></h3>
+                                    <p>
+                                        <%= notification.notificationBody %> </a>.
+                                    </p>
+                            </li>
+                        
+                        <% }); %>
 
-            	       </p>
-            	       <div class="clearfix"></div>
-            	        <p>Just found this great project! Got the team from Space X on it.</p>
-            	        <p>
-            	            <a class="float-right btn btn-outline-primary ml-2"> <i class="fa fa-reply"></i> Reply</a>
-            	            <a class="float-right btn text-white btn-danger"> <i class="fa fa-heart"></i> Like</a>
-            	       </p>
-            	    </div>
-    	        </div>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
-
-        <!-- end post -->
-   	
     </div>
-</div>

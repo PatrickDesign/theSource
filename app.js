@@ -498,7 +498,20 @@ app.get('/', (req, res) =>
           console.log(err);
         else
         {
-          res.render("index", { projects: allProjects, finishedProjects: finishedProjects });
+
+          if(req.user){
+            User.findById(req.user._id).populate({path: "notifications", populate: {path: "author"}}).exec((err, foundUser) =>
+            {
+              if(err)
+                console.log(err);
+              else{
+                res.render("index", { projects: allProjects, finishedProjects: finishedProjects, user: foundUser });
+              }
+            });
+          }else{
+                res.render("index", { projects: allProjects, finishedProjects: finishedProjects});
+          }
+
         }
       });
       // res.render("index", { projects: allProjects });

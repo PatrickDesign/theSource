@@ -55,7 +55,7 @@ var userSchema = new mongoose.Schema(
     notifications: [
     {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "notification"
+        ref: "Notification"
     }],
     
     contributed: { type: Number, default: 0.0 }
