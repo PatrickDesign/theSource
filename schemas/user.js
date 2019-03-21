@@ -30,7 +30,9 @@ var userSchema = new mongoose.Schema(
         type: mongoose.Schema.Types.ObjectId,
         ref: "Comment"
 
-    }]
+    }],
+    
+    contributed: { type: Number, default: 0.0 }
 });
 
 userSchema.plugin(passportLocalMongoose);
