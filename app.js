@@ -201,7 +201,15 @@ app.get("/about", (req, res) =>
 
 app.get("/dashboard", (req, res) =>
 {
-  res.render("dashboard");
+  User.findById(req.user._id).populate({ path: "followedProjects , ownedProjects" }).exec((err, foundUser) =>
+  {
+    if (err)
+      console.log(err);
+    else
+    {
+      res.render("dashboard", { user: foundUser }); //render view template with that project
+    }
+  });
 });
 
 app.get("/explore", (req, res) =>
@@ -434,12 +442,12 @@ app.get("/viewUsers", (req, res) =>
 //FOLLOW A PROJECT
 app.post('/projects/:id/follow', (req, res) =>
 {
-  Project.findById(req.params.id, (err, foundProject) => 
+  Project.findById(req.params.id, (err, foundProject) =>
   {
     if(err)
       console.log(err);
     else{
-      
+
       User.findById(req.user._id, (err, foundUser) =>
       {
         if(err)
@@ -463,12 +471,12 @@ app.post('/projects/:id/follow', (req, res) =>
 //UNFOLLOW a project
 app.post('/projects/:id/unfollow', (req, res) =>
 {
-  Project.findById(req.params.id, (err, foundProject) => 
+  Project.findById(req.params.id, (err, foundProject) =>
   {
     if(err)
       console.log(err);
     else{
-      
+
       User.findById(req.user._id, (err, foundUser) =>
       {
         if(err)
@@ -506,13 +514,13 @@ app.post('/projects/:id/unfollow', (req, res) =>
 app.post("/projects/:id/edit", (req, res) =>
 {
 
-  Project.updateOne({"_id" : req.params.id}, {"FAQ" : req.params.newProjectFAQ, "about" : req.params.newProjectAbout, "description" : req.params.newProjectDescription, "coverPath" : req.params.newCoverPath},  (err, updatedProject) => 
+  Project.updateOne({"_id" : req.params.id}, {"FAQ" : req.params.newProjectFAQ, "about" : req.params.newProjectAbout, "description" : req.params.newProjectDescription, "coverPath" : req.params.newCoverPath},  (err, updatedProject) =>
   {
 
     if(err)
       console.log(err);
     else{
-      updatedProject.save((err, savedProject) => 
+      updatedProject.save((err, savedProject) =>
       {
         return res.redirect("/projects/" + req.params.id);
       });
@@ -527,7 +535,7 @@ app.post("/projects/:id/edit", (req, res) =>
 
 //Edit a project (view):
   //could create 'isProjectOwner' middleware
-app.get("/projects/:id/edit", (req, res) => 
+app.get("/projects/:id/edit", (req, res) =>
 {
 
   if(req.user == null){
@@ -546,7 +554,7 @@ app.get("/projects/:id/edit", (req, res) =>
       //check if user is owner of requested project:
       isInArray = foundProject.owners.some((projectOwner) => {
           return projectOwner.equals(req.user._id);
-      }); 
+      });
 
       if(isInArray){
         return res.render("projectEdit", {project: foundProject});
@@ -586,7 +594,7 @@ app.post('/addProject', (req, res) =>
   currProject.save((err, createdProject) =>{
 
       //Associate owners with a project.
-      User.findById(req.user._id, (err, foundUser) => 
+      User.findById(req.user._id, (err, foundUser) =>
       {
 
         if(err)
