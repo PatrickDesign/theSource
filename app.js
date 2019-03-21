@@ -424,11 +424,29 @@ app.get("/viewUsers", (req, res) =>
         console.log(err);
       else{
         if(req.body.donationAmount > 0){
-          projectToUpdate.earnings = (parseInt(projectToUpdate.earnings) + parseInt(req.body.donationAmount));
-          projectToUpdate.save((err, project) =>
+          
+          User.findById(req.user._id, (err, foundUser) =>
+          {
+            if(err)
+              console.log(err);
+            else{
+              projectToUpdate.earnings = (parseInt(projectToUpdate.earnings) + parseInt(req.body.donationAmount));
+              var isInArray = projectToUpdate.backers.some((_id) => {
+                              return _id.equals(foundUser._id);
+                          });
+              if(!isInArray){
+                projectToUpdate.backers.unshift(foundUser);
+              }
+              foundUser.contributed = (parseInt(foundUser.contributed) + parseInt(req.body.donationAmount));
+              foundUser.save()
+              projectToUpdate.save((err, project) =>
             {
               return res.redirect("/projects/" + projectToUpdate._id);
             });
+            }
+          });
+          
+          
         }else{
           return res.redirect("/projects/" + projectToUpdate._id);
         }
