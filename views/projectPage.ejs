@@ -9,9 +9,7 @@
 									    <h4 style = "display: inline-block; padding-left:4%;">Created by <%= user.username %></h4>
 									  <% }); %>
                 </div>
-                <div class = "col-lg-6">
-                    <p style = "font-size: 12px;"><%= project.description %></p>
-                </div>
+                
             </div>
             <!-- project pic and info -->
             <div class = "row padding paddingtop">
@@ -41,11 +39,11 @@
                         </div>
                     </div>
                     <div class = "row funders alignleft">
-                        <h1>620</h1>
-                        <p>Funders</p>
+                        <h1><%= project.backers.length %></h1>
+                        <p>Backers</p>
                     </div>
                     <div class = "row back-project-button">
-                        <button type="button" class="btn btn-primary green backit-button" data-toggle="modal" data-target="#exampleModal">Back This Project</button>
+                        <button type="button" class="btn btn-primary green backit-button" data-toggle="modal" data-target="#exampleModal"> Back This Project </button>
                     </div>
 
 
