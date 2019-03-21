@@ -1,0 +1,37 @@
+<% include partials/sourceHeader %>
+
+
+<form action="/projects/<%= project._id %>/updates/addUpdate" method="POST">
+<div class="form-group">
+  <label>Cover Image Path:</label>
+  <input required type="text" class="form-control" value = "<%= project.coverPath %>" placeholder="Great_Pic.jpg" name="newCoverPath">
+</div>
+<div class="form-group">
+  <label for="comment">Project description:</label>
+  <textarea required class="form-control" rows="5" name="newProjectDescription" placeholder="A basic description of my project ..."><%= project.description %></textarea>
+</div>
+
+<div class="form-group">
+  <label for="comment">About project:</label>
+  <textarea class="form-control" rows="5" name="newProjectAbout" placeholder="Some more info to appear in the about section of my project ..."><%= project.about %></textarea>
+</div>
+
+<div class="form-group">
+  <label for="comment">FAQ:</label>
+  <textarea class="form-control" rows="5" name="newProjectFAQ" placeholder="Some frequently asked questions for my project ..."></textarea>
+</div>
+
+<br>
+<!-- <div class="form-group">
+  <label>Select a related goal:</label>
+  <select required class="form-control" name="newProjectSDGGoal">
+      <% sdgCategories.forEach((category) => { %>
+        <option><%= category %></option>
+      <% }); %>
+    </select>
+</div> -->
+<button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+
+<% include partials/sourceFooter %>
