@@ -656,22 +656,18 @@ app.post('/projects/:id/unfollow', (req, res) =>
 app.post("/projects/:id/edit", (req, res) =>
 {
 
-  Project.updateOne({ "_id": req.params.id }, { "FAQ": req.params.newProjectFAQ, "about": req.params.newProjectAbout, "description": req.params.newProjectDescription, "coverPath": req.params.newCoverPath }, (err, updatedProject) =>
+  Project.updateOne({ "_id": req.params.id }, { $set: { "FAQ": req.body.newProjectFAQ, "about": req.body.newProjectAbout, "description": req.body.newProjectDescription, "coverPath": req.body.newCoverPath } }, (err, updatedProject) =>
   {
 
     if (err)
       console.log(err);
     else
     {
-      updatedProject.save((err, savedProject) =>
-      {
-        return res.redirect("/projects/" + req.params.id);
-      });
+      return res.redirect("/projects/" + req.params.id);
     }
 
   });
 
-  res.redirect("/projects/" + req.params.id);
 
 });
 

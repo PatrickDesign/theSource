@@ -9,7 +9,7 @@
   <button>Submit</button>
 </form> -->
 
-<form action="/addProject" method="POST">
+<form action="/projects/<%=project._id%>/edit" method="POST">
 <div class="form-group">
   <label>Cover Image Path:</label>
   <input required type="text" class="form-control" value = "<%= project.coverPath %>" placeholder="Great_Pic.jpg" name="newCoverPath">
@@ -26,7 +26,7 @@
 
 <div class="form-group">
   <label for="comment">FAQ:</label>
-  <textarea class="form-control" rows="5" name="newProjectFAQ" placeholder="Some frequently asked questions for my project ..."></textarea>
+  <textarea class="form-control" rows="5" name="newProjectFAQ" placeholder="Some frequently asked questions for my project ..."><%= project.faq %></textarea>
 </div>
 
 <br>

@@ -1,6 +1,24 @@
 <% include partials/sourceHeader %>
-<script src="/jquery/jquery.js"></script>
-	<h1 style = "font-weight: bold;font-size:3em; text-align: center;"><%= project.name %> <a href= <%= "/projects/" + project._id + "/edit" %>> (edit) </a></h1>
+
+  <% 
+                //Determine if current user is owner:
+
+                var isOwner;
+
+                if(currentUser){
+                  if(project.owners != null){
+
+                    isOwner = project.owners.some((owner) => {
+                          return currentUser._id.equals(owner._id);
+                      }); 
+
+                  }
+                }
+
+  %>
+
+
+	<h1 style = "font-weight: bold;font-size:3em; text-align: center;"><%= project.name %> <% if(isOwner){ %> <a href= <%="/projects/" + project._id + "/edit"%> > (edit) </a> <% } %></h1>
         <div class = "project">
             <div class = "row" style = "padding-top:5%;">
                 <div class = "col-lg-6">
@@ -11,6 +29,11 @@
                 </div>
                 
             </div>
+            
+            
+            
+            
+            
             <!-- project pic and info -->
             <div class = "row padding paddingtop">
                 <div class = "col-lg-6">
@@ -62,10 +85,6 @@
                           <div class="modal-body">
                             <% include partials/paymentForm %>
                           </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Donate</button>
-                          </div>
                         </div>
                       </div>
                     </div>
@@ -99,7 +118,7 @@
                       </form>
                     <% }else{ %>
                       <form method="POST" action="/projects/<%= project._id %>/unfollow">
-                      <button type="submit" class="btn btn-light" style="align-items:center;float:left;background-color:lightgrey;">Unfollow Project<span class = "glyphicon glyphicon-heart-empty" style="color:red;padding-left:2em;"></span></button>
+                      <button type="submit" class="btn btn-light" style="align-items:center;float:left;background-color:lightgrey;">Unfollow Project<span class = "glyphicon glyphicon-heart" style="color:red;padding-left:2em;"></span></button>
                       </form>
 
                     <% } %>
@@ -229,25 +248,6 @@
 
                     </div>
                 </div>
-
-
-
-                <% 
-                  //Determine if current user is owner:
-
-                  var isOwner;
-
-                  if(currentUser){
-                    if(project.owners != null){
-
-                      isOwner = project.owners.some((owner) => {
-                            return currentUser._id.equals(owner._id);
-                        }); 
-
-                    }
-                  }
-
-                %>
 
 
 
