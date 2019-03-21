@@ -21,7 +21,7 @@
                                     <span class="text-muted pull-right">
                                         <small class="text-muted"><%= comment.timePosted.toLocaleDateString("en-US") %></small>
                                     </span>
-                                    <strong class="text-success">@<%= comment.author.username %></strong>
+                                    <strong class="text-success">Comment left on project: <a href="/projects/<%= comment.project._id %>"><%=comment.project.name%></a></strong>
                                     <p>
                                         <%= comment.text %> </a>.
                                     </p>
