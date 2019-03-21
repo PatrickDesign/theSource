@@ -659,7 +659,7 @@ app.post('/projects/:id/acceptPayment', (req, res) =>
             projectToUpdate.earnings = (parseInt(projectToUpdate.earnings) + parseInt(req.body.donationAmount));
             var isInArray = projectToUpdate.backers.some((_id) =>
             {
-              return _id.equals(foundUser._id);
+              return foundUser._id.equals(_id);
             });
             if (!isInArray)
             {
