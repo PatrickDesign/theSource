@@ -1,4 +1,4 @@
-//Todo's:
+:////Todo's:
 //1.) IMPROVE FRONT END ROUGH EDGES
 //1a) NAVBAR
 //2.) Create edit project page
@@ -412,17 +412,6 @@ app.get("/explore", (req, res) =>
 app.post("/explore", (req, res) =>
 {
 
-  // Project.find({}, function (err, allProjects)
-  // {
-  //   if (err)
-  //     console.log(err);
-  //   else
-  //   {
-  //     res.render("index", { projects: allProjects });
-  //   }
-  // });
-
-
   Project.find({ 'sdgCategory': req.body.sdgCategory }, (err, foundProjects) =>
   {
     if (err)
@@ -579,15 +568,6 @@ app.get("/viewUsers", (req, res) =>
 
 });
 
-
-// app.post('/projects/:id/startPayment', (req, res) =>
-// {
-
-//   if(req.params.donationAmount > 0){
-//     return res.redirec
-//   }
-
-// });
 
 app.post('/projects/:id/updates/addUpdate', (req, res) =>
 {
