@@ -9,6 +9,12 @@
 
 //6.) Organize codebase
 
+//TODO:
+//Follow users
+//create a user 'view' like dashboard, but for another user.
+
+//populate social feed with something.
+
 
 
 
@@ -96,6 +102,24 @@ app.post('/users/:id/update', (req, res) =>
       }
     });
   }
+});
+
+
+//Route to view a generic user's account
+app.get('/users/:id', (req, res) => 
+{
+
+  User.findById(req.params.id).populate({ path: "comments", populate: {path: "author"}, options: { sort: { rating: -1 } } }).exec((err, foundUser) =>
+  {
+    if(err)
+      console.log(err);
+    else{
+
+     return res.render("viewUser", {user: foundUser});
+
+    }
+  });
+
 });
 
 

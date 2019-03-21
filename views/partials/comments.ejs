@@ -26,7 +26,7 @@
                         <% project.comments.forEach((comment) => { %>
                         
                             <li class="media commentContainer">
-                                <a href="#" class="pull-left">
+                                <a href="/users/<%= comment.author._id %>"  class="pull-left">
                                     <img src="<%=comment.author.avatar%>" alt="" class="img-circle">
                                 </a>
                                 <div class="media-body">
