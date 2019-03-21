@@ -1,0 +1,60 @@
+<div class="row bootstrap snippets center" style="padding-top:7%;display: inline-block;">
+        <div>
+            <div class="comment-wrapper">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                    </div>
+                    <div class="panel-body">
+                        
+                        <% 
+                          //Determine if current user is owner:
+        
+                          var isOwner;
+        
+                          if(currentUser){
+                            if(project.owners != null){
+        
+                              isOwner = project.owners.some((owner) => {
+                                    return currentUser._id.equals(owner._id);
+                                }); 
+        
+                            }
+                          }
+        
+                        %>
+                        <% if(isOwner){ %> 
+          
+                            <a class="btn btn-success" href="/projects/<%=project._id%>/updates/addUpdate">Add a new project update! </a>
+
+
+
+                        <% } %>
+                        
+                        </div>
+                        <hr>
+                        <ul class="media-list">
+
+                        <% project.updates.forEach((update) => { %>
+                        
+                            <li class="media commentContainer">
+                                <div class="media-body">
+                                    <h3><%=update.title%></h3>
+                                    <strong class="text-success">@<%= update.author.username %> - <%= update.timePosted.toLocaleDateString("en-US") %></strong>
+                                    <% if(update.img){ %>
+                                    <div class="updateImageContainer">
+                                        <img class="updateImage" src="<%= update.img %>" />
+                                    </div>
+                                    <% } %>
+                                    <p>
+                                        <%= update.updateText %>
+                                    </p>
+                                </div>
+                            </li>
+                        
+                        <% }); %>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>

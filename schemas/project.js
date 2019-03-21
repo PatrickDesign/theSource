@@ -24,6 +24,12 @@ var projectSchema = new mongoose.Schema(
 		ref: "User"
 	}],
 
+	updates: [
+	{
+		type: mongoose.Schema.Types.ObjectId,
+		ref: "Update"
+	}],
+
 	comments: [
 	{
 		type: mongoose.Schema.Types.ObjectId,

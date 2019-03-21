@@ -1,0 +1,21 @@
+<% include partials/sourceHeader %>
+
+
+<form action="/projects/<%= project._id %>/updates/addUpdate" method="POST">
+<div class="form-group">
+  <label>Update Title:</label>
+  <input required type="text" class="form-control" name="newUpdateTitle">
+</div>
+<div class="form-group">
+  <label>Update Image (Optional):</label>
+  <input required type="text" class="form-control" placeholder="Great_Pic.jpg" name="newCoverPath">
+</div>
+<div class="form-group">
+  <label for="comment">Project description:</label>
+  <textarea required class="form-control" rows="5" name="newUpdateText" placeholder="Enter your update here ..."></textarea>
+</div>
+<button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+
+<% include partials/sourceFooter %>

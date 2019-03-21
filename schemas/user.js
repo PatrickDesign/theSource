@@ -9,14 +9,20 @@ var userSchema = new mongoose.Schema(
 
     ownedProjects: [
     {
-    	type: mongoose.Schema.Types.ObjectId,
-    	ref: "Project"
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Project"
     }],
 
     followedProjects: [
     {
-    	type: mongoose.Schema.Types.ObjectId,
-    	ref: "Project"
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Project"
+    }],
+
+    updates: [
+    {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Update"
     }],
 
     comments: [

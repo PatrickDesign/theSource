@@ -73,6 +73,7 @@
 
 
 
+
                     <div class = "row" style = "padding-top:3%;">
                     <%
 
@@ -228,12 +229,30 @@
 
                     </div>
                 </div>
+
+
+
+                <% 
+                  //Determine if current user is owner:
+
+                  var isOwner;
+
+                  if(currentUser){
+                    if(project.owners != null){
+
+                      isOwner = project.owners.some((owner) => {
+                            return currentUser._id.equals(owner._id);
+                        }); 
+
+                    }
+                  }
+
+                %>
+
+
+
                 <div id="updates" class="tab-pane fade in">
-                  <h1 style = "text-align:center;">Project Updates</h1>
-                  <h2 style="text-decoration:underline;">Gaining Traction!</h2>
-                  <p> $275 out of $1000 raised so far!</p>
-                  <h2 style="text-decoration:underline;">New Member Joined!</h2>
-                  <p> Jim Carrey has joined as our PR mentor!</p>
+                  <% include partials/updates %>
                 </div>
                 <div id="team" class="tab-pane fade in">
                   <div class="row paddingtop">
@@ -281,8 +300,31 @@
             </div>
 
             <div class = "row donate-now padding paddingtop">
-                  <button type="button" class="btn btn-primary btn-block green" style="height:3em;font-size:28px;"data-toggle="modal" data-target="#exampleModal">Donate Now!</button>
+
+                  <button type="button" class="btn btn-primary btn-block green" data-toggle="modal" data-target="#exampleModal" style="height:3em;font-size:28px;">Donate Now!</button>
             </div>
+
+            <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Donate to <%= project.name %></h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <% include partials/paymentForm %>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Donate</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- end modal -->
         </div>
 
 <!-- got er from this website:
