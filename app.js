@@ -83,6 +83,29 @@ app.use((req, res, next) =>
 
 //UserRoues======================
 
+app.post('/users/:id/update', (req, res) => 
+{
+  if(req.body.inlineRadioOptions){
+    User.updateOne({"_id" : req.user._id}, { $set: {bio: req.body.userBio, avatar: req.body.inlineRadioOptions}}, (err, updatedUser) =>
+    {
+      if(err)
+          console.log(err);
+      else{
+          res.redirect('/dashboard')
+      }
+    });
+  }else{
+    User.updateOne({"_id" : req.user._id}, { $set: {bio: req.body.userBio}}, (err, updatedUser) =>
+    {
+      if(err)
+          console.log(err);
+      else{
+          res.redirect('/dashboard')
+      }
+    });
+  }
+});
+
 //Follow/Unfollow logic:
 
 app.post('/users/:id/follow', (req, res) =>

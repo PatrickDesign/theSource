@@ -20,7 +20,7 @@ if(currentUser){
 <h1><img src="<%= user.avatar%>" width="90" alt="" class="img-circle">  <%= user.username %>
 
 <!-- This is the logic to determine which 'follow button' to show. -->
-<% if(!user._id.equals(currentUser._id)){ %> <!-- this is so user's cant follow themselves -->
+<% if(currentUser && !user._id.equals(currentUser._id)){ %> <!-- this is so user's cant follow themselves -->
 <% if(!isFollowing){
 %>
   <div class = "userFollowButton">
@@ -37,6 +37,7 @@ if(currentUser){
 
 <% } %></h1>
 <% } %>
+<h4><%=user.bio%></h4>
 
 
 

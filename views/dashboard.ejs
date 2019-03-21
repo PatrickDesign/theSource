@@ -1,6 +1,7 @@
 
 <% include partials/sourceHeader %>
 <h1><img src="<%= currentUser.avatar%>" width="90" alt="" class="img-circle">  <%= currentUser.username %></h1>
+<h4><%=user.bio%></h4>
 <hr style="border: 3px solid;">
 <h2>Total Money Contributed: $ <%= currentUser.contributed %></h2>
 <hr>
@@ -69,7 +70,7 @@
 <div id="user_details" style="display:none;">
   <hr>
 
-  <form method="POST" action="users/<%= currentUser._id %>/update">
+  <form method="POST" action="/users/<%= currentUser._id %>/update">
 
   <form action="/register" method="POST">
     <h1>Update your account details:</h1>
