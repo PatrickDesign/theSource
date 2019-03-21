@@ -412,6 +412,36 @@ app.get("/viewUsers", (req, res) =>
 
   // });
 
+  app.get('/projects/:id/updates/addUpdate', (req, res) =>
+  {
+
+    User.findById(req.currentUser._id, (err, foundUser) =>
+    {
+
+      if(err)
+        console.log(err);
+      else{
+
+        Project.findById(req.params.id, (err, foundProject) =>
+        {
+
+          if(err)
+            console.log(err);
+          else{
+            //At this point, we found the user and the project
+            return res.render("addUpdate", {project: foundProject, user: foundUser})
+          }
+
+        });
+
+      }
+
+    });
+
+    return res.redirect("/projects/" + req.params.id);
+
+  });
+
 
 //Update a project's earnings field
   app.post('/projects/:id/acceptPayment', (req, res) =>
