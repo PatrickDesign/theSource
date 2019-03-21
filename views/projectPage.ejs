@@ -4,8 +4,10 @@
         <div class = "project">
             <div class = "row" style = "padding-top:5%;">
                 <div class = "col-lg-6">
-                    <img src="/jim.jpg" alt="Avatar" class="avatar"/>
-                    <h4 style = "display: inline-block; padding-left:4%;">Created by Joeseph Baxter</h4>
+                    <img src="https://bootdey.com/img/Content/user_1.jpg" alt="Avatar" class="avatar"/>
+										<% project.owners.forEach((user) => { %>
+									    <h4 style = "display: inline-block; padding-left:4%;">Created by <%= user.username %></h4>
+									  <% }); %>
                 </div>
                 <div class = "col-lg-6">
                     <p style = "font-size: 12px;"><%= project.description %></p>
@@ -72,9 +74,9 @@
                     <!-- end modal -->
 
 
-                    
+
                     <div class = "row" style = "padding-top:3%;">
-                    <% 
+                    <%
 
                     var isInArray;
 
@@ -83,7 +85,7 @@
 
                         isInArray = currentUser.followedProjects.some((projectId) => {
                               return projectId.equals(project._id);
-                          }); 
+                          });
 
                       }else{
                         isInArray = false;
@@ -91,7 +93,7 @@
                     }else{
                       isInArray = false;
                     }
-                    if(!isInArray){ 
+                    if(!isInArray){
                     %>
                       <form method="POST" action="/projects/<%= project._id %>/follow">
                           <button type="submit" class="btn btn-light" style="align-items:center;float:left;background-color:lightgrey;">Follow Project<span class = "glyphicon glyphicon-heart-empty" style="color:red;padding-left:2em;"></span></button>
