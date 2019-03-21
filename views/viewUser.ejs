@@ -48,7 +48,7 @@ if(currentUser){
 <div id="proj_create" style="display:none;">
   <hr>
   <% user.ownedProjects.forEach((project) => { %>
-    <div class="userMetricElement"> <a href="projects/<%= project._id %>"><%= project.name %></a> </div>
+    <div class="userMetricElement"> <a href="/projects/<%= project._id %>"><%= project.name %></a> </div>
   <% }); %>
 </div>
 <hr>
@@ -64,7 +64,7 @@ if(currentUser){
 <div id="proj_follow" style="display:none;">
   <hr>
   <% user.followedProjects.forEach((project) => { %>
-    <div class="userMetricElement"> <a href="projects/<%= project._id %>"><%= project.name %></a> </div>
+    <div class="userMetricElement"> <a href="/projects/<%= project._id %>"><%= project.name %></a> </div>
   <% }); %>
 </div>
 <hr>
