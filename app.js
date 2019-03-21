@@ -395,6 +395,42 @@ app.get("/viewUsers", (req, res) =>
 });
 
 
+  // app.post('/projects/:id/startPayment', (req, res) =>
+  // {
+
+  //   if(req.params.donationAmount > 0){
+  //     return res.redirec 
+  //   }
+
+  // });
+
+
+//Update a project's earnings field
+  app.post('/projects/:id/acceptPayment', (req, res) =>
+  {
+
+    // req.body.donationAmount contains the amount to update project by
+    Project.findById(req.params.id, (err, projectToUpdate) => 
+    {
+      if(err)
+        console.log(err);
+      else{
+        if(req.body.donationAmount > 0){
+          projectToUpdate.earnings = (parseInt(projectToUpdate.earnings) + parseInt(req.body.donationAmount));
+          projectToUpdate.save((err, project) =>
+            {
+              return res.redirect("/projects/" + projectToUpdate._id);
+            });
+        }else{
+          return res.redirect("/projects/" + projectToUpdate._id);
+        }
+      }
+
+    });
+
+  });
+
+
 //FOLLOW A PROJECT
 app.post('/projects/:id/follow', (req, res) =>
 {
@@ -568,6 +604,7 @@ app.post('/addProject', (req, res) =>
       res.redirect("/projects/" + createdProject._id); //redirect to newly created project
 
     });
+
 
 
 });
