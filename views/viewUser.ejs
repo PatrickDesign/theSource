@@ -1,6 +1,43 @@
 
 <% include partials/sourceHeader %>
-<h1><img src="<%= user.avatar%>" width="90" alt="" class="img-circle">  <%= user.username %></h1>
+
+ <%
+
+var isFollowing;
+
+if(currentUser){
+
+    isFollowing = currentUser.followedUsers.some((searchedUser) => {
+          return user._id.equals(searchedUser._id);
+      });
+
+}else{
+  isFollowing = false;
+}
+%>
+
+
+<h1><img src="<%= user.avatar%>" width="90" alt="" class="img-circle">  <%= user.username %>
+
+<!-- This is the logic to determine which 'follow button' to show. -->
+<% if(!isFollowing){
+%>
+  <div class = "userFollowButton">
+    <form method="POST" action="/users/<%= user._id %>/follow">
+        <button type="submit" class="btn btn-light" style="align-items:center;float:left;background-color:lightgrey;">Follow <%= user.username %>!<span class = "glyphicon glyphicon-heart-empty" style="color:red;padding-left:2em;"></span></button>
+    </form>
+  </div>
+<% }else{ %>
+<div class = "userFollowButton">
+  <form method="POST" action="/users/<%= user._id %>/unfollow">
+  <button type="submit" class="btn btn-light" style="align-items:center;float:left;background-color:lightgrey;">Unfollow <%= user.username %><span class = "glyphicon glyphicon-heart" style="color:red;padding-left:2em;"></span></button>
+  </form>
+</div>
+
+<% } %></h1>
+
+
+
 <hr style="border: 3px solid;">
 <h2>Total Money Contributed: $ <%= user.contributed %></h2>
 <hr>

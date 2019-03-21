@@ -12,6 +12,7 @@
 //TODO:
 //Follow users
 //create a user 'view' like dashboard, but for another user.
+//Display 'following users'
 
 //populate social feed with something.
 
@@ -119,6 +120,45 @@ app.get('/users/:id', (req, res) =>
 
     }
   });
+
+});
+
+
+
+//Follow/Unfollow logic:
+
+app.post('/users/:id/follow', (req, res) =>
+{
+
+  User.findById(req.params.id, (err, userGettingFollowed) => 
+  {
+    if(err)
+      console.log(err);
+    else{
+
+      User.findById(req.user._id, (err, userDoingTheFollowing) =>
+      {
+        if(err)
+          console.log(err);
+        else{
+          userGettingFollowed.followers.unshift(userDoingTheFollowing);
+          userDoingTheFollowing.followedUsers.unshift(userGettingFollowed);
+
+          userDoingTheFollowing.save();
+          userGettingFollowed.save((err, savedUser) =>
+          {
+            if(err)
+              console.log(err);
+            else
+            //redirect back to user we just followed
+            return res.redirect('/users/' + req.params.id);
+          });
+        }
+      })
+
+    }
+  });
+
 
 });
 
