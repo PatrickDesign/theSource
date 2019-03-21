@@ -28,15 +28,17 @@
   <% }); %>
 </div>
 <hr>
-<!-- <div class="userMetric" onclick="toggle_visibility('proj_comments');"><h3>Comments Made <i class="fa fa-caret-down"></i> </h3></div>
+
+<div class="userMetric" onclick="toggle_visibility('proj_comments');"><h3>Comments Made <i class="fa fa-caret-down"></i> </h3></div>
 <div id="proj_comments" style="display:none;">
   <hr>
-  <div class="userMetricElement">Comment 1</div>
+ <!--  <div class="userMetricElement">Comment 1</div>
   <div class="userMetricElement">Comment 2</div>
-  <div class="userMetricElement">Comment 3</div>
+  <div class="userMetricElement">Comment 3</div> -->
+  <% include partials/userComments %>
 </div>
 
-<hr> -->
+<hr>
 
 <div class="userMetric" onclick="toggle_visibility('user_details');"><h3>User details <i class="fa fa-caret-down"></i> </h3></div>
 <div id="user_details" style="display:none;">

@@ -236,7 +236,7 @@ app.get("/about", (req, res) =>
 
 app.get("/dashboard", (req, res) =>
 {
-  User.findById(req.user._id).populate({ path: "followedProjects , ownedProjects" }).exec((err, foundUser) =>
+  User.findById(req.user._id).populate({ path: "comments", populate: {path: "author"}, options: { sort: { rating: -1 } } }).populate({ path: "followedProjects , ownedProjects" }).exec((err, foundUser) =>
   {
     if (err)
       console.log(err);

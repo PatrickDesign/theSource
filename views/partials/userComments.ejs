@@ -3,27 +3,15 @@
             <div class="comment-wrapper">
                 <div class="panel panel-info">
                     <div class="panel-heading">
+                    Your past comments:
                     </div>
                     <div class="panel-body">
-                        <% if(isLoggedInFlag){ %>
-                        <form action="/projects/<%= project._id %>/comments" method="POST">
-                            <textarea class="form-control" placeholder="Add a comment to <%= project.name %>" rows="3" name="commentText"></textarea>
-                            <br>
-                            <button>Submit</button>
-                            <div class="clearfix">
-                        </form>
-
-                        <% }else{ %>
-
-                            <p>Please login to post a comment!</p>
-
-                        <% } %>
                         
                         
                         <hr>
                         <ul class="media-list">
 
-                        <% project.comments.forEach((comment) => { %>
+                        <% user.comments.forEach((comment) => { %>
                         
                             <li class="media commentContainer">
                                 <a href="#" class="pull-left">
@@ -37,15 +25,8 @@
                                     <p>
                                         <%= comment.text %> </a>.
                                     </p>
-                                    <div>
-                                        <form action="/projects/<%= project._id %>/comments/<%= comment._id %>/upvote" method="POST" style="display:inline-block">
-                                            <button style="display:inline-block"><strong>+</strong></button>
-                                        </form>
-                                        <form action="/projects/<%= project._id %>/comments/<%= comment._id %>/downvote" method="POST" style="display:inline-block">
-                                            <button style="display:inline-block"><strong>-</strong></button>
-                                        </form>
-                                        <span>Comment Rank: <%= comment.rating %></span>
-                                </div>
+                                    <span>Comment Rank: <%= comment.rating %></span>
+                                    
                             </li>
                         
                         <% }); %>
