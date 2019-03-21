@@ -1,6 +1,6 @@
 <% include partials/sourceHeader %>
 
-  <% 
+  <%
                 //Determine if current user is owner:
 
                 var isOwner;
@@ -10,7 +10,7 @@
 
                     isOwner = project.owners.some((owner) => {
                           return currentUser._id.equals(owner._id);
-                      }); 
+                      });
 
                   }
                 }
@@ -27,13 +27,13 @@
 									    <h4 style = "display: inline-block; padding-left:4%;">Created by <%= user.username %></h4>
 									  <% }); %>
                 </div>
-                
+
             </div>
-            
-            
-            
-            
-            
+
+
+
+
+
             <!-- project pic and info -->
             <div class = "row padding paddingtop">
                 <div class = "col-lg-6">
