@@ -17,7 +17,7 @@ if(currentUser){
 %>
 
 
-<h1><img src="<%= user.avatar%>" width="90" alt="" class="img-circle">  <%= user.username %>
+<h1><img src="<%= user.avatar%>" width="90" alt="" class="img-circle">  <%= user.username %></h1>
 
 <!-- This is the logic to determine which 'follow button' to show. -->
 <% if(currentUser && !user._id.equals(currentUser._id)){ %> <!-- this is so user's cant follow themselves -->
@@ -30,13 +30,17 @@ if(currentUser){
   </div>
 <% }else{ %>
 <div class = "userFollowButton">
-  <form method="POST" action="/users/<%= user._id %>/unfollow">
+  <form method="GET" action="/users/<%= user._id %>/unfollow">
   <button type="submit" class="btn btn-light" style="align-items:center;float:left;background-color:lightgrey;">Unfollow <%= user.username %><span class = "glyphicon glyphicon-heart" style="color:red;padding-left:2em;"></span></button>
   </form>
 </div>
 
 <% } %></h1>
 <% } %>
+<form method = "POST" action = "/findConvo/<%= user._id %>">
+<input type="hidden" value="<%= user._id%>" name="user">
+<button>Send message</button>
+</a>
 <h4><%=user.bio%></h4>
 
 

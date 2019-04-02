@@ -45,6 +45,14 @@ var userSchema = new mongoose.Schema(
         ref: "User"
     }],
 
+    conversations: [
+    {
+
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Conversation"
+
+    }],
+
     comments: [
     {
         type: mongoose.Schema.Types.ObjectId,

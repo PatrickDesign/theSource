@@ -1,0 +1,40 @@
+<div class="row bootstrap snippets center" style="padding-top:7%;display: inline-block;">
+        <div>
+            <div class="comment-wrapper">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                   
+                        <hr>
+                    </div>
+                    <div class="panel-body">
+                    <form action="/sendMessage/<%= conversation._id %>" method="POST">
+                        <textarea class="form-control" placeholder="Send a message to  %>" rows="3" name="messageText"></textarea>
+                        <br>
+                        <button>Submit</button>
+                        <div class="clearfix">
+                    </form>
+                        
+
+                        <ul class="media-list">
+
+                        <% conversation.messages.forEach((message) => { %>
+                        
+                            <li class="media commentContainer">
+                                <a href="/users/<%=message.author._id%>" class="pull-left">
+                                    <img src="<%= message.author.avatar %>" alt="" class="img-circle"/> 
+                                </a>
+                                <div class="media-body">
+                                    <p>
+                                        <%= message.messageText %> </a>
+                                    </p>
+                                </div>
+                            </li>
+                        
+                        <% }); %>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

@@ -1,4 +1,5 @@
-:////Todo's:
+
+////Todo's:
 //1.) IMPROVE FRONT END ROUGH EDGES
 //1a) NAVBAR
 //2.) Create edit project page
@@ -47,7 +48,9 @@ var User = require("./schemas/user");
 var Project = require("./schemas/project");
 var Comment = require("./schemas/comment");
 var Update = require("./schemas/update");
-var Notification = require("./schemas/notification")
+var Notification = require("./schemas/notification");
+var Conversation = require("./schemas/conversation");
+var Message = require("./schemas/message");
 app.use(bodyParser.urlencoded({ extended: true }));
 //===========================
 
@@ -79,6 +82,186 @@ app.use((req, res, next) =>
 
 //ROUTES=========================
 
+
+//MessageRoutes==================
+
+app.get('/messages', (req, res) => {
+
+  User.findById(req.user._id).populate({path: "conversations", populate: {path: "user"}}).exec((err, foundUser) => {
+
+    if(err)
+      console.log(err);
+    else{
+      res.render('messages', {user: foundUser});
+    }
+
+  });
+
+
+});
+
+
+//send message
+app.post('/sendMessage/:id', (req, res) => {
+
+  //Find conversation and add the new message
+  Conversation.findById(req.params.id).populate({path: "messages", populate: {path: "author"}}).exec((err, foundConvo) => {
+
+    if(err)
+      console.log(err);
+    else{
+      //add new message to conversation
+
+      //Find the user who is the author
+      User.findById(req.user._id, (err, foundUser) => {
+
+
+        if(err)
+          console.log(err);
+        else{
+
+          //create message
+           Message.create(
+            {
+              author: foundUser,
+              messageText: req.body.messageText
+            }, (err, newMessage) => {
+
+              //Now we have a created message. We must now add it 
+                //to the conversation.
+
+                foundConvo.messages.unshift(newMessage);
+                foundConvo.save();
+                return res.redirect('/conversations/' + foundConvo._id)
+
+            });
+        }
+
+
+      });
+
+     
+
+    }
+
+  });
+  
+
+  //check if the user is in the conversations user list.  
+
+});
+
+
+
+app.post('/findConvo/:id', (req, res) => {
+
+  User.findById(req.user._id).populate({path: "conversations", populate: {path: "users"}}).exec((err, foundUser) => {
+
+    if(err)
+      console.log(err);
+    else{
+
+    var conversationExists = false,
+        convoIndex = 0,
+        userInConvo;
+
+    //search for conversation where user with 'id' is in user list
+
+    if(foundUser.conversations){
+      foundUser.conversations.forEach((conversation) => {
+
+
+          userInConvo = conversation.users.findIndex(user => user.equals(req.params.id));
+
+          if(userInConvo != -1)
+            return res.redirect('/conversations/' + foundUser.conversations[convoIndex]._id);
+          
+
+          convoIndex++;
+
+
+      });
+    }
+
+    if(userInConvo > -1)
+      return;   
+
+
+    //else, create a new conversation and redirect there.
+
+    //Find other recipient so we can modify attributes
+    User.findById(req.body.user).populate("conversations").exec((err, userToTalkTo) => {
+
+        if(err)
+          console.log(err);
+        else{
+
+          Conversation.create(
+          {}, (err, newConvo) => {
+
+            if(err)
+              console.log(err);
+            else{
+
+              console.log("ID: " + req.body.user);
+              //add conversation to both user's lists:
+              userToTalkTo.conversations.unshift(newConvo);
+              userToTalkTo.save();
+              foundUser.conversations.unshift(newConvo);
+              foundUser.save();
+
+              newConvo.users.unshift(userToTalkTo, foundUser);
+              newConvo.save();
+
+
+              return res.redirect('/conversations/' + newConvo._id); //render the new convo!
+            }
+
+          });
+
+        }
+
+      });
+
+    }
+
+  });
+
+});
+
+
+//Show the conversation of user with 'id'
+app.get('/conversations/:id', (req, res) => {
+
+  User.findById(req.user._id).populate("conversations").exec((err, foundUser) => {
+
+    if(err)
+      console.log(err);
+    else{
+
+      //Look for conversation with id
+        //find the conversation and render the page
+        Conversation.findById(req.params.id).populate({path: "user"}).populate({path: "messages", populate: {path: "author"}}).exec((err, foundConvo) =>
+        {
+          if(err)
+            console.log(err)
+          else
+            return res.render("messages", {conversation: foundConvo});
+        });
+
+
+
+
+
+    }
+
+  });
+
+});
+
+
+
+//===============================
 
 
 //UserRoues======================
