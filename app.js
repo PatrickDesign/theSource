@@ -161,7 +161,7 @@ app.post('/findConvo/:id', (req, res) => {
       console.log(err);
     else{
 
-    var conversationExists = false,
+    var conversationFound = false,
         convoIndex = 0,
         userInConvo;
 
@@ -173,8 +173,10 @@ app.post('/findConvo/:id', (req, res) => {
 
           userInConvo = conversation.users.findIndex(user => user.equals(req.params.id));
 
-          if(userInConvo != -1)
+          if(userInConvo != -1){
+	    conversationFound = true;
             return res.redirect('/conversations/' + foundUser.conversations[convoIndex]._id);
+          }
           
 
           convoIndex++;
@@ -183,8 +185,8 @@ app.post('/findConvo/:id', (req, res) => {
       });
     }
 
-    if(userInConvo > -1)
-      return;   
+    if(conversationFound)
+	return;   
 
 
     //else, create a new conversation and redirect there.
