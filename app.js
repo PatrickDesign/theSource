@@ -85,20 +85,31 @@ app.use((req, res, next) =>
 
 //MessageRoutes==================
 
-app.get('/messages', (req, res) => {
-
-  User.findById(req.user._id).populate({path: "conversations", populate: {path: "user"}}).exec((err, foundUser) => {
-
+//Show all conversations for a user
+app.get('/conversations', (req, res) => {
+  User.findById(req.user._id).populate({path: "conversations", populate: [{path: "users"}, {path: "messages", populate: {path: "author"}}]}).exec((err, foundUser) => {
     if(err)
       console.log(err);
     else{
-      res.render('messages', {user: foundUser});
+      return res.render("conversations", {user: foundUser});
     }
-
   });
-
-
 });
+
+// app.get('/messages', (req, res) => {
+
+//   User.findById(req.user._id).populate({path: "conversations", populate: {path: "users"}}).exec((err, foundUser) => {
+
+//     if(err)
+//       console.log(err);
+//     else{
+//       res.render('messages', {user: foundUser});
+//     }
+
+//   });
+
+
+// });
 
 
 //send message

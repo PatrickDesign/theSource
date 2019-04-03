@@ -1,0 +1,66 @@
+<div class="row bootstrap snippets center" style="padding-top:7%;display: inline-block;">
+        <div>
+            <div class="comment-wrapper">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                    <!-- header text here -->
+                    </div>
+                    <div class="panel-body">
+                        
+                        
+                        <hr>
+                        <ul class="media-list">
+
+                            <% 
+                              var userIndex,
+                                  conversationIsEmpty;
+
+                              user.conversations.forEach((conversation) => { 
+
+                                conversationIsEmpty = true;
+
+                                //determine first user that is not currentUser.
+                                userIndex = conversation.users.findIndex(convoUser => !convoUser._id.equals(user._id));
+
+                              if(conversation.messages.length > 0)
+                                conversationIsEmpty = false;
+                            %>
+
+                        
+
+                        
+                            
+                                <li class="media commentContainer">
+                                <a href="#" class="pull-left">
+                                 <img src="<%=conversation.users[userIndex].avatar%>" alt="" class="img-circle">
+                                </a>
+                                <a href="/conversations/<%=conversation._id%>">
+                                <div class="media-body">
+                                    <span class="text-muted pull-right">
+                                        <small class="text-muted"></small>
+                                    </span>
+                                    <strong class="text-success">Conversation with <%=conversation.users[userIndex].username%> </a></strong>
+                                    <p>
+                                        <% if(conversationIsEmpty){ %>
+                                            this conversation is currently empty...
+                                        <% }else{ %>
+                                            <%= conversation.messages[0].messageText.substring(0, 120) %>
+
+                                            <% } %>
+                                        </a>
+                                    </p>
+                                    <span></span>
+                                </div>
+                                </a>
+                                </li>
+
+                            <% }); %>
+
+                        
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
